@@ -5,7 +5,7 @@ import Header from '@/components/Header.vue';
 import CardList from '@/components/CardList.vue';
 import Drawer from '@/components/Drawer.vue';
 import { onMounted, ref, watch } from 'vue';
-import type { IProduct } from '@/types/sneakers';
+import type { IProduct, TProductFromMainResponse } from '@/types/sneakers';
 import axios from 'axios';
 
 const products = ref<IProduct[]>([]);
@@ -15,25 +15,50 @@ const filters = ref({
   searchQuery: ''
 });
 
-const fetchProducts = async () => {
+// TODO get favourite flag in each product from backend
+const fetchFavourites = async () => {
   try {
-    const response = await axios.get('https://497194416390c6fe.mokky.dev/items', {
-      params: {
-        sortBy: filters.value.sortBy,
-        title: `*${filters.value.searchQuery}*`
-      }
-    });
-    products.value = response.data;
+    const { data } = await axios.get<IProduct[]>('https://497194416390c6fe.mokky.dev/favourites');
+
+    products.value = products.value.map((product: IProduct) => ({
+      ...product,
+      isFavorite: !!data.find((fav) => fav.id === product.id)
+    }));
   } catch (e) {
     // TODO handle error
     console.log(e);
   }
 };
 
+const fetchProducts = async () => {
+  try {
+    const { data } = await axios.get<TProductFromMainResponse[]>('https://497194416390c6fe.mokky.dev/items', {
+      params: {
+        sortBy: filters.value.sortBy,
+        title: `*${filters.value.searchQuery}*`
+      }
+    });
+
+    products.value = data.map((product) => ({
+      ...product,
+      isFavorite: false,
+      isAdded: false
+    }));
+  } catch (e) {
+    // TODO handle error
+    console.log(e);
+  }
+};
+
+const addToFavourite = async (item: IProduct) => {
+  item.isFavorite = true;
+};
+
 onMounted(async () => {
   // TODO to composition or pinia
 
   await fetchProducts();
+  await fetchFavourites();
 });
 
 //TODO do it by change and use debounce for input
@@ -76,7 +101,10 @@ watch(filters, fetchProducts, { deep: true });
         </div>
       </div>
 
-      <CardList :products="products" />
+      <CardList
+        :products="products"
+        @add-to-favourite="addToFavourite"
+      />
     </div>
   </div>
 </template>

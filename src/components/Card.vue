@@ -1,15 +1,15 @@
 <script setup lang="ts">
+defineEmits<{
+  clickAdd: [];
+  clickFavourite: [];
+}>();
+
 defineProps<{
   imageUrl: string;
   title: string;
   price: number;
   isFavorite: boolean;
   isAdded: boolean;
-}>();
-
-defineEmits<{
-  clickAdd: [];
-  clickFavorite: [];
 }>();
 </script>
 
@@ -19,7 +19,7 @@ defineEmits<{
   >
     <button
       class="absolute top-8 left-8"
-      @click.stop="$emit('clickFavorite')"
+      @click.stop="$emit('clickFavourite')"
     >
       <img
         :src="isFavorite ? '/like-2.svg' : '/like-1.svg'"

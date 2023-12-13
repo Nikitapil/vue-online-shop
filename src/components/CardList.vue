@@ -2,7 +2,9 @@
 import Card from '@/components/Card.vue';
 import type { IProduct } from '@/types/sneakers';
 
-const onClickAdd = () => alert(111);
+defineEmits<{
+  addToFavourite: [IProduct];
+}>();
 
 defineProps<{
   products: IProduct[];
@@ -17,9 +19,9 @@ defineProps<{
       :image-url="product.imageUrl"
       :title="product.title"
       :price="product.price"
-      :is-added="true"
-      :is-favorite="true"
-      @click-add="onClickAdd"
+      :is-added="product.isAdded"
+      :is-favorite="product.isFavorite"
+      @click-favourite="$emit('addToFavourite', product)"
     />
   </div>
 </template>
