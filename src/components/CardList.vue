@@ -1,53 +1,25 @@
 <script setup lang="ts">
 import Card from '@/components/Card.vue';
+import type { IProduct } from '@/types/sneakers';
 
 const onClickAdd = () => alert(111);
+
+defineProps<{
+  products: IProduct[];
+}>();
 </script>
 
 <template>
   <div class="grid grid-cols-4 gap-5">
     <Card
-      image-url="/sneakers/sneakers-1.jpg"
-      title="Мужские Кроссовки Nike Blazer Mid Suede"
-      :price="1205"
+      v-for="product in products"
+      :key="product.id"
+      :image-url="product.imageUrl"
+      :title="product.title"
+      :price="product.price"
       :is-added="true"
       :is-favorite="true"
       @click-add="onClickAdd"
-    />
-    <Card
-      image-url="/sneakers/sneakers-1.jpg"
-      title="Мужские Кроссовки Nike Blazer Mid Suede"
-      :price="1205"
-      :is-added="true"
-      :is-favorite="false"
-    />
-    <Card
-      image-url="/sneakers/sneakers-1.jpg"
-      title="Мужские Кроссовки Nike Blazer Mid Suede"
-      :price="1205"
-      :is-added="false"
-      :is-favorite="false"
-    />
-    <Card
-      image-url="/sneakers/sneakers-1.jpg"
-      title="Мужские Кроссовки Nike Blazer Mid Suede"
-      :price="1205"
-      :is-added="false"
-      :is-favorite="false"
-    />
-    <Card
-      image-url="/sneakers/sneakers-1.jpg"
-      title="Мужские Кроссовки Nike Blazer Mid Suede"
-      :price="1205"
-      :is-added="false"
-      :is-favorite="false"
-    />
-    <Card
-      image-url="/sneakers/sneakers-1.jpg"
-      title="Мужские Кроссовки Nike Blazer Mid Suede"
-      :price="1205"
-      :is-added="false"
-      :is-favorite="false"
     />
   </div>
 </template>
