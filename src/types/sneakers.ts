@@ -4,7 +4,13 @@ export interface IProduct {
   price: number;
   imageUrl: string;
   isFavorite: boolean;
+  favouriteId: number | null;
   isAdded: boolean;
 }
 
-export type TProductFromMainResponse = Omit<IProduct, 'isFavorite' | 'isAdded'>;
+export type TProductFromMainResponse = Omit<IProduct, 'isFavorite' | 'isAdded' | 'favouriteId'>;
+
+export interface IFavourite {
+  id: number;
+  parentId: number;
+}

@@ -5,7 +5,7 @@ import Header from '@/components/Header.vue';
 import CardList from '@/components/CardList.vue';
 import Drawer from '@/components/Drawer.vue';
 import { onMounted, ref, watch } from 'vue';
-import type { IProduct, TProductFromMainResponse } from '@/types/sneakers';
+import type { IFavourite, IProduct, TProductFromMainResponse } from '@/types/sneakers';
 import axios from 'axios';
 
 const products = ref<IProduct[]>([]);
@@ -18,12 +18,15 @@ const filters = ref({
 // TODO get favourite flag in each product from backend
 const fetchFavourites = async () => {
   try {
-    const { data } = await axios.get<IProduct[]>('https://497194416390c6fe.mokky.dev/favourites');
-
-    products.value = products.value.map((product: IProduct) => ({
-      ...product,
-      isFavorite: !!data.find((fav) => fav.id === product.id)
-    }));
+    const { data } = await axios.get<IFavourite[]>('https://497194416390c6fe.mokky.dev/favourites');
+    products.value = products.value.map((product: IProduct) => {
+      const favourite = data.find((fav) => fav.parentId === product.id);
+      return {
+        ...product,
+        isFavorite: !!favourite,
+        favouriteId: favourite?.id || null
+      };
+    });
   } catch (e) {
     // TODO handle error
     console.log(e);
@@ -42,7 +45,8 @@ const fetchProducts = async () => {
     products.value = data.map((product) => ({
       ...product,
       isFavorite: false,
-      isAdded: false
+      isAdded: false,
+      favouriteId: null
     }));
   } catch (e) {
     // TODO handle error
@@ -51,18 +55,36 @@ const fetchProducts = async () => {
 };
 
 const addToFavourite = async (item: IProduct) => {
-  item.isFavorite = true;
+  try {
+    if (!item.isFavorite && !item.favouriteId) {
+      const { data } = await axios.post<IFavourite>('https://497194416390c6fe.mokky.dev/favourites', {
+        parentId: item.id
+      });
+      item.isFavorite = true;
+      item.favouriteId = data.id;
+    } else {
+      await axios.delete(`https://497194416390c6fe.mokky.dev/favourites/${item.favouriteId}`);
+      item.isFavorite = false;
+      item.favouriteId = null;
+    }
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+const fetchProductsWithFavourites = async () => {
+  await fetchProducts();
+  await fetchFavourites();
 };
 
 onMounted(async () => {
   // TODO to composition or pinia
 
-  await fetchProducts();
-  await fetchFavourites();
+  await fetchProductsWithFavourites();
 });
 
 //TODO do it by change and use debounce for input
-watch(filters, fetchProducts, { deep: true });
+watch(filters, fetchProductsWithFavourites, { deep: true });
 </script>
 
 <template>
@@ -103,7 +125,7 @@ watch(filters, fetchProducts, { deep: true });
 
       <CardList
         :products="products"
-        @add-to-favourite="addToFavourite"
+        @click-favourite="addToFavourite"
       />
     </div>
   </div>

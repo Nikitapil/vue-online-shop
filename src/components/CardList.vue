@@ -3,7 +3,7 @@ import Card from '@/components/Card.vue';
 import type { IProduct } from '@/types/sneakers';
 
 defineEmits<{
-  addToFavourite: [IProduct];
+  clickFavourite: [IProduct];
 }>();
 
 defineProps<{
@@ -21,7 +21,7 @@ defineProps<{
       :price="product.price"
       :is-added="product.isAdded"
       :is-favorite="product.isFavorite"
-      @click-favourite="$emit('addToFavourite', product)"
+      @click-favourite="$emit('clickFavourite', product)"
     />
   </div>
 </template>
