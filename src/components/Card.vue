@@ -1,6 +1,6 @@
 <script setup lang="ts">
 defineEmits<{
-  clickAdd: [];
+  clickAddToCart: [];
   clickFavourite: [];
 }>();
 
@@ -34,6 +34,7 @@ defineProps<{
     />
 
     <p class="mt-2">{{ title }}</p>
+    <!--    TODO Add product description-->
 
     <div class="flex justify-between mt-4">
       <div class="flex flex-col">
@@ -41,7 +42,7 @@ defineProps<{
         <b>{{ price }}руб</b>
       </div>
       <!--    TODO loaders on add btn-->
-      <button @click.stop="$emit('clickAdd')">
+      <button @click.stop="$emit('clickAddToCart')">
         <img
           :src="isAdded ? '/checked.svg' : '/plus.svg'"
           :alt="isAdded ? 'Checkmark' : 'Plus'"

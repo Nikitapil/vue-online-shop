@@ -7,6 +7,7 @@
     />
     <div class="flex flex-col gap-2">
       <p>Sneakers Nike AirMax 700</p>
+      <!--      TODO buttons for increase count and decrease count-->
       <div class="flex justify-between">
         <b>12990руб</b>
         <button>

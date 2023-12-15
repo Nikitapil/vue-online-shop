@@ -4,6 +4,7 @@ import type { IProduct } from '@/types/sneakers';
 
 defineEmits<{
   clickFavourite: [IProduct];
+  clickAddToCart: [IProduct];
 }>();
 
 defineProps<{
@@ -22,6 +23,7 @@ defineProps<{
       :is-added="product.isAdded"
       :is-favorite="product.isFavorite"
       @click-favourite="$emit('clickFavourite', product)"
+      @click-add-to-cart="$emit('clickAddToCart', product)"
     />
   </div>
 </template>

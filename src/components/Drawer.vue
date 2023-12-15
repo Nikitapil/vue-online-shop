@@ -1,13 +1,17 @@
 <script setup lang="ts">
 import ArrowNext from '@/components/icons/ArrowNext.vue';
 import CartItemList from '@/components/CartItemList.vue';
-</script>
 
+defineEmits<{
+  closeCart: [];
+}>();
+</script>
+<!-- TODO make this component universal and decompose cart logic in another component-->
 <template>
   <div class="fixed top-0 left-0 h-full w-full bg-black z-10 opacity-50"></div>
   <div class="bg-white w-96 h-full fixed right-0 top-0 z-20 p-8 flex flex-col">
     <div class="flex items-center gap-5 mb-5">
-      <button>
+      <button @click="$emit('closeCart')">
         <ArrowNext
           class="rotate-180 opacity-50 hover:-translate-x-0.5 hover:opacity-100 transition duration-300"
           color="black"

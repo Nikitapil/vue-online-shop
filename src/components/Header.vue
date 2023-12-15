@@ -1,3 +1,9 @@
+<script setup lang="ts">
+defineEmits<{
+  openCart: [];
+}>();
+</script>
+
 <template>
   <header class="flex justify-between border-b border-b-slate-300 px-8 py-6">
     <div class="flex items-center gap-4">
@@ -14,7 +20,10 @@
     </div>
 
     <ul class="flex gap-8 items-center">
-      <li class="flex gap-3 items-center text-slate-500 cursor-pointer hover:text-black">
+      <li
+        class="flex gap-3 items-center text-slate-500 cursor-pointer hover:text-black"
+        @click="$emit('openCart')"
+      >
         <img
           src="/cart.svg"
           alt="cart"

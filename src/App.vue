@@ -9,6 +9,9 @@ import type { IFavourite, IProduct, TProductFromMainResponse } from '@/types/sne
 import axios from 'axios';
 
 const products = ref<IProduct[]>([]);
+const cartProducts = ref<IProduct[]>([]);
+
+const isCartOpened = ref(false);
 
 const filters = ref({
   sortBy: 'title',
@@ -54,7 +57,7 @@ const fetchProducts = async () => {
   }
 };
 
-const addToFavourite = async (item: IProduct) => {
+const toggleFavourite = async (item: IProduct) => {
   try {
     if (!item.isFavorite && !item.favouriteId) {
       const { data } = await axios.post<IFavourite>('https://497194416390c6fe.mokky.dev/favourites', {
@@ -72,10 +75,23 @@ const addToFavourite = async (item: IProduct) => {
   }
 };
 
+const toggleAddedToCart = (item: IProduct) => {
+  if (!item.isAdded) {
+    cartProducts.value.push(item);
+    item.isAdded = true;
+  } else {
+    cartProducts.value = cartProducts.value.filter((product) => product.id !== item.id);
+    item.isAdded = false;
+  }
+};
+
 const fetchProductsWithFavourites = async () => {
   await fetchProducts();
   await fetchFavourites();
 };
+
+const openCart = () => (isCartOpened.value = true);
+const closeCart = () => (isCartOpened.value = false);
 
 onMounted(async () => {
   // TODO to composition or pinia
@@ -88,9 +104,13 @@ watch(filters, fetchProductsWithFavourites, { deep: true });
 </script>
 
 <template>
-  <!--  <Drawer />-->
+  <Drawer
+    v-if="isCartOpened"
+    @close-cart="closeCart"
+  />
+
   <div class="w-4/5 m-auto bg-white rounded-xl shadow-xl my-10">
-    <Header />
+    <Header @open-cart="openCart" />
 
     <div class="px-8 py-5">
       <div class="flex justify-between items-center mb-10">
@@ -125,7 +145,8 @@ watch(filters, fetchProductsWithFavourites, { deep: true });
 
       <CardList
         :products="products"
-        @click-favourite="addToFavourite"
+        @click-favourite="toggleFavourite"
+        @click-add-to-cart="toggleAddedToCart"
       />
     </div>
   </div>
