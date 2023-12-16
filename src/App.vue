@@ -4,7 +4,7 @@
 import Header from '@/components/Header.vue';
 import CardList from '@/components/CardList.vue';
 import Drawer from '@/components/Drawer.vue';
-import { onMounted, ref, watch } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import type { IFavourite, IProduct, TProductFromMainResponse } from '@/types/sneakers';
 import axios from 'axios';
 
@@ -12,11 +12,14 @@ const products = ref<IProduct[]>([]);
 const cartProducts = ref<IProduct[]>([]);
 
 const isCartOpened = ref(false);
+const isCreatOrderInProgress = ref(false);
 
 const filters = ref({
   sortBy: 'title',
   searchQuery: ''
 });
+
+const totalCartPrice = computed(() => cartProducts.value.reduce((acc, item) => acc + item.price, 0));
 
 // TODO get favourite flag in each product from backend
 const fetchFavourites = async () => {
@@ -75,19 +78,45 @@ const toggleFavourite = async (item: IProduct) => {
   }
 };
 
+const addToCart = (item: IProduct) => {
+  cartProducts.value.push(item);
+  item.isAdded = true;
+};
+
+const removeFromCart = (item: IProduct) => {
+  cartProducts.value = cartProducts.value.filter((product) => product.id !== item.id);
+  item.isAdded = false;
+};
+
 const toggleAddedToCart = (item: IProduct) => {
+  // TODO хранить данные корзины каждого пользователя на бэке
   if (!item.isAdded) {
-    cartProducts.value.push(item);
-    item.isAdded = true;
+    addToCart(item);
   } else {
-    cartProducts.value = cartProducts.value.filter((product) => product.id !== item.id);
-    item.isAdded = false;
+    removeFromCart(item);
   }
 };
 
 const fetchProductsWithFavourites = async () => {
   await fetchProducts();
   await fetchFavourites();
+};
+
+const createOrder = async () => {
+  try {
+    isCreatOrderInProgress.value = true;
+    const { data } = await axios.post('https://497194416390c6fe.mokky.dev/orders', {
+      items: cartProducts.value,
+      totalPrice: totalCartPrice.value
+    });
+
+    cartProducts.value.forEach((item) => removeFromCart(item));
+    return data;
+  } catch (e) {
+    console.log(e);
+  } finally {
+    isCreatOrderInProgress.value = false;
+  }
 };
 
 const openCart = () => (isCartOpened.value = true);
@@ -106,11 +135,19 @@ watch(filters, fetchProductsWithFavourites, { deep: true });
 <template>
   <Drawer
     v-if="isCartOpened"
+    :products="cartProducts"
+    :cart-price="totalCartPrice"
+    :is-creat-order-in-progress="isCreatOrderInProgress"
     @close-cart="closeCart"
+    @remove-from-cart="removeFromCart"
+    @create-order="createOrder"
   />
 
   <div class="w-4/5 m-auto bg-white rounded-xl shadow-xl my-10">
-    <Header @open-cart="openCart" />
+    <Header
+      :cart-price="totalCartPrice"
+      @open-cart="openCart"
+    />
 
     <div class="px-8 py-5">
       <div class="flex justify-between items-center mb-10">

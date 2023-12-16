@@ -1,4 +1,8 @@
 <script setup lang="ts">
+defineProps<{
+  cartPrice: number;
+}>();
+
 defineEmits<{
   openCart: [];
 }>();
@@ -28,7 +32,7 @@ defineEmits<{
           src="/cart.svg"
           alt="cart"
         />
-        <b>1205руб</b>
+        <b>{{ cartPrice }}₽</b>
       </li>
 
       <li class="flex gap-3 items-center text-slate-500 cursor-pointer hover:text-black">
