@@ -13,7 +13,10 @@ defineEmits<{
 </script>
 
 <template>
-  <div class="flex flex-col gap-4">
+  <div
+    v-auto-animate
+    class="flex flex-col gap-4"
+  >
     <CartItem
       v-for="product in products"
       :key="product.id"

@@ -13,7 +13,10 @@ defineProps<{
 </script>
 
 <template>
-  <div class="grid grid-cols-4 gap-5">
+  <div
+    v-auto-animate
+    class="grid grid-cols-4 gap-5"
+  >
     <Card
       v-for="product in products"
       :key="product.id"

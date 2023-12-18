@@ -134,7 +134,7 @@ watch(filters, fetchProductsWithFavourites, { deep: true });
 
 <template>
   <Drawer
-    v-if="isCartOpened"
+    :is-opened="isCartOpened"
     :products="cartProducts"
     :cart-price="totalCartPrice"
     :is-creat-order-in-progress="isCreatOrderInProgress"
