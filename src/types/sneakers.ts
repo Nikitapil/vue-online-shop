@@ -10,7 +10,12 @@ export interface IProduct {
 
 export type TProductFromMainResponse = Omit<IProduct, 'isFavorite' | 'isAdded' | 'favouriteId'>;
 
+export interface IBookmarksResponse {
+  id: number;
+  item: TProductFromMainResponse;
+}
+
 export interface IFavourite {
   id: number;
-  parentId: number;
+  item_id: number;
 }

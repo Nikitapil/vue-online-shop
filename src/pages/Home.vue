@@ -25,7 +25,7 @@ const fetchFavourites = async () => {
   try {
     const { data } = await axios.get<IFavourite[]>('https://497194416390c6fe.mokky.dev/favourites');
     products.value = products.value.map((product: IProduct) => {
-      const favourite = data.find((fav) => fav.parentId === product.id);
+      const favourite = data.find((fav) => fav.item_id === product.id);
       return {
         ...product,
         isFavorite: !!favourite,
@@ -63,7 +63,7 @@ const toggleFavourite = async (item: IProduct) => {
   try {
     if (!item.isFavorite && !item.favouriteId) {
       const { data } = await axios.post<IFavourite>('https://497194416390c6fe.mokky.dev/favourites', {
-        parentId: item.id
+        item_id: item.id
       });
       item.isFavorite = true;
       item.favouriteId = data.id;
