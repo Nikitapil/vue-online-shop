@@ -2,27 +2,52 @@
 import ArrowNext from '@/components/icons/ArrowNext.vue';
 import CartItemList from '@/components/CartItemList.vue';
 import type { IProduct } from '@/types/sneakers';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import EmptyState from '@/components/EmptyState.vue';
+import axios from 'axios';
 
 const props = defineProps<{
   products: IProduct[];
   cartPrice: number;
-  isCreatOrderInProgress: boolean;
   isOpened: boolean;
 }>();
 
-defineEmits<{
+const emit = defineEmits<{
   closeCart: [];
   removeFromCart: [IProduct];
-  createOrder: [];
 }>();
+
+const isCreatOrderInProgress = ref(false);
+
+const isOrderCreated = ref(false);
 
 const tax = computed(() => props.cartPrice * 0.05);
 
-const isMakeOrderDisabled = computed(() => !props.products.length || props.isCreatOrderInProgress);
+const isMakeOrderDisabled = computed(() => !props.products.length || isCreatOrderInProgress.value);
 
-const makeOrderButtonText = computed(() => (props.isCreatOrderInProgress ? 'Making new order...' : 'Make an order'));
+const makeOrderButtonText = computed(() => (isCreatOrderInProgress.value ? 'Making new order...' : 'Make an order'));
+
+const createOrder = async () => {
+  try {
+    isCreatOrderInProgress.value = true;
+    await axios.post('https://497194416390c6fe.mokky.dev/orders', {
+      items: props.products,
+      totalPrice: props.cartPrice
+    });
+
+    props.products.forEach((item) => emit('removeFromCart', item));
+    isOrderCreated.value = true;
+  } catch (e) {
+    console.log(e);
+  } finally {
+    isCreatOrderInProgress.value = false;
+  }
+};
+
+const onCloseCart = () => {
+  isOrderCreated.value = false;
+  emit('closeCart');
+};
 </script>
 <!-- TODO make this component universal and decompose cart logic in another component-->
 <!--TODO закрытие по клику-->
@@ -42,7 +67,7 @@ const makeOrderButtonText = computed(() => (props.isCreatOrderInProgress ? 'Maki
       class="bg-white w-96 h-full fixed right-0 top-0 z-20 p-8 flex flex-col"
     >
       <div class="flex items-center gap-5 mb-5">
-        <button @click="$emit('closeCart')">
+        <button @click="onCloseCart">
           <ArrowNext
             class="rotate-180 opacity-50 hover:-translate-x-0.5 hover:opacity-100 transition duration-300"
             color="black"
@@ -75,11 +100,18 @@ const makeOrderButtonText = computed(() => (props.isCreatOrderInProgress ? 'Maki
         <button
           :disabled="isMakeOrderDisabled"
           class="bg-lime-500 w-full rounded-xl py-3 text-white hover:bg-lime-600 transition duration-300 active:bg-lime-700 disabled:bg-slate-300"
-          @click="$emit('createOrder')"
+          @click="createOrder"
         >
           {{ makeOrderButtonText }}
         </button>
       </template>
+
+      <EmptyState
+        v-else-if="isOrderCreated"
+        title="Your order is Created"
+        image-url="/order-success-icon.png"
+        description=""
+      />
 
       <EmptyState
         v-else
