@@ -2,7 +2,6 @@
   "name": "vue-sneaker-shop",
   "version": "0.0.0",
   "private": true,
-  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
@@ -10,11 +9,13 @@
     "build-only": "vite build",
     "type-check": "vue-tsc --build --force",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
-    "format": "prettier --write src/"
+    "format": "prettier --write src/",
+    "api": "npx ts-node ./bin/api-generator.ts"
   },
   "dependencies": {
     "@formkit/auto-animate": "^0.8.1",
     "axios": "^1.6.2",
+    "swagger-typescript-api": "^13.0.3",
     "vue": "^3.3.10",
     "vue-router": "^4.2.5"
   },
