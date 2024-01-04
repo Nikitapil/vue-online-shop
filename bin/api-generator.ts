@@ -5,12 +5,12 @@ generateApi({
   name: 'Api',
   // set to `false` to prevent the tool from writing to disk
   output: path.resolve(process.cwd(), './src/api'),
+  templates: path.resolve(process.cwd(), './bin/templates'),
   url: 'http://localhost:5000/api/docs-yaml',
   httpClientType: 'axios',
-  generateClient: true,
   extractEnums: false,
+  extractRequestParams: true,
   unwrapResponseData: true,
-  singleHttpClient: true,
   cleanOutput: true,
   modular: true
 });

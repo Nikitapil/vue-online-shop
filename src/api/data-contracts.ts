@@ -292,3 +292,43 @@ export interface GetProductsReviewsReturnDto {
   /** Total count of product reviews */
   totalCount: number;
 }
+
+export interface ProductsControllerGetProductsParams {
+  /** Page number */
+  page: number;
+  /** Limit number */
+  limit: number;
+  /** products categoryId */
+  categoryId: string;
+  /** price sorting direction */
+  priceSorting: 'asc' | 'desc';
+  /** search query */
+  search: string;
+}
+
+export interface ProductsControllerGetFavoriteProductsParams {
+  /** Page number */
+  page: number;
+  /** Limit number */
+  limit: number;
+}
+
+export interface OrdersControllerGetOrdersParams {
+  /** Page number */
+  page: number;
+  /** Limit number */
+  limit: number;
+  /** orders by param */
+  order: 'updatedAt' | 'createdAt' | null;
+  /** orders status */
+  status: 'CREATED' | 'INPROGRESS' | 'CANCELED' | 'CLOSED' | null;
+}
+
+export interface ProductReviewsControllerGetReviewsParams {
+  /** Page number */
+  page: number;
+  /** Limit number */
+  limit: number;
+  /** product id */
+  productId: string;
+}
