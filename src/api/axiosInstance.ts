@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { getTokenFromStorage, setTokenToStorage } from '@/helpers/token-helpers';
-import { Api } from '@/api/swagger/Api';
 
 const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
