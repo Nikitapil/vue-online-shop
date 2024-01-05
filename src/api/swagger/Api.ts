@@ -17,19 +17,19 @@ import type {
   CreateCategoryDto,
   CreateOrderDto,
   CreateOrderReturnDto,
-  CreateProductDto,
+  CreateProductBody,
   CreateReviewDto,
+  GetFavoriteProductsParams,
+  GetOrdersParams,
   GetOrdersReturnDto,
+  GetProductsParams,
   GetProductsReturnDto,
   GetProductsReviewsReturnDto,
+  GetReviewsParams,
   LoginDto,
   OrderReturnDto,
-  OrdersControllerGetOrdersParams,
   ProductReturnDto,
   ProductReviewReturnDto,
-  ProductReviewsControllerGetReviewsParams,
-  ProductsControllerGetFavoriteProductsParams,
-  ProductsControllerGetProductsParams,
   RegisterDto,
   RemoveFromCartDto,
   SuccessMessageDto,
@@ -37,7 +37,7 @@ import type {
   ToggleFavoritesDto,
   UpdateCategoryDto,
   UpdateOrderStatusDto,
-  UpdateProductDto,
+  UpdateProductBody,
   UpdateUserDataDto
 } from './data-contracts';
 import { ContentType, HttpClient, type RequestParams } from './http-client';
@@ -64,11 +64,11 @@ export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * No description
    *
    * @tags Auth
-   * @name AuthControllerLogin
+   * @name Login
    * @summary Login user
    * @request POST:/api/auth/login
    */
-  authControllerLogin = (data: LoginDto, params: RequestParams = {}) =>
+  login = (data: LoginDto, params: RequestParams = {}) =>
     this.request<AuthResponseDto, any>({
       path: `/api/auth/login`,
       method: 'POST',
@@ -81,11 +81,11 @@ export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * No description
    *
    * @tags Auth
-   * @name AuthControllerRefresh
+   * @name RefreshAuth
    * @summary auth refresh data
    * @request GET:/api/auth/refresh
    */
-  authControllerRefresh = (params: RequestParams = {}) =>
+  refreshAuth = (params: RequestParams = {}) =>
     this.request<AuthResponseDto, any>({
       path: `/api/auth/refresh`,
       method: 'GET',
@@ -96,11 +96,11 @@ export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * No description
    *
    * @tags Auth
-   * @name AuthControllerLogout
-   * @summary auth refresh data
+   * @name Logout
+   * @summary auth logout
    * @request POST:/api/auth/logout
    */
-  authControllerLogout = (params: RequestParams = {}) =>
+  logout = (params: RequestParams = {}) =>
     this.request<SuccessMessageDto, any>({
       path: `/api/auth/logout`,
       method: 'POST',
@@ -111,31 +111,33 @@ export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * No description
    *
    * @tags Auth
-   * @name AuthControllerUpdateUserData
+   * @name UpdateUserData
+   * @summary update user data
    * @request PUT:/api/auth
    */
-  authControllerUpdateUserData = (data: UpdateUserDataDto, params: RequestParams = {}) =>
-    this.request<void, any>({
+  updateUserData = (data: UpdateUserDataDto, params: RequestParams = {}) =>
+    this.request<AuthResponseDto, any>({
       path: `/api/auth`,
       method: 'PUT',
       body: data,
       type: ContentType.Json,
+      format: 'json',
       ...params
     });
   /**
    * No description
    *
    * @tags Products
-   * @name ProductsControllerCreate
+   * @name CreateProduct
    * @summary Create product
    * @request POST:/api/products
    */
-  productsControllerCreate = (data: CreateProductDto, params: RequestParams = {}) =>
+  createProduct = (data: CreateProductBody, params: RequestParams = {}) =>
     this.request<ProductReturnDto, any>({
       path: `/api/products`,
       method: 'POST',
       body: data,
-      type: ContentType.Json,
+      type: ContentType.FormData,
       format: 'json',
       ...params
     });
@@ -143,16 +145,16 @@ export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * No description
    *
    * @tags Products
-   * @name ProductsControllerEdit
+   * @name EditProduct
    * @summary Edit product
    * @request PUT:/api/products
    */
-  productsControllerEdit = (data: UpdateProductDto, params: RequestParams = {}) =>
+  editProduct = (data: UpdateProductBody, params: RequestParams = {}) =>
     this.request<ProductReturnDto, any>({
       path: `/api/products`,
       method: 'PUT',
       body: data,
-      type: ContentType.Json,
+      type: ContentType.FormData,
       format: 'json',
       ...params
     });
@@ -160,11 +162,11 @@ export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * No description
    *
    * @tags Products
-   * @name ProductsControllerGetProducts
+   * @name GetProducts
    * @summary get products
    * @request GET:/api/products
    */
-  productsControllerGetProducts = (query: ProductsControllerGetProductsParams, params: RequestParams = {}) =>
+  getProducts = (query: GetProductsParams, params: RequestParams = {}) =>
     this.request<GetProductsReturnDto, any>({
       path: `/api/products`,
       method: 'GET',
@@ -176,14 +178,11 @@ export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * No description
    *
    * @tags Products
-   * @name ProductsControllerGetFavoriteProducts
+   * @name GetFavoriteProducts
    * @summary get favorite products
    * @request GET:/api/products/favorites
    */
-  productsControllerGetFavoriteProducts = (
-    query: ProductsControllerGetFavoriteProductsParams,
-    params: RequestParams = {}
-  ) =>
+  getFavoriteProducts = (query: GetFavoriteProductsParams, params: RequestParams = {}) =>
     this.request<GetProductsReturnDto, any>({
       path: `/api/products/favorites`,
       method: 'GET',
@@ -195,11 +194,11 @@ export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * No description
    *
    * @tags Products
-   * @name ProductsControllerToggleFavorites
+   * @name ToggleFavorites
    * @summary toggle favorites
    * @request PATCH:/api/products/favorites
    */
-  productsControllerToggleFavorites = (data: ToggleFavoritesDto, params: RequestParams = {}) =>
+  toggleFavorites = (data: ToggleFavoritesDto, params: RequestParams = {}) =>
     this.request<ToggleFavoriteReturnDto, any>({
       path: `/api/products/favorites`,
       method: 'PATCH',
@@ -212,11 +211,11 @@ export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * No description
    *
    * @tags Products
-   * @name ProductsControllerGetProduct
+   * @name GetProduct
    * @summary Get product
    * @request GET:/api/products/{id}
    */
-  productsControllerGetProduct = (id: string, params: RequestParams = {}) =>
+  getProduct = (id: string, params: RequestParams = {}) =>
     this.request<ProductReturnDto, any>({
       path: `/api/products/${id}`,
       method: 'GET',
@@ -227,11 +226,11 @@ export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * No description
    *
    * @tags Products
-   * @name ProductsControllerDeleteProduct
+   * @name DeleteProduct
    * @summary delete product
    * @request DELETE:/api/products/{id}
    */
-  productsControllerDeleteProduct = (id: string, params: RequestParams = {}) =>
+  deleteProduct = (id: string, params: RequestParams = {}) =>
     this.request<SuccessMessageDto, any>({
       path: `/api/products/${id}`,
       method: 'DELETE',
@@ -242,11 +241,11 @@ export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * No description
    *
    * @tags Categories
-   * @name CategoriesControllerCreateCategory
+   * @name CreateCategory
    * @summary Create category
    * @request POST:/api/categories
    */
-  categoriesControllerCreateCategory = (data: CreateCategoryDto, params: RequestParams = {}) =>
+  createCategory = (data: CreateCategoryDto, params: RequestParams = {}) =>
     this.request<CategoryReturnDto, any>({
       path: `/api/categories`,
       method: 'POST',
@@ -259,11 +258,11 @@ export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * No description
    *
    * @tags Categories
-   * @name CategoriesControllerUpdateCategory
+   * @name UpdateCategory
    * @summary Update category
    * @request PUT:/api/categories
    */
-  categoriesControllerUpdateCategory = (data: UpdateCategoryDto, params: RequestParams = {}) =>
+  updateCategory = (data: UpdateCategoryDto, params: RequestParams = {}) =>
     this.request<CategoryReturnDto, any>({
       path: `/api/categories`,
       method: 'PUT',
@@ -276,11 +275,11 @@ export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * No description
    *
    * @tags Categories
-   * @name CategoriesControllerGetCategories
+   * @name GetCategories
    * @summary Get categories
    * @request GET:/api/categories
    */
-  categoriesControllerGetCategories = (params: RequestParams = {}) =>
+  getCategories = (params: RequestParams = {}) =>
     this.request<CategoryReturnDto[], any>({
       path: `/api/categories`,
       method: 'GET',
@@ -291,11 +290,11 @@ export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * No description
    *
    * @tags Categories
-   * @name CategoriesControllerDeleteCategory
+   * @name DeleteCategory
    * @summary Delete category
    * @request DELETE:/api/categories/{id}
    */
-  categoriesControllerDeleteCategory = (id: string, params: RequestParams = {}) =>
+  deleteCategory = (id: string, params: RequestParams = {}) =>
     this.request<SuccessMessageDto, any>({
       path: `/api/categories/${id}`,
       method: 'DELETE',
@@ -306,11 +305,11 @@ export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * No description
    *
    * @tags Cart
-   * @name CartControllerAddToCart
+   * @name AddToCart
    * @summary Add product to cart
    * @request PUT:/api/cart/add
    */
-  cartControllerAddToCart = (data: AddToCartDto, params: RequestParams = {}) =>
+  addToCart = (data: AddToCartDto, params: RequestParams = {}) =>
     this.request<CartReturnDto, any>({
       path: `/api/cart/add`,
       method: 'PUT',
@@ -323,11 +322,11 @@ export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * No description
    *
    * @tags Cart
-   * @name CartControllerRemoveFromCart
+   * @name RemoveFromCart
    * @summary remove product from cart
    * @request PUT:/api/cart/remove
    */
-  cartControllerRemoveFromCart = (data: RemoveFromCartDto, params: RequestParams = {}) =>
+  removeFromCart = (data: RemoveFromCartDto, params: RequestParams = {}) =>
     this.request<CartReturnDto, any>({
       path: `/api/cart/remove`,
       method: 'PUT',
@@ -340,11 +339,11 @@ export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * No description
    *
    * @tags Cart
-   * @name CartControllerGetCart
+   * @name GetCart
    * @summary Get cart
    * @request GET:/api/cart
    */
-  cartControllerGetCart = (params: RequestParams = {}) =>
+  getCart = (params: RequestParams = {}) =>
     this.request<CartReturnDto, any>({
       path: `/api/cart`,
       method: 'GET',
@@ -355,11 +354,11 @@ export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * No description
    *
    * @tags Orders
-   * @name OrdersControllerCreateOrder
+   * @name CreateOrder
    * @summary Create order
    * @request POST:/api/orders
    */
-  ordersControllerCreateOrder = (data: CreateOrderDto, params: RequestParams = {}) =>
+  createOrder = (data: CreateOrderDto, params: RequestParams = {}) =>
     this.request<CreateOrderReturnDto, any>({
       path: `/api/orders`,
       method: 'POST',
@@ -372,11 +371,11 @@ export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * No description
    *
    * @tags Orders
-   * @name OrdersControllerGetOrders
+   * @name GetOrders
    * @summary Get orders
    * @request GET:/api/orders
    */
-  ordersControllerGetOrders = (query: OrdersControllerGetOrdersParams, params: RequestParams = {}) =>
+  getOrders = (query: GetOrdersParams, params: RequestParams = {}) =>
     this.request<GetOrdersReturnDto, any>({
       path: `/api/orders`,
       method: 'GET',
@@ -388,11 +387,11 @@ export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * No description
    *
    * @tags Orders
-   * @name OrdersControllerUpdateOrderStatus
+   * @name UpdateOrderStatus
    * @summary Update order status
    * @request PUT:/api/orders
    */
-  ordersControllerUpdateOrderStatus = (data: UpdateOrderStatusDto, params: RequestParams = {}) =>
+  updateOrderStatus = (data: UpdateOrderStatusDto, params: RequestParams = {}) =>
     this.request<SuccessMessageDto, any>({
       path: `/api/orders`,
       method: 'PUT',
@@ -405,11 +404,11 @@ export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * No description
    *
    * @tags Orders
-   * @name OrdersControllerGetOrderById
+   * @name GetOrderById
    * @summary Get order by id
    * @request GET:/api/orders/{id}
    */
-  ordersControllerGetOrderById = (id: string, params: RequestParams = {}) =>
+  getOrderById = (id: string, params: RequestParams = {}) =>
     this.request<OrderReturnDto, any>({
       path: `/api/orders/${id}`,
       method: 'GET',
@@ -420,11 +419,11 @@ export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * No description
    *
    * @tags Product reviews
-   * @name ProductReviewsControllerCreateReview
+   * @name CreateReview
    * @summary Create product review
    * @request POST:/api/product-reviews
    */
-  productReviewsControllerCreateReview = (data: CreateReviewDto, params: RequestParams = {}) =>
+  createReview = (data: CreateReviewDto, params: RequestParams = {}) =>
     this.request<ProductReviewReturnDto, any>({
       path: `/api/product-reviews`,
       method: 'POST',
@@ -437,11 +436,11 @@ export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * No description
    *
    * @tags Product reviews
-   * @name ProductReviewsControllerGetReviews
+   * @name GetReviews
    * @summary Get product reviews
    * @request GET:/api/product-reviews
    */
-  productReviewsControllerGetReviews = (query: ProductReviewsControllerGetReviewsParams, params: RequestParams = {}) =>
+  getReviews = (query: GetReviewsParams, params: RequestParams = {}) =>
     this.request<GetProductsReviewsReturnDto, any>({
       path: `/api/product-reviews`,
       method: 'GET',
@@ -453,11 +452,11 @@ export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * No description
    *
    * @tags Product reviews
-   * @name ProductReviewsControllerDeleteReview
+   * @name DeleteReview
    * @summary Delete product review
    * @request DELETE:/api/product-reviews/{id}
    */
-  productReviewsControllerDeleteReview = (id: string, params: RequestParams = {}) =>
+  deleteReview = (id: string, params: RequestParams = {}) =>
     this.request<SuccessMessageDto, any>({
       path: `/api/product-reviews/${id}`,
       method: 'DELETE',

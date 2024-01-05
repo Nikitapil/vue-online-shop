@@ -17,9 +17,9 @@ export interface RegisterDto {
   /** user name */
   name: string;
   /** user address */
-  address: string;
+  address?: string;
   /** user phone */
-  phone: string;
+  phone?: string;
 }
 
 export interface UserReturnDto {
@@ -58,12 +58,12 @@ export interface UpdateUserDataDto {
   /** user name */
   name: string;
   /** user address */
-  address: string;
+  address?: string;
   /** user phone */
-  phone: string;
+  phone?: string;
 }
 
-export interface CreateProductDto {
+export interface CreateProductBody {
   /** Product name */
   name: string;
   /** Product description */
@@ -72,6 +72,11 @@ export interface CreateProductDto {
   categoryId: string;
   /** Product price */
   price: number;
+  /**
+   * product image
+   * @format binary
+   */
+  image: File;
 }
 
 export interface CategoryReturnDto {
@@ -118,7 +123,7 @@ export interface ProductReturnDto {
   canAddReview: boolean;
 }
 
-export interface UpdateProductDto {
+export interface UpdateProductBody {
   /** Product id */
   id: string;
   /** Product name */
@@ -129,6 +134,11 @@ export interface UpdateProductDto {
   categoryId: string;
   /** Product price */
   price: number;
+  /**
+   * product image
+   * @format binary
+   */
+  image: File;
 }
 
 export interface GetProductsReturnDto {
@@ -197,7 +207,7 @@ export interface CreateOrderDto {
   /** user phone */
   phone: string;
   /** order comment */
-  comment: string | null;
+  comment?: string;
 }
 
 export type CreateOrderReturnDto = object;
@@ -225,7 +235,7 @@ export interface OrderReturnDto {
   /** order phone */
   phone: string;
   /** order comment */
-  comment: string | null;
+  comment?: string | null;
   /** order created date */
   createdAt: string;
   /** order updated at date */
@@ -253,7 +263,7 @@ export interface UpdateOrderStatusDto {
   /** New order status */
   status: 'CREATED' | 'INPROGRESS' | 'CANCELED' | 'CLOSED';
   /** cance reason if status is canceled */
-  cancelReason: string | null;
+  cancelReason?: string | null;
 }
 
 export interface CreateReviewDto {
@@ -293,38 +303,38 @@ export interface GetProductsReviewsReturnDto {
   totalCount: number;
 }
 
-export interface ProductsControllerGetProductsParams {
+export interface GetProductsParams {
   /** Page number */
   page: number;
   /** Limit number */
   limit: number;
   /** products categoryId */
-  categoryId: string;
+  categoryId?: string | null;
   /** price sorting direction */
-  priceSorting: 'asc' | 'desc';
+  priceSorting?: 'asc' | 'desc' | null;
   /** search query */
-  search: string;
+  search?: string | null;
 }
 
-export interface ProductsControllerGetFavoriteProductsParams {
+export interface GetFavoriteProductsParams {
   /** Page number */
   page: number;
   /** Limit number */
   limit: number;
 }
 
-export interface OrdersControllerGetOrdersParams {
+export interface GetOrdersParams {
   /** Page number */
   page: number;
   /** Limit number */
   limit: number;
   /** orders by param */
-  order: 'updatedAt' | 'createdAt' | null;
+  order?: 'updatedAt' | 'createdAt' | null;
   /** orders status */
-  status: 'CREATED' | 'INPROGRESS' | 'CANCELED' | 'CLOSED' | null;
+  status?: 'CREATED' | 'INPROGRESS' | 'CANCELED' | 'CLOSED' | null;
 }
 
-export interface ProductReviewsControllerGetReviewsParams {
+export interface GetReviewsParams {
   /** Page number */
   page: number;
   /** Limit number */
