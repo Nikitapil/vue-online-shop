@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import AppButton from '@/components/ui/AppButton.vue';
+import { ref } from 'vue';
+import AuthModal from '@/modules/auth/components/AuthModal.vue';
 
 defineProps<{
   cartPrice: number;
@@ -9,6 +11,14 @@ defineProps<{
 defineEmits<{
   openCart: [];
 }>();
+
+const isAuthModalOpen = ref(false);
+const authModalType = ref('login');
+
+const openAuthModal = (type: 'login' | 'register') => {
+  authModalType.value = type;
+  isAuthModalOpen.value = true;
+};
 </script>
 
 <template>
@@ -69,12 +79,23 @@ defineEmits<{
       v-else
       class="flex gap-3"
     >
-      <AppButton class="bg-gray-400">Log in</AppButton>
+      <AppButton
+        class="bg-gray-400"
+        @click="openAuthModal('login')"
+      >
+        Log in
+      </AppButton>
       <AppButton
         class="bg-gray-400"
         appearance="secondary"
-        >Sign up</AppButton
+        @click="openAuthModal('register')"
       >
+        Sign up
+      </AppButton>
+      <AuthModal
+        v-model="isAuthModalOpen"
+        :initial-type="authModalType"
+      />
     </div>
   </header>
 </template>

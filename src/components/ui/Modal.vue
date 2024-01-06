@@ -15,7 +15,7 @@ const closeModal = () => (isOpen.value = false);
   >
     <div
       v-if="isOpen"
-      class="fixed top-0 z-10 w-full h-screen bg-black/80"
+      class="fixed top-0 left-0 z-10 w-full h-screen bg-black/80"
       @click="closeModal"
     ></div>
   </transition>
