@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import type { UserReturnDto } from '@/api/swagger/data-contracts';
 import { api } from '@/api/apiInstance';
 import { setTokenToStorage } from '@/helpers/token-helpers';
@@ -17,5 +17,7 @@ export const useAuthStore = defineStore('authStore', () => {
     }
   };
 
-  return { user, refresh };
+  const isAuthenticated = computed(() => !!user.value);
+
+  return { user, isAuthenticated, refresh };
 });

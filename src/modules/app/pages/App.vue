@@ -4,9 +4,8 @@
 import Drawer from '@/components/Drawer.vue';
 import { computed, onMounted, ref } from 'vue';
 import type { IProduct } from '@/types/sneakers';
-import AppHeader from '@/components/AppHeader.vue';
+import AppHeader from '@/modules/app/components/AppHeader.vue';
 import { useAuthStore } from '@/modules/auth/authStore';
-import Modal from '@/components/ui/Modal.vue';
 
 const authStore = useAuthStore();
 
@@ -55,6 +54,7 @@ onMounted(async () => {
   <div class="w-4/5 m-auto bg-white rounded-xl shadow-xl my-10">
     <AppHeader
       :cart-price="totalCartPrice"
+      :is-authenticated="authStore.isAuthenticated"
       @open-cart="openCart"
     />
 
