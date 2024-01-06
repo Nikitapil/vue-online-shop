@@ -2,9 +2,13 @@
 // TODO adaptive
 // TODO real backend
 import Drawer from '@/components/Drawer.vue';
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import type { IProduct } from '@/types/sneakers';
 import AppHeader from '@/components/AppHeader.vue';
+import { useAuthStore } from '@/modules/auth/authStore';
+import Modal from '@/components/ui/Modal.vue';
+
+const authStore = useAuthStore();
 
 const cartProducts = ref<IProduct[]>([]);
 
@@ -33,6 +37,10 @@ const toggleAddedToCart = (item: IProduct) => {
 
 const openCart = () => (isCartOpened.value = true);
 const closeCart = () => (isCartOpened.value = false);
+
+onMounted(async () => {
+  await authStore.refresh();
+});
 </script>
 
 <template>
