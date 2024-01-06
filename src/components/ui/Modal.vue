@@ -27,7 +27,7 @@ const closeModal = () => (isOpen.value = false);
   >
     <div
       v-if="isOpen"
-      class="fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] bg-white rounded-2xl h-52 max-w-[80%] w-full z-20 overflow-hidden p-7"
+      class="fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] bg-white rounded-2xl min-h-[14rem] max-w-[80%] w-full z-20 overflow-hidden p-7"
       @click.stop
     >
       <div class="absolute right-0 top-0">
