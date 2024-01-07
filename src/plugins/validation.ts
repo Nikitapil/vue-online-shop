@@ -22,4 +22,11 @@ export const validation = () => {
     }
     return true;
   });
+
+  defineRule('minLength', (value: string, [param]: [string], ctx) => {
+    if (value.length < +param) {
+      return `${capitalize(ctx.name) || 'This field'} min length is ${param}`;
+    }
+    return true;
+  });
 };
