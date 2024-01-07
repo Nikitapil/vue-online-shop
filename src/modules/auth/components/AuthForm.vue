@@ -14,6 +14,8 @@ const props = withDefaults(
 
 const type = ref(props.initialType);
 
+const email = ref('');
+
 const isRegisterType = computed(() => type.value === 'register');
 
 const title = computed(() => (isRegisterType.value ? 'Sign up' : 'Log in'));
@@ -27,11 +29,15 @@ const title = computed(() => (isRegisterType.value ? 'Sign up' : 'Log in'));
     <h1 class="text-2xl font-bold">{{ title }}</h1>
     <AppInput
       id="email"
+      v-model="email"
+      name="email"
       label="Email:"
       placeholder="Your email"
+      rules="required"
     />
     <AppInput
       id="password"
+      name="password"
       type="password"
       label="Password:"
       placeholder="Your password"
@@ -40,22 +46,26 @@ const title = computed(() => (isRegisterType.value ? 'Sign up' : 'Log in'));
     <template v-if="isRegisterType">
       <AppInput
         id="password-repeat"
+        name="password-repeat"
         type="password"
         label="Repeat password:"
         placeholder="Your password"
       />
       <AppInput
         id="name"
+        name="name"
         label="Name:"
         placeholder="Your name"
       />
       <AppInput
         id="address"
+        name="address"
         label="Address:"
         placeholder="Your address"
       />
       <AppInput
         id="phone"
+        name="phone"
         label="Phone:"
         placeholder="Your phone"
       />
