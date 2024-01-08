@@ -30,6 +30,10 @@ const isRegisterType = computed(() => type.value === 'register');
 
 const title = computed(() => (isRegisterType.value ? 'Sign up' : 'Log in'));
 
+const swapButtonText = computed(() =>
+  isRegisterType.value ? 'Already have an account? Log in.' : 'Not registered yet? Sign up.'
+);
+
 const passwordMatchValidation = () => {
   if (form.value.password !== form.value.passwordRepeat) {
     return 'Passwords should be equal';
@@ -43,6 +47,8 @@ const onSubmit = async () => {
     // Submit form
   }
 };
+
+const swapForm = () => (type.value = isRegisterType.value ? 'login' : 'register');
 </script>
 
 <template>
@@ -102,6 +108,14 @@ const onSubmit = async () => {
         placeholder="Your phone"
       />
     </template>
+    <div class="self-end">
+      <AppButton
+        appearance="transparent"
+        @click="swapForm"
+      >
+        {{ swapButtonText }}
+      </AppButton>
+    </div>
     <AppButton appearance="success">{{ title }}</AppButton>
   </form>
 </template>

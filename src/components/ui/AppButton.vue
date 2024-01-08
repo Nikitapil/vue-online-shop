@@ -2,9 +2,11 @@
 withDefaults(
   defineProps<{
     appearance?: 'primary' | 'secondary' | 'success' | 'transparent' | 'danger';
+    type?: 'button' | 'submit';
   }>(),
   {
-    appearance: 'transparent'
+    appearance: 'transparent',
+    type: 'button'
   }
 );
 </script>
@@ -13,6 +15,7 @@ withDefaults(
   <button
     class="py-1.5 px-4 flex items-center justify-center disabled:opacity-30 hover:opacity-80 rounded-md transition duration-300"
     :class="appearance"
+    :type="type"
   >
     <slot />
   </button>
