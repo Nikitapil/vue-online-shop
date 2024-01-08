@@ -3,6 +3,7 @@ import { computed, ref } from 'vue';
 import AppInput from '@/components/ui/AppInput.vue';
 import AppButton from '@/components/ui/AppButton.vue';
 import { useForm } from 'vee-validate';
+import { useAuthStore } from '@/modules/auth/authStore';
 
 const props = withDefaults(
   defineProps<{
@@ -14,6 +15,8 @@ const props = withDefaults(
 );
 
 const { validate } = useForm();
+
+const authStore = useAuthStore();
 
 const type = ref(props.initialType);
 
@@ -41,10 +44,23 @@ const passwordMatchValidation = () => {
   return true;
 };
 
+const register = async () => {
+  const { email, password, name, address } = form.value;
+  await authStore.register({
+    email,
+    password,
+    name,
+    address
+  });
+};
+
 const onSubmit = async () => {
   const validationResult = await validate();
   if (validationResult.valid) {
-    // Submit form
+    if (isRegisterType.value) {
+      await register();
+    } else {
+    }
   }
 };
 
@@ -116,6 +132,11 @@ const swapForm = () => (type.value = isRegisterType.value ? 'login' : 'register'
         {{ swapButtonText }}
       </AppButton>
     </div>
-    <AppButton appearance="success">{{ title }}</AppButton>
+    <AppButton
+      appearance="success"
+      type="submit"
+    >
+      {{ title }}
+    </AppButton>
   </form>
 </template>
