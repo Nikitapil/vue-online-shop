@@ -55,6 +55,7 @@ onMounted(async () => {
     <AppHeader
       :cart-price="totalCartPrice"
       :is-authenticated="authStore.isAuthenticated"
+      :is-auth-loading="authStore.isAuthLoading"
       @open-cart="openCart"
     />
 

@@ -2,10 +2,12 @@
 import AppButton from '@/components/ui/AppButton.vue';
 import { ref } from 'vue';
 import AuthModal from '@/modules/auth/components/AuthModal.vue';
+import HorizontalLoader from '@/components/ui/HorizontalLoader.vue';
 
 defineProps<{
   cartPrice: number;
   isAuthenticated: boolean;
+  isAuthLoading: boolean;
 }>();
 
 defineEmits<{
@@ -39,7 +41,14 @@ const openAuthModal = (type: 'login' | 'register') => {
       </div>
     </RouterLink>
 
-    <nav v-if="isAuthenticated">
+    <div
+      v-if="isAuthLoading"
+      class="pr-10"
+    >
+      <HorizontalLoader />
+    </div>
+
+    <nav v-else-if="isAuthenticated">
       <ul class="flex gap-8 items-center">
         <!--        Todo refactor общие классы и изменить на кнопку-->
         <li

@@ -6,18 +6,30 @@ import { setTokenToStorage } from '@/helpers/token-helpers';
 
 export const useAuthStore = defineStore('authStore', () => {
   const user = ref<UserReturnDto | null>(null);
+  const isAuthLoading = ref(false);
 
   const refresh = async () => {
     try {
+      isAuthLoading.value = true;
       const { user: userFromResponse, accessToken } = await api.refreshAuth();
       user.value = userFromResponse;
       setTokenToStorage(accessToken);
     } catch (e) {
       console.log(e);
+    } finally {
+      isAuthLoading.value = false;
     }
   };
 
+  const register = async () => {
+    try {
+      
+    } catch (e) {
+      
+    }
+  }
+
   const isAuthenticated = computed(() => !!user.value);
 
-  return { user, isAuthenticated, refresh };
+  return { user, isAuthenticated, isAuthLoading, refresh };
 });
