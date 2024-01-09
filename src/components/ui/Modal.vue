@@ -4,6 +4,15 @@ import IconButton from '@/components/ui/IconButton.vue';
 const isOpen = defineModel<boolean>();
 
 const closeModal = () => (isOpen.value = false);
+
+withDefaults(
+  defineProps<{
+    size: 'sm' | 'md' | 'lg';
+  }>(),
+  {
+    size: 'lg'
+  }
+);
 </script>
 
 <template>
@@ -28,6 +37,7 @@ const closeModal = () => (isOpen.value = false);
     <div
       v-if="isOpen"
       class="fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] bg-white rounded-2xl min-h-[14rem] max-w-[80%] w-full z-20 overflow-hidden p-7"
+      :class="size"
       @click.stop
     >
       <div class="absolute right-0 top-0">
@@ -40,3 +50,19 @@ const closeModal = () => (isOpen.value = false);
     </div>
   </transition>
 </template>
+
+<style scoped>
+.lg {
+  @apply max-w-[80%];
+}
+
+.md {
+  --min: min(560px, 80%);
+  @apply max-w-[var(--min)];
+}
+
+.sm {
+  --min: min(320px, 80%);
+  @apply max-w-[var(--min)];
+}
+</style>

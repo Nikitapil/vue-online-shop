@@ -3,6 +3,8 @@ import AppButton from '@/components/ui/AppButton.vue';
 import { ref } from 'vue';
 import AuthModal from '@/modules/auth/components/AuthModal.vue';
 import HorizontalLoader from '@/components/ui/HorizontalLoader.vue';
+import LogoutModal from '@/modules/auth/components/LogoutModal.vue';
+import IconButton from '@/components/ui/IconButton.vue';
 
 defineProps<{
   cartPrice: number;
@@ -15,6 +17,7 @@ defineEmits<{
 }>();
 
 const isAuthModalOpen = ref(false);
+const isLogoutModalOpen = ref(false);
 const authModalType = ref('login');
 
 const openAuthModal = (type: 'login' | 'register') => {
@@ -82,7 +85,15 @@ const openAuthModal = (type: 'login' | 'register') => {
           />
           <span>Profile</span>
         </li>
+        <li class="h-7">
+          <IconButton
+            icon="ion:log-out-outline"
+            color="red"
+            @click="isLogoutModalOpen = true"
+          />
+        </li>
       </ul>
+      <LogoutModal v-model="isLogoutModalOpen" />
     </nav>
     <div
       v-else

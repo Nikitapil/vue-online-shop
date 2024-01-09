@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 import { computed, ref } from 'vue';
 import type { AuthResponseDto, LoginDto, RegisterDto, UserReturnDto } from '@/api/swagger/data-contracts';
 import { api } from '@/api/apiInstance';
-import { setTokenToStorage } from '@/helpers/token-helpers';
+import { removeTokenFromStorage, setTokenToStorage } from '@/helpers/token-helpers';
 import { toast } from 'vue3-toastify';
 
 export const useAuthStore = defineStore('authStore', () => {
@@ -36,5 +36,18 @@ export const useAuthStore = defineStore('authStore', () => {
     await authUnifiedMethod(() => api.login(data), toast.error);
   };
 
-  return { user, isAuthenticated, isAuthLoading, refresh, register, login };
+  const logout = async () => {
+    try {
+      isAuthLoading.value = true;
+      await api.logout();
+      user.value = null;
+      removeTokenFromStorage();
+    } catch (e: any) {
+      toast.error(e?.response?.data?.message || 'Error');
+    } finally {
+      isAuthLoading.value = false;
+    }
+  };
+
+  return { user, isAuthenticated, isAuthLoading, refresh, register, login, logout };
 });
