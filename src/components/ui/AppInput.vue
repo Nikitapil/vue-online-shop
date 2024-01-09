@@ -43,9 +43,10 @@ const { errorMessage, handleBlur } = useField<string>(props.name, props.rules, {
       :id="id"
       v-model="value"
       :name="name"
-      class="w-full border outline-0 focus-visible:border-black py-1 px-2 rounded-md disabled:bg-gray-100 transition duration-300"
+      class="w-full border outline-0 focus-visible:border-black py-1 px-2 rounded-md disabled:bg-gray-100 disabled:cursor-not-allowed transition duration-300"
       :type="type"
       :placeholder="placeholder"
+      :disabled="disabled"
       @blur="handleBlur($event, true)"
     />
     <p class="text-sm text-red-500">{{ errorMessage }}</p>

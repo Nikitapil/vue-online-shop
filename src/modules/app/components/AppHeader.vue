@@ -101,10 +101,11 @@ const openAuthModal = (type: 'login' | 'register') => {
       >
         Sign up
       </AppButton>
-      <AuthModal
-        v-model="isAuthModalOpen"
-        :initial-type="authModalType"
-      />
     </div>
+    <AuthModal
+      v-if="!isAuthenticated"
+      v-model="isAuthModalOpen"
+      :initial-type="authModalType"
+    />
   </header>
 </template>

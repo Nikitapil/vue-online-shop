@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { computed, ref } from 'vue';
-import type { RegisterDto, UserReturnDto } from '@/api/swagger/data-contracts';
+import type { AuthResponseDto, LoginDto, RegisterDto, UserReturnDto } from '@/api/swagger/data-contracts';
 import { api } from '@/api/apiInstance';
 import { setTokenToStorage } from '@/helpers/token-helpers';
 import { toast } from 'vue3-toastify';
@@ -9,33 +9,32 @@ export const useAuthStore = defineStore('authStore', () => {
   const user = ref<UserReturnDto | null>(null);
   const isAuthLoading = ref(false);
 
-  const refresh = async () => {
-    try {
-      isAuthLoading.value = true;
-      const { user: userFromResponse, accessToken } = await api.refreshAuth();
-      user.value = userFromResponse;
-      setTokenToStorage(accessToken);
-    } catch (e) {
-      console.log(e);
-    } finally {
-      isAuthLoading.value = false;
-    }
-  };
+  const isAuthenticated = computed(() => !!user.value);
 
-  const register = async (data: RegisterDto) => {
+  const authUnifiedMethod = async (method: () => Promise<AuthResponseDto>, errorHandler = console.error) => {
     try {
       isAuthLoading.value = true;
-      const { user: userFromResponse, accessToken } = await api.register(data);
+      const { user: userFromResponse, accessToken } = await method();
       user.value = userFromResponse;
       setTokenToStorage(accessToken);
     } catch (e: any) {
-      toast.error(e?.response?.data?.message || 'Error');
+      errorHandler(e?.response?.data?.message || 'Error');
     } finally {
       isAuthLoading.value = false;
     }
   };
 
-  const isAuthenticated = computed(() => !!user.value);
+  const refresh = async () => {
+    await authUnifiedMethod(api.refreshAuth);
+  };
 
-  return { user, isAuthenticated, isAuthLoading, refresh, register };
+  const register = async (data: RegisterDto) => {
+    await authUnifiedMethod(() => api.register(data), toast.error);
+  };
+
+  const login = async (data: LoginDto) => {
+    await authUnifiedMethod(() => api.login(data), toast.error);
+  };
+
+  return { user, isAuthenticated, isAuthLoading, refresh, register, login };
 });

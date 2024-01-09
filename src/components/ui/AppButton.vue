@@ -3,19 +3,22 @@ withDefaults(
   defineProps<{
     appearance?: 'primary' | 'secondary' | 'success' | 'transparent' | 'danger';
     type?: 'button' | 'submit';
+    disabled?: boolean;
   }>(),
   {
     appearance: 'transparent',
-    type: 'button'
+    type: 'button',
+    disabled: false
   }
 );
 </script>
 
 <template>
   <button
-    class="py-1.5 px-4 flex items-center justify-center disabled:opacity-30 hover:opacity-80 rounded-md transition duration-300"
+    class="py-1.5 px-4 flex items-center justify-center disabled:opacity-30 disabled:cursor-not-allowed hover:opacity-80 rounded-md transition duration-300"
     :class="appearance"
     :type="type"
+    :disabled="disabled"
   >
     <slot />
   </button>

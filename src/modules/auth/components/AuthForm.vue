@@ -54,12 +54,18 @@ const register = async () => {
   });
 };
 
+const login = async () => {
+  const { email, password } = form.value;
+  await authStore.login({ email, password });
+};
+
 const onSubmit = async () => {
   const validationResult = await validate();
   if (validationResult.valid) {
     if (isRegisterType.value) {
       await register();
     } else {
+      await login();
     }
   }
 };
@@ -80,6 +86,7 @@ const swapForm = () => (type.value = isRegisterType.value ? 'login' : 'register'
       label="Email:"
       placeholder="Your email"
       rules="required|email"
+      :disabled="authStore.isAuthLoading"
     />
     <AppInput
       id="password"
@@ -89,6 +96,7 @@ const swapForm = () => (type.value = isRegisterType.value ? 'login' : 'register'
       label="Password:"
       placeholder="Your password"
       rules="required|minLength:8"
+      :disabled="authStore.isAuthLoading"
     />
 
     <template v-if="isRegisterType">
@@ -100,6 +108,7 @@ const swapForm = () => (type.value = isRegisterType.value ? 'login' : 'register'
         label="Repeat password:"
         placeholder="Your password"
         :rules="passwordMatchValidation"
+        :disabled="authStore.isAuthLoading"
       />
       <AppInput
         id="name"
@@ -108,6 +117,7 @@ const swapForm = () => (type.value = isRegisterType.value ? 'login' : 'register'
         label="Name:"
         placeholder="Your name"
         rules="required"
+        :disabled="authStore.isAuthLoading"
       />
       <AppInput
         id="address"
@@ -115,6 +125,7 @@ const swapForm = () => (type.value = isRegisterType.value ? 'login' : 'register'
         name="address"
         label="Address:"
         placeholder="Your address"
+        :disabled="authStore.isAuthLoading"
       />
       <AppInput
         id="phone"
@@ -122,11 +133,13 @@ const swapForm = () => (type.value = isRegisterType.value ? 'login' : 'register'
         name="phone"
         label="Phone:"
         placeholder="Your phone"
+        :disabled="authStore.isAuthLoading"
       />
     </template>
     <div class="self-end">
       <AppButton
         appearance="transparent"
+        :disabled="authStore.isAuthLoading"
         @click="swapForm"
       >
         {{ swapButtonText }}
@@ -135,6 +148,7 @@ const swapForm = () => (type.value = isRegisterType.value ? 'login' : 'register'
     <AppButton
       appearance="success"
       type="submit"
+      :disabled="authStore.isAuthLoading"
     >
       {{ title }}
     </AppButton>
