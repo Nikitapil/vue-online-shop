@@ -2,7 +2,7 @@
 import AppButton from '@/components/ui/AppButton.vue';
 import { ref } from 'vue';
 import AuthModal from '@/modules/auth/components/AuthModal.vue';
-import HorizontalLoader from '@/components/ui/HorizontalLoader.vue';
+import HorizontalLoader from '@/components/ui/loaders/HorizontalLoader.vue';
 import LogoutModal from '@/modules/auth/components/LogoutModal.vue';
 import IconButton from '@/components/ui/IconButton.vue';
 

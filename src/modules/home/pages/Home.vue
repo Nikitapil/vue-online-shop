@@ -5,6 +5,7 @@ import type { IFavourite, IProduct, TProductFromMainResponse } from '@/types/sne
 import axios from 'axios';
 import AppButton from '@/components/ui/AppButton.vue';
 import { useAuthStore } from '@/modules/auth/authStore';
+import { ERoutesName } from '@/router';
 
 const authStore = useAuthStore();
 
@@ -104,6 +105,7 @@ watch(filters, fetchProductsWithFavourites, { deep: true });
       <AppButton
         v-if="authStore.isAdmin"
         appearance="secondary"
+        @click="$router.push({ name: ERoutesName.CREATE_PRODUCT })"
       >
         Create Product
       </AppButton>
