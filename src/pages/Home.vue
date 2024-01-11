@@ -3,6 +3,10 @@ import CardList from '@/components/CardList.vue';
 import { onMounted, ref, watch } from 'vue';
 import type { IFavourite, IProduct, TProductFromMainResponse } from '@/types/sneakers';
 import axios from 'axios';
+import AppButton from '@/components/ui/AppButton.vue';
+import { useAuthStore } from '@/modules/auth/authStore';
+
+const authStore = useAuthStore();
 
 const emit = defineEmits<{
   toggleAddedToCart: [IProduct];
@@ -94,9 +98,16 @@ watch(filters, fetchProductsWithFavourites, { deep: true });
 
 <template>
   <div class="flex justify-between items-center mb-10">
-    <h2 class="text-3xl font-bold">All sneakers</h2>
+    <h2 class="text-3xl font-bold">All products</h2>
 
     <div class="flex gap-4">
+      <AppButton
+        v-if="authStore.isAdmin"
+        appearance="secondary"
+      >
+        Create Product
+      </AppButton>
+
       <!--          TODO custom select-->
       <select
         v-model="filters.sortBy"

@@ -36,6 +36,8 @@ export const useAuthStore = defineStore('authStore', () => {
     await authUnifiedMethod(() => api.login(data), toast.error);
   };
 
+  const isAdmin = computed(() => user.value?.roles?.includes('ADMIN'));
+
   const logout = async () => {
     try {
       isAuthLoading.value = true;
@@ -49,5 +51,5 @@ export const useAuthStore = defineStore('authStore', () => {
     }
   };
 
-  return { user, isAuthenticated, isAuthLoading, refresh, register, login, logout };
+  return { user, isAuthenticated, isAuthLoading, isAdmin, refresh, register, login, logout };
 });

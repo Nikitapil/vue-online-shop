@@ -4,12 +4,17 @@ import { useAuthStore } from '@/modules/auth/authStore';
 const isOpen = defineModel();
 
 const authStore = useAuthStore();
+
+const logout = async () => {
+  await authStore.logout();
+  isOpen.value = false;
+};
 </script>
 
 <template>
   <confirm-modal
     v-model="isOpen"
     title="Do you want to log out?"
-    @confirm="authStore.logout"
+    @confirm="logout"
   />
 </template>

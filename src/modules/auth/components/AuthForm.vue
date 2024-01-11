@@ -14,6 +14,10 @@ const props = withDefaults(
   }
 );
 
+const emit = defineEmits<{
+  success: [];
+}>();
+
 const { validate } = useForm();
 
 const authStore = useAuthStore();
@@ -67,6 +71,9 @@ const onSubmit = async () => {
     } else {
       await login();
     }
+  }
+  if (authStore.isAuthenticated) {
+    emit('success');
   }
 };
 

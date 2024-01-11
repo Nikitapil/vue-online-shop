@@ -93,7 +93,6 @@ const openAuthModal = (type: 'login' | 'register') => {
           />
         </li>
       </ul>
-      <LogoutModal v-model="isLogoutModalOpen" />
     </nav>
     <div
       v-else
@@ -114,9 +113,9 @@ const openAuthModal = (type: 'login' | 'register') => {
       </AppButton>
     </div>
     <AuthModal
-      v-if="!isAuthenticated"
       v-model="isAuthModalOpen"
       :initial-type="authModalType"
     />
+    <LogoutModal v-model="isLogoutModalOpen" />
   </header>
 </template>

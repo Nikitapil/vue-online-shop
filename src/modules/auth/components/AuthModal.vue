@@ -15,6 +15,9 @@ withDefaults(
 
 <template>
   <Modal v-model="isOpen">
-    <AuthForm :initial-type="initialType" />
+    <AuthForm
+      :initial-type="initialType"
+      @success="isOpen = false"
+    />
   </Modal>
 </template>
