@@ -42,5 +42,5 @@ export const useCategoriesStore = defineStore('cotegories', () => {
     }
   };
 
-  return { createCategory, updateCategory, deleteCategory, getCategories };
+  return { categories, createCategory, updateCategory, deleteCategory, getCategories };
 });

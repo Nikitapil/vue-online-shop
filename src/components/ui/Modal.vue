@@ -7,7 +7,7 @@ const closeModal = () => (isOpen.value = false);
 
 withDefaults(
   defineProps<{
-    size: 'sm' | 'md' | 'lg';
+    size?: 'sm' | 'md' | 'lg';
   }>(),
   {
     size: 'lg'
