@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import { type RuleExpression, useField } from 'vee-validate';
-import { type MaybeRef } from 'vue';
+import { computed, type MaybeRef } from 'vue';
+import { vMaska } from 'maska';
+import { masks, type TMasks } from '@/components/ui/AppInput/masks';
 
 const value = defineModel<string>();
 
@@ -13,13 +15,15 @@ const props = withDefaults(
     disabled?: boolean;
     placeholder?: string;
     rules?: MaybeRef<RuleExpression<any>>;
+    mask?: TMasks;
   }>(),
   {
     type: 'text',
     label: '',
     disabled: false,
     placeholder: '',
-    rules: ''
+    rules: '',
+    mask: 'noMask'
   }
 );
 
@@ -28,6 +32,8 @@ const { errorMessage, handleBlur } = useField<string>(props.name, props.rules, {
   syncVModel: value,
   validateOnValueUpdate: false
 });
+
+const maskOptions = computed(() => masks[props.mask]);
 </script>
 
 <template>
@@ -42,6 +48,7 @@ const { errorMessage, handleBlur } = useField<string>(props.name, props.rules, {
     <input
       :id="id"
       v-model="value"
+      v-maska:[maskOptions]
       :name="name"
       class="w-full border outline-0 focus-visible:border-black py-1 px-2 rounded-md disabled:bg-gray-100 disabled:cursor-not-allowed transition duration-300"
       :class="{ 'border-red-500': !!errorMessage }"

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import AppInput from '@/components/ui/AppInput.vue';
+import AppInput from '@/components/ui/AppInput/AppInput.vue';
 import AppButton from '@/components/ui/AppButton.vue';
 import { useForm } from 'vee-validate';
 import { useAuthStore } from '@/modules/auth/authStore';

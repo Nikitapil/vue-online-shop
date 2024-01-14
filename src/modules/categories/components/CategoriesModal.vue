@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Modal from '@/components/ui/Modal.vue';
 import AppButton from '@/components/ui/AppButton.vue';
-import AppInput from '@/components/ui/AppInput.vue';
+import AppInput from '@/components/ui/AppInput/AppInput.vue';
 import { ref, watch } from 'vue';
 import { useCategoriesStore } from '@/modules/categories/categoriesStore';
 import { useForm } from 'vee-validate';
