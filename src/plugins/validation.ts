@@ -9,6 +9,13 @@ export const validation = () => {
     return true;
   });
 
+  defineRule('requiredObj', (value: string, params, ctx) => {
+    if (!value) {
+      return `${capitalize(ctx.name) || 'This field'} is required`;
+    }
+    return true;
+  });
+
   defineRule('email', (value: string) => {
     if (!value || !value.length) {
       return true;

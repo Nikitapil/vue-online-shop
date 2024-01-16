@@ -14,13 +14,14 @@ const product = ref({
   name: '',
   description: '',
   categoryId: '',
-  price: ''
+  price: '',
+  image: null
 });
 
 const submitHandler = async () => {
   const { valid } = await validate();
-  console.log(valid);
 };
+// TODO product preview
 </script>
 
 <template>
@@ -69,7 +70,10 @@ const submitHandler = async () => {
     </div>
     <Uploader
       id="image"
+      v-model="product.image"
       label="Upload product image"
+      name="image"
+      rules="requiredObj"
     />
     <div class="self-end">
       <AppButton
