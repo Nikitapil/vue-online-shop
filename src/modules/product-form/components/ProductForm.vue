@@ -5,6 +5,7 @@ import CategoriesModal from '@/modules/categories/components/CategoriesModal.vue
 import AppButton from '@/components/ui/AppButton.vue';
 import CategoriesSelect from '@/modules/categories/components/CategoriesSelect.vue';
 import { useForm } from 'vee-validate';
+import Uploader from '@/components/ui/Uploader.vue';
 
 const { validate } = useForm();
 
@@ -66,6 +67,10 @@ const submitHandler = async () => {
         Manage categories
       </AppButton>
     </div>
+    <Uploader
+      id="image"
+      label="Upload product image"
+    />
     <div class="self-end">
       <AppButton
         appearance="primary"
