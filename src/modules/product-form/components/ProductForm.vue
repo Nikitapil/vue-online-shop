@@ -8,6 +8,8 @@ import { useForm } from 'vee-validate';
 import Uploader from '@/components/ui/Uploader.vue';
 import type { CreateProductBody } from '@/api/swagger/data-contracts';
 import type { IProductForm } from '@/modules/product-form/types';
+import ContentSwitcher from '@/components/ui/ContentSwitcher/ContentSwitcher.vue';
+import type { ContentSwitcherOption } from '@/components/ui/ContentSwitcher/types';
 
 const { validate } = useForm();
 
@@ -20,7 +22,20 @@ const emit = defineEmits<{
   save: [CreateProductBody];
 }>();
 
+const switcherOptions: ContentSwitcherOption[] = [
+  {
+    name: 'Product form',
+    value: 'form'
+  },
+  {
+    name: 'Product preview',
+    value: 'preview'
+  }
+];
+
 const isCategoriesModalOpened = ref(false);
+const currentPage = ref('form');
+
 const product = ref<IProductForm>({
   name: '',
   description: '',
@@ -48,6 +63,10 @@ const submitHandler = async () => {
     @submit.prevent="submitHandler"
   >
     <h1 class="text-2xl font-bold text-center">{{ title }}</h1>
+    <ContentSwitcher
+      v-model="currentPage"
+      :options="switcherOptions"
+    />
     <AppInput
       id="name"
       v-model="product.name"
