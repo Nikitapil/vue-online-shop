@@ -47,6 +47,7 @@ const { errorMessage, validate } = useField<string>(props.name, props.rules, {
     <option
       v-for="option in options"
       :key="option.value"
+      :value="option.value"
     >
       {{ option.name }}
     </option>

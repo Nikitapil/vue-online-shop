@@ -5,15 +5,20 @@ withDefaults(
   defineProps<{
     icon: string;
     color?: string;
+    disabled?: boolean;
   }>(),
   {
-    color: 'black'
+    color: 'black',
+    disabled: false
   }
 );
 </script>
 
 <template>
-  <button class="hover:bg-gray-200 rounded transition duration-300">
+  <button
+    class="hover:bg-gray-200 rounded transition duration-300 disabled:opacity-60"
+    :disabled="disabled"
+  >
     <Icon
       class="w-7 h-7"
       :color="color"

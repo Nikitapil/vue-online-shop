@@ -6,11 +6,21 @@ import AppButton from '@/components/ui/AppButton.vue';
 import CategoriesSelect from '@/modules/categories/components/CategoriesSelect.vue';
 import { useForm } from 'vee-validate';
 import Uploader from '@/components/ui/Uploader.vue';
+import type { CreateProductBody } from '@/api/swagger/data-contracts';
+import type { IProductForm } from '@/modules/product-form/types';
 
 const { validate } = useForm();
 
+defineProps<{
+  isLoading: boolean;
+}>();
+
+const emit = defineEmits<{
+  save: [CreateProductBody];
+}>();
+
 const isCategoriesModalOpened = ref(false);
-const product = ref({
+const product = ref<IProductForm>({
   name: '',
   description: '',
   categoryId: '',
@@ -20,6 +30,13 @@ const product = ref({
 
 const submitHandler = async () => {
   const { valid } = await validate();
+  if (valid && product.value.image) {
+    emit('save', {
+      ...product.value,
+      price: +product.value.price,
+      image: product.value.image
+    });
+  }
 };
 // TODO product preview
 </script>
@@ -36,6 +53,7 @@ const submitHandler = async () => {
       placeholder="Title"
       label="Product title"
       rules="required"
+      :disabled="isLoading"
     />
     <AppInput
       id="description"
@@ -44,6 +62,7 @@ const submitHandler = async () => {
       placeholder="Description"
       label="Product description"
       rules="required"
+      :disabled="isLoading"
     />
     <AppInput
       id="price"
@@ -53,16 +72,19 @@ const submitHandler = async () => {
       label="Product price"
       rules="required"
       mask="numberMask"
+      :disabled="isLoading"
     />
     <div class="flex gap-3">
       <div class="flex-1">
         <CategoriesSelect
           v-model="product.categoryId"
           rules="required"
+          :disabled="isLoading"
         />
       </div>
       <AppButton
         appearance="secondary"
+        :disabled="isLoading"
         @click="isCategoriesModalOpened = true"
       >
         Manage categories
@@ -74,11 +96,13 @@ const submitHandler = async () => {
       label="Upload product image"
       name="image"
       rules="requiredObj"
+      :disabled="isLoading"
     />
     <div class="self-end">
       <AppButton
         appearance="primary"
         type="submit"
+        :disabled="isLoading"
       >
         Create
       </AppButton>

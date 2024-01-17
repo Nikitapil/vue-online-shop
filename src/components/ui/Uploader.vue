@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import AppButton from '@/components/ui/AppButton.vue';
 import { computed, type MaybeRef, ref } from 'vue';
-import { type RuleExpression, useField, validate } from 'vee-validate';
+import { type RuleExpression, useField } from 'vee-validate';
 import IconButton from '@/components/ui/IconButton.vue';
 
 const value = defineModel<File | null>();
@@ -12,9 +12,11 @@ const props = withDefaults(
     label: string;
     name: string;
     rules: MaybeRef<RuleExpression<any>>;
+    disabled?: boolean;
   }>(),
   {
-    rules: ''
+    rules: '',
+    disabled: false
   }
 );
 
@@ -39,12 +41,16 @@ const deleteImage = () => (value.value = null);
 <template>
   <div>
     <div class="flex items-center gap-2">
-      <AppButton @click="open">
+      <AppButton
+        :disabled="disabled"
+        @click="open"
+      >
         {{ label }}
       </AppButton>
       <IconButton
         v-if="value"
         icon="fa6-solid:xmark"
+        :disabled="disabled"
         @click="deleteImage"
       />
     </div>
