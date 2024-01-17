@@ -10,6 +10,7 @@ const { createProduct, isLoading } = useCreateProduct();
   <div>
     <AuthProtected :admitted-roles="['ADMIN']">
       <ProductForm
+        title="Create product"
         :is-loading="isLoading"
         @save="createProduct"
       />

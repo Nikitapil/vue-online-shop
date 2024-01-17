@@ -13,6 +13,7 @@ const { validate } = useForm();
 
 defineProps<{
   isLoading: boolean;
+  title: string;
 }>();
 
 const emit = defineEmits<{
@@ -46,6 +47,7 @@ const submitHandler = async () => {
     class="flex flex-col gap-3"
     @submit.prevent="submitHandler"
   >
+    <h1 class="text-2xl font-bold text-center">{{ title }}</h1>
     <AppInput
       id="name"
       v-model="product.name"
