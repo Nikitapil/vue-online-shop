@@ -8,7 +8,7 @@ import { createPinia } from 'pinia';
 import { validation } from '@/plugins/validation';
 import Vue3Toastify, { type ToastContainerOptions } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
-import { formatPrice } from '@/utils/formatters';
+import { formatPrice } from '@/helpers/formatters';
 
 const pinia = createPinia();
 const app = createApp(App);
