@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import AppInput from '@/components/ui/AppInput/AppInput.vue';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import CategoriesModal from '@/modules/categories/components/CategoriesModal.vue';
 import AppButton from '@/components/ui/AppButton.vue';
 import CategoriesSelect from '@/modules/categories/components/CategoriesSelect.vue';
@@ -10,6 +10,7 @@ import type { CreateProductBody } from '@/api/swagger/data-contracts';
 import type { IProductForm } from '@/modules/product-form/types';
 import ContentSwitcher from '@/components/ui/ContentSwitcher/ContentSwitcher.vue';
 import type { ContentSwitcherOption } from '@/components/ui/ContentSwitcher/types';
+import ProductDetails from '@/components/products/ProductDetails.vue';
 
 const { validate } = useForm();
 
@@ -34,7 +35,7 @@ const switcherOptions: ContentSwitcherOption[] = [
 ];
 
 const isCategoriesModalOpened = ref(false);
-const currentPage = ref('form');
+const currentView = ref('form');
 
 const product = ref<IProductForm>({
   name: '',
@@ -44,8 +45,14 @@ const product = ref<IProductForm>({
   image: null
 });
 
+const productReview = computed(() => ({
+  ...product.value,
+  imageUrl: product.value.image ? URL.createObjectURL(product.value.image) : ''
+}));
+
 const submitHandler = async () => {
   const { valid } = await validate();
+
   if (valid && product.value.image) {
     emit('save', {
       ...product.value,
@@ -58,15 +65,21 @@ const submitHandler = async () => {
 </script>
 
 <template>
+  <ContentSwitcher
+    v-model="currentView"
+    class="mb-3"
+    :options="switcherOptions"
+  />
+  <ProductDetails
+    v-if="currentView === 'preview'"
+    :product="productReview"
+  />
   <form
+    v-else
     class="flex flex-col gap-3"
     @submit.prevent="submitHandler"
   >
     <h1 class="text-2xl font-bold text-center">{{ title }}</h1>
-    <ContentSwitcher
-      v-model="currentPage"
-      :options="switcherOptions"
-    />
     <AppInput
       id="name"
       v-model="product.name"

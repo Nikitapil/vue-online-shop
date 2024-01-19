@@ -14,7 +14,7 @@ defineProps<{
     >
       {{ product.name }}
     </h2>
-    <div>
+    <div class="flex gap-3 flex-wrap mt-3">
       <div class="w-80 bg-gray-100">
         <img
           v-if="product.imageUrl"
@@ -31,8 +31,19 @@ defineProps<{
       </div>
 
       <div>
-        <p v-if="product.description">{{ product.description }}</p>
-        <p v-if="product.price">{{ product.price }}</p>
+        <p
+          v-if="product.description"
+          class="text-lg font-medium"
+        >
+          {{ product.description }}
+        </p>
+        <p
+          v-if="product.price"
+          v-price
+          class="text-2xl font-bold"
+        >
+          {{ product.price }}
+        </p>
       </div>
     </div>
   </div>
