@@ -5,14 +5,18 @@ import { ref } from 'vue';
 
 export const useLoadProductData = () => {
   const product = ref<ProductReturnDto | null>(null);
+  const isLoading = ref(false);
 
   const loadProduct = async (id: string) => {
     try {
+      isLoading.value = true;
       product.value = await api.getProduct(id);
     } catch (e: any) {
       toast.error(e?.response?.data?.message || 'Error');
+    } finally {
+      isLoading.value = false;
     }
   };
 
-  return { product, loadProduct };
+  return { product, isLoading, loadProduct };
 };

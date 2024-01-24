@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import AppInput from '@/components/ui/AppInput/AppInput.vue';
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import CategoriesModal from '@/modules/categories/components/CategoriesModal.vue';
 import AppButton from '@/components/ui/AppButton.vue';
 import CategoriesSelect from '@/modules/categories/components/CategoriesSelect.vue';
@@ -14,10 +14,16 @@ import ProductDetails from '@/components/products/ProductDetails.vue';
 
 const { validate } = useForm();
 
-defineProps<{
-  isLoading: boolean;
-  title: string;
-}>();
+const props = withDefaults(
+  defineProps<{
+    isLoading: boolean;
+    title: string;
+    initialValues?: IProductForm | null;
+  }>(),
+  {
+    initialValues: null
+  }
+);
 
 const emit = defineEmits<{
   save: [CreateProductBody];
@@ -62,7 +68,12 @@ const submitHandler = async () => {
     });
   }
 };
-// TODO product preview
+
+onMounted(() => {
+  if (props.initialValues) {
+    product.value = { ...props.initialValues };
+  }
+});
 </script>
 
 <template>
