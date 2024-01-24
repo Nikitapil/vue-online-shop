@@ -121,6 +121,10 @@ export interface ProductReturnDto {
   rating: number | null;
   /** Can add review flag */
   canAddReview: boolean;
+  /** Can edit product flag */
+  canEdit: boolean;
+  /** Can delete product flag */
+  canDelete: boolean;
 }
 
 export interface UpdateProductBody {

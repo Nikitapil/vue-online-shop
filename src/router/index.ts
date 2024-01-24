@@ -1,8 +1,17 @@
+import EditProductPage from '@/modules/product-form/pages/EditProductPage.vue';
 import { createRouter, createWebHistory } from 'vue-router';
 import Home from '@/modules/home/pages/Home.vue';
 import Bookmarks from '@/pages/Bookmarks.vue';
 import CreateProductPage from '@/modules/product-form/pages/CreateProductPage.vue';
-import ProductPage from '@/modules/product-page/pages/ProductPage.vue'
+import ProductPage from '@/modules/product-page/pages/ProductPage.vue';
+
+export enum ERoutesName {
+  HOME = 'home',
+  BOOKMARKS = 'bookmarks',
+  CREATE_PRODUCT = 'create-product',
+  EDIT_PRODUCT = 'edit-product',
+  PRODUCT = 'product'
+}
 
 export const router = createRouter({
   history: createWebHistory(),
@@ -10,29 +19,27 @@ export const router = createRouter({
     {
       path: '/',
       component: Home,
-      name: 'home'
+      name: ERoutesName.HOME
     },
     {
       path: '/bookmarks',
       component: Bookmarks,
-      name: 'bookmarks'
+      name: ERoutesName.BOOKMARKS
     },
     {
       path: '/create-product',
       component: CreateProductPage,
-      name: 'create-product'
+      name: ERoutesName.CREATE_PRODUCT
+    },
+    {
+      path: '/edit-product',
+      component: EditProductPage,
+      name: ERoutesName.EDIT_PRODUCT
     },
     {
       path: '/product/:id',
       component: ProductPage,
-      name: 'product'
+      name: ERoutesName.PRODUCT
     }
   ]
 });
-
-export enum ERoutesName {
-  HOME = 'home',
-  BOOKMARKS = 'bookmarks',
-  CREATE_PRODUCT = 'create-product',
-  PRODUCT = 'product'
-}
