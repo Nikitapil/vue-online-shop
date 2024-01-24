@@ -32,7 +32,7 @@ export const router = createRouter({
       name: ERoutesName.CREATE_PRODUCT
     },
     {
-      path: '/edit-product',
+      path: '/edit-product/:id',
       component: EditProductPage,
       name: ERoutesName.EDIT_PRODUCT
     },

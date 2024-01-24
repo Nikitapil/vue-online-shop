@@ -47,6 +47,7 @@ const product = ref<IProductForm>({
 
 const productReview = computed(() => ({
   ...product.value,
+  price: +product.value.price,
   imageUrl: product.value.image ? URL.createObjectURL(product.value.image) : ''
 }));
 
