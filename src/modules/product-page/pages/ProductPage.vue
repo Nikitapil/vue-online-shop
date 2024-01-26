@@ -8,7 +8,7 @@ import { useProduct } from '@/composables/useProduct';
 import { storeToRefs } from 'pinia';
 import IconButton from '@/components/ui/IconButton.vue';
 import ConfirmModal from '@/components/ui/ConfirmModal.vue';
-import { ERoutesName } from '@/router/index';
+import { ERoutesName } from '@/router';
 import { useRouter } from 'vue-router';
 import ProductNotFound from '@/components/products/ProductNotFound.vue';
 
@@ -65,5 +65,3 @@ onMounted(() => {
     </div>
   </div>
 </template>
-
-<style></style>

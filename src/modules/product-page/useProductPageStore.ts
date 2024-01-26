@@ -36,7 +36,7 @@ export const useProductPageStore = defineStore('ProductPage', () => {
     } catch (e: any) {
       toast.error(e?.response?.data?.message || 'Error');
     } finally {
-      isDeleteInProgress.value = false
+      isDeleteInProgress.value = false;
     }
   };
 

@@ -150,7 +150,7 @@ onMounted(() => {
         type="submit"
         :disabled="isLoading"
       >
-        Create
+        Save
       </AppButton>
     </div>
   </form>
