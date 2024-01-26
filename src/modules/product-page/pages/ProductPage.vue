@@ -11,6 +11,7 @@ import ConfirmModal from '@/components/ui/ConfirmModal.vue';
 import { ERoutesName } from '@/router';
 import { useRouter } from 'vue-router';
 import ProductNotFound from '@/components/products/ProductNotFound.vue';
+import ToggleFavouritesButton from '@/widgets/ToggleFavouriteButton/ToggleFavouritesButton.vue';
 
 const router = useRouter();
 
@@ -42,6 +43,10 @@ onMounted(() => {
 
     <div v-else-if="product">
       <div class="flex w-full justify-end gap-3">
+        <ToggleFavouritesButton
+          v-if="productFromStore?.canAddReview"
+          v-model="productFromStore"
+        />
         <IconButton
           v-if="product.canEdit"
           :icon="'bx:edit'"
