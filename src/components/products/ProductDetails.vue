@@ -39,11 +39,9 @@ defineProps<{
         </p>
         <p
           v-if="product.price"
-          v-price
+          v-price="product.price"
           class="text-2xl font-bold"
-        >
-          {{ product.price }}
-        </p>
+        ></p>
       </div>
     </div>
   </div>

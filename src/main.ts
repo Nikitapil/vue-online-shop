@@ -21,8 +21,9 @@ app.use(Vue3Toastify, {
   autoClose: 3000
 } as ToastContainerOptions);
 
-app.directive('price', (el) => {
-  el.textContent = formatPrice(el.textContent);
+app.directive<HTMLElement, number>('price', (el, bindings) => {
+  const value = bindings.value;
+  el.textContent = formatPrice(value);
 });
 
 app.mount('#app');

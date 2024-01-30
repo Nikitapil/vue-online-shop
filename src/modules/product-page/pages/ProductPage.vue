@@ -12,10 +12,12 @@ import { ERoutesName } from '@/router';
 import { useRouter } from 'vue-router';
 import ProductNotFound from '@/components/products/ProductNotFound.vue';
 import ToggleFavouritesButton from '@/widgets/ToggleFavouriteButton/ToggleFavouritesButton.vue';
+import { useAuthStore } from '@/modules/auth/authStore';
 
 const router = useRouter();
 
 const store = useProductPageStore();
+const authStore = useAuthStore();
 
 const { product: productFromStore } = storeToRefs(store);
 
@@ -44,7 +46,7 @@ onMounted(() => {
     <div v-else-if="product">
       <div class="flex w-full justify-end gap-3">
         <ToggleFavouritesButton
-          v-if="productFromStore?.canAddReview"
+          v-if="authStore.isAuthenticated && productFromStore"
           v-model="productFromStore"
         />
         <IconButton
