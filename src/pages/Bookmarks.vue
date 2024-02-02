@@ -2,7 +2,6 @@
 import { onMounted, ref } from 'vue';
 import axios from 'axios';
 import type { IBookmarksResponse, IProduct } from '@/types/sneakers';
-import CardList from '@/components/CardList.vue';
 
 const bookmarks = ref<IProduct[]>([]);
 
@@ -33,9 +32,5 @@ onMounted(async () => {
 <template>
   <div>
     <h2 class="text-3xl font-bold mb-5">Bookmarks</h2>
-    <CardList
-      :products="bookmarks"
-      @click-favourite="removeFromFavourites"
-    />
   </div>
 </template>

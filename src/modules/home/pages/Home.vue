@@ -1,100 +1,37 @@
 <script setup lang="ts">
-import CardList from '@/components/CardList.vue';
-import { onMounted, ref, watch } from 'vue';
-import type { IFavourite, IProduct, TProductFromMainResponse } from '@/types/sneakers';
-import axios from 'axios';
+import ProductList from '../../../widgets/ProductList/components/ProductList.vue';
+import { onMounted, ref } from 'vue';
 import AppButton from '@/components/ui/AppButton.vue';
 import { useAuthStore } from '@/modules/auth/authStore';
 import { ERoutesName } from '@/router';
+import { useProductList } from '@/widgets/ProductList/useProductList';
+import type { GetProductsParams } from '@/api/swagger/data-contracts';
 
 const authStore = useAuthStore();
 
-const emit = defineEmits<{
-  toggleAddedToCart: [IProduct];
-}>();
+const page = ref(1);
+const limit = ref(10);
+const categoryId = ref<GetProductsParams['categoryId']>(null);
+const priceSorting = ref<'asc' | 'desc' | ''>('');
+const search = ref('');
 
-const products = ref<IProduct[]>([]);
-
-const filters = ref({
-  sortBy: 'title',
-  searchQuery: ''
-});
-
-// TODO когда будет бэк корзины переделать и просто вызывать метод добавления в корзину
-const toggleAddedToCart = (product: IProduct) => {
-  emit('toggleAddedToCart', product);
-};
-
-// TODO get favourite flag in each product from backend
-const fetchFavourites = async () => {
-  try {
-    const { data } = await axios.get<IFavourite[]>('https://497194416390c6fe.mokky.dev/favourites');
-    products.value = products.value.map((product: IProduct) => {
-      const favourite = data.find((fav) => fav.item_id === product.id);
-      return {
-        ...product,
-        isFavorite: !!favourite,
-        favouriteId: favourite?.id || null
-      };
-    });
-  } catch (e) {
-    // TODO handle error
-    console.log(e);
-  }
-};
+const { loadProducts, products, totalProductsCount, isLoading } = useProductList();
 
 const fetchProducts = async () => {
-  try {
-    const { data } = await axios.get<TProductFromMainResponse[]>('https://497194416390c6fe.mokky.dev/items', {
-      params: {
-        sortBy: filters.value.sortBy,
-        title: `*${filters.value.searchQuery}*`
-      }
-    });
-
-    products.value = data.map((product) => ({
-      ...product,
-      isFavorite: false,
-      isAdded: false,
-      favouriteId: null
-    }));
-  } catch (e) {
-    // TODO handle error
-    console.log(e);
-  }
-};
-
-const toggleFavourite = async (item: IProduct) => {
-  try {
-    if (!item.isFavorite && !item.favouriteId) {
-      const { data } = await axios.post<IFavourite>('https://497194416390c6fe.mokky.dev/favourites', {
-        item_id: item.id
-      });
-      item.isFavorite = true;
-      item.favouriteId = data.id;
-    } else {
-      await axios.delete(`https://497194416390c6fe.mokky.dev/favourites/${item.favouriteId}`);
-      item.isFavorite = false;
-      item.favouriteId = null;
-    }
-  } catch (e) {
-    console.log(e);
-  }
-};
-
-const fetchProductsWithFavourites = async () => {
-  await fetchProducts();
-  await fetchFavourites();
+  await loadProducts({
+    page: page.value,
+    limit: limit.value,
+    categoryId: categoryId.value,
+    priceSorting: priceSorting.value || null,
+    search: search.value
+  });
 };
 
 onMounted(async () => {
-  // TODO to composition or pinia
-
-  await fetchProductsWithFavourites();
+  await fetchProducts();
 });
 
 //TODO do it by change and use debounce for input
-watch(filters, fetchProductsWithFavourites, { deep: true });
 </script>
 
 <template>
@@ -112,12 +49,12 @@ watch(filters, fetchProductsWithFavourites, { deep: true });
 
       <!--          TODO custom select-->
       <select
-        v-model="filters.sortBy"
+        v-model="priceSorting"
         class="cursor-pointer border rounded-md focus:border-gray-400 py-2 px-4"
       >
-        <option value="title">By name</option>
-        <option value="price">By price(chip)</option>
-        <option value="-price">By price(expensive)</option>
+        <option value="">By name</option>
+        <option value="asc">By price(chip)</option>
+        <option value="desc">By price(expensive)</option>
       </select>
 
       <div class="relative">
@@ -127,7 +64,7 @@ watch(filters, fetchProductsWithFavourites, { deep: true });
           alt="Search icon"
         />
         <input
-          v-model="filters.searchQuery"
+          v-model="search"
           class="border rounded-md py-2 pl-10 pr-4 outline-none focus:border-gray-400"
           type="text"
           placeholder="Search"
@@ -136,9 +73,5 @@ watch(filters, fetchProductsWithFavourites, { deep: true });
     </div>
   </div>
 
-  <CardList
-    :products="products"
-    @click-favourite="toggleFavourite"
-    @click-add-to-cart="toggleAddedToCart"
-  />
+  <ProductList :products="products" />
 </template>
