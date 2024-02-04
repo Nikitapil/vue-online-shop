@@ -57,6 +57,7 @@ onMounted(async () => {
       <select
         v-model="priceSorting"
         class="cursor-pointer border rounded-md focus:border-gray-400 py-2 px-4"
+        @change="fetchProducts"
       >
         <option value="">By name</option>
         <option value="asc">By price(chip)</option>
