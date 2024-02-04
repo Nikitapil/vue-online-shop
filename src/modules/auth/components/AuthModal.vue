@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Modal from '@/components/ui/Modal.vue';
 import AuthForm from '@/modules/auth/components/AuthForm.vue';
-const isOpen = defineModel();
+const isOpen = defineModel<boolean>();
 
 withDefaults(
   defineProps<{

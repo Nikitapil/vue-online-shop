@@ -16,6 +16,6 @@ const icon = computed(() => (product.value.isInFavorites ? 'mdi:heart' : 'mdi:he
     :icon="icon"
     color="red"
     :disabled="isLoading"
-    @click="toggleFavourite"
+    @click.stop="toggleFavourite"
   />
 </template>

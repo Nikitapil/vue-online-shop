@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { ProductReturnDto } from '@/api/swagger/data-contracts';
+import IconButton from '@/components/ui/IconButton.vue';
 import { useProduct } from '@/composables/useProduct';
 import { ERoutesName } from '@/router';
 import ToggleFavouritesButton from '@/widgets/ToggleFavouriteButton/ToggleFavouritesButton.vue';
@@ -27,6 +28,7 @@ const productData = useProduct(product);
     <ToggleFavouritesButton
       v-model="product"
       class="absolute top-8 left-8"
+      @click.prevent
     />
 
     <img
@@ -35,7 +37,7 @@ const productData = useProduct(product);
       alt="Sneaker"
     />
 
-    <p class="mt-2">{{ productData.name }}</p>
+    <h3 class="mt-2 text-xl font-bold">{{ productData.name }}</h3>
 
     <div class="flex justify-between mt-4">
       <div class="flex flex-col">
@@ -43,12 +45,12 @@ const productData = useProduct(product);
         <b v-price="product.price"></b>
       </div>
       <!--    TODO add to cart button-->
-      <button @click.stop="$emit('clickAddToCart')">
-        <img
-          :src="'/plus.svg'"
-          :alt="'Plus'"
-        />
-      </button>
+      <IconButton
+        class="self-center border rounded-lg hover:border-black transition-all duration-300 hover:bg-transparent"
+        icon="heroicons:plus"
+        color="gray"
+        @click.prevent
+      />
     </div>
   </RouterLink>
 </template>

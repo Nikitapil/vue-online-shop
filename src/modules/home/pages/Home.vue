@@ -31,7 +31,7 @@ onMounted(async () => {
   await fetchProducts();
 });
 
-//TODO do it by change and use debounce for input
+// TODO do it by change and use debounce for input
 </script>
 
 <template>
@@ -73,5 +73,8 @@ onMounted(async () => {
     </div>
   </div>
 
-  <ProductList :products="products" />
+  <ProductList
+    :products="products"
+    :is-loading="isLoading"
+  />
 </template>
