@@ -7,8 +7,16 @@ import { ERoutesName } from '@/router';
 import { useProductList } from '@/widgets/ProductList/useProductList';
 import type { GetProductsParams } from '@/api/swagger/data-contracts';
 import Pagination from '@/components/ui/Pagination.vue';
+import AppSelect from '@/components/ui/AppSelect/AppSelect.vue';
+import type { ISelectOptions } from '@/components/ui/AppSelect/types';
 
 const authStore = useAuthStore();
+
+const sortingOptions: ISelectOptions[] = [
+  { value: '', name: 'By name' },
+  { value: 'asc', name: 'By price(chip)' },
+  { value: 'desc', name: 'By price(expensive)' }
+];
 
 const page = ref(1);
 const limit = ref(10);
@@ -53,16 +61,14 @@ onMounted(async () => {
         Create Product
       </AppButton>
 
-      <!--          TODO custom select-->
-      <select
+      <AppSelect
         v-model="priceSorting"
-        class="cursor-pointer border rounded-md focus:border-gray-400 py-2 px-4"
+        :options="sortingOptions"
+        :disabled="isLoading"
+        :full="false"
+        name="price-sorting"
         @change="fetchProducts"
-      >
-        <option value="">By name</option>
-        <option value="asc">By price(chip)</option>
-        <option value="desc">By price(expensive)</option>
-      </select>
+      />
 
       <div class="relative">
         <img

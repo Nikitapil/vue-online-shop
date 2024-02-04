@@ -12,30 +12,43 @@ const props = withDefaults(
     disabled?: boolean;
     name: string;
     rules?: MaybeRef<RuleExpression<any>>;
+    full?: boolean;
   }>(),
   {
     options: () => [],
     placeholder: '',
     disabled: false,
-    rules: ''
+    rules: '',
+    full: true
   }
 );
+
+const emit = defineEmits<{
+  change: [string];
+}>();
 
 const { errorMessage, validate } = useField<string>(props.name, props.rules, {
   //@ts-ignore todo check that type
   syncVModel: value,
   validateOnValueUpdate: false
 });
+
+const onChange = async () => {
+  const { valid } = await validate();
+  if (valid) {
+    emit('change', value.value);
+  }
+};
 </script>
 
 <template>
   <select
     v-model="value"
-    class="w-full border outline-0 focus-visible:border-black py-1.5 px-2 rounded-md disabled:bg-gray-100 disabled:cursor-not-allowed transition duration-300"
+    class="border outline-0 focus-visible:border-black cursor-pointer rounded-md focus:border-gray-400 py-2 px-4"
     :name="name"
     :disabled="disabled"
-    :class="{ 'text-gray-400': !value }"
-    @change="() => validate()"
+    :class="{ 'text-gray-400': !value, 'w-full': full, 'border-red-400': errorMessage }"
+    @change="onChange"
   >
     <option
       v-if="placeholder && !value"
