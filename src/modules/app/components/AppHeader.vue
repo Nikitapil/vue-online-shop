@@ -18,7 +18,7 @@ defineEmits<{
 
 const isAuthModalOpen = ref(false);
 const isLogoutModalOpen = ref(false);
-const authModalType = ref('login');
+const authModalType = ref<'register' | 'login'>('login');
 
 const openAuthModal = (type: 'login' | 'register') => {
   authModalType.value = type;

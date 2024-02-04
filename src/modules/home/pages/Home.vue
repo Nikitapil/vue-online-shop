@@ -6,6 +6,7 @@ import { useAuthStore } from '@/modules/auth/authStore';
 import { ERoutesName } from '@/router';
 import { useProductList } from '@/widgets/ProductList/useProductList';
 import type { GetProductsParams } from '@/api/swagger/data-contracts';
+import Pagination from '@/components/ui/Pagination.vue';
 
 const authStore = useAuthStore();
 
@@ -25,6 +26,11 @@ const fetchProducts = async () => {
     priceSorting: priceSorting.value || null,
     search: search.value
   });
+};
+
+const changePage = (newPage: number) => {
+  page.value = newPage;
+  fetchProducts();
 };
 
 onMounted(async () => {
@@ -76,5 +82,12 @@ onMounted(async () => {
   <ProductList
     :products="products"
     :is-loading="isLoading"
+  />
+  <Pagination
+    class="mt-4"
+    :current-page="page"
+    :limit="limit"
+    :items-count="totalProductsCount"
+    @set-page="changePage"
   />
 </template>
