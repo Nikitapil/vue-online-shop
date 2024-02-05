@@ -9,6 +9,8 @@ import type { GetProductsParams } from '@/api/swagger/data-contracts';
 import Pagination from '@/components/ui/Pagination.vue';
 import AppSelect from '@/components/ui/AppSelect/AppSelect.vue';
 import type { ISelectOptions } from '@/components/ui/AppSelect/types';
+import SearchInput from '@/components/ui/SearchInput.vue';
+import { useDebounce } from '@/helpers/useDebounce';
 
 const authStore = useAuthStore();
 
@@ -35,6 +37,8 @@ const fetchProducts = async () => {
     search: search.value
   });
 };
+
+const debouncedFetchProducts = useDebounce(fetchProducts);
 
 const changePage = (newPage: number) => {
   page.value = newPage;
@@ -70,19 +74,10 @@ onMounted(async () => {
         @change="fetchProducts"
       />
 
-      <div class="relative">
-        <img
-          class="absolute left-3 top-3.5"
-          src="/search.svg"
-          alt="Search icon"
-        />
-        <input
-          v-model="search"
-          class="border rounded-md py-2 pl-10 pr-4 outline-none focus:border-gray-400"
-          type="text"
-          placeholder="Search"
-        />
-      </div>
+      <SearchInput
+        v-model="search"
+        @input="debouncedFetchProducts"
+      />
     </div>
   </div>
 
@@ -90,6 +85,7 @@ onMounted(async () => {
     :products="products"
     :is-loading="isLoading"
   />
+  <!-- TODO переделать pagination на v-model -->
   <Pagination
     class="mt-4"
     :current-page="page"
