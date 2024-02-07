@@ -38,12 +38,17 @@ const fetchProducts = async () => {
   });
 };
 
-const debouncedFetchProducts = useDebounce(fetchProducts);
-
 const changePage = (newPage: number) => {
   page.value = newPage;
   fetchProducts();
 };
+
+const resetPagination = () => (page.value = 1);
+
+const onSearch = useDebounce(() => {
+  resetPagination();
+  fetchProducts();
+});
 
 onMounted(async () => {
   await fetchProducts();
@@ -76,7 +81,7 @@ onMounted(async () => {
 
       <SearchInput
         v-model="search"
-        @input="debouncedFetchProducts"
+        @input="onSearch"
       />
     </div>
   </div>
