@@ -15,7 +15,7 @@ withDefaults(
 
 <template>
   <button
-    class="py-1.5 px-4 flex items-center justify-center disabled:opacity-30 disabled:cursor-not-allowed hover:opacity-80 rounded-md transition duration-300"
+    class="py-1.5 px-4 flex items-center min-w-fit justify-center disabled:opacity-30 disabled:cursor-not-allowed hover:opacity-80 rounded-md transition duration-300"
     :class="[appearance]"
     :type="type"
     :disabled="disabled"

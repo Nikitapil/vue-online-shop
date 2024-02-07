@@ -8,14 +8,22 @@ const props = withDefaults(
   defineProps<{
     disabled?: boolean;
     rules?: MaybeRef<RuleExpression<any>>;
+    full?: boolean;
   }>(),
   {
     disabled: false,
-    rules: ''
+    rules: '',
+    full: false
   }
 );
 
+defineEmits<{
+  change: [string];
+}>();
+
 const store = useCategoriesStore();
+
+const value = defineModel<string>({ default: '' });
 
 const isLoading = ref(false);
 
@@ -39,10 +47,13 @@ onMounted(async () => {
 
 <template>
   <AppSelect
+    v-model="value"
     :options="options"
     :disabled="isDisabled"
     :rules="rules"
+    :full="full"
     placeholder="Category"
     name="Category"
+    @change="$emit('change', value)"
   />
 </template>

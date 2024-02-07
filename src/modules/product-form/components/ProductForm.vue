@@ -126,6 +126,7 @@ onMounted(() => {
           v-model="product.categoryId"
           rules="required"
           :disabled="isLoading"
+          :full="true"
         />
       </div>
       <AppButton

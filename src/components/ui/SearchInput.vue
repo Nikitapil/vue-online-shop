@@ -1,6 +1,15 @@
 <script setup lang="ts">
 const value = defineModel<string>({ required: true });
 
+withDefaults(
+  defineProps<{
+    disabled?: boolean;
+  }>(),
+  {
+    disabled: false
+  }
+);
+
 defineEmits<{
   input: [string];
 }>();
@@ -15,8 +24,9 @@ defineEmits<{
     />
     <input
       v-model="value"
-      class="border rounded-md py-2 pl-10 pr-4 outline-none focus:border-gray-400"
+      class="border rounded-md py-2 pl-10 h-11 pr-4 outline-none focus:border-gray-400 disabled:bg-gray-100 disabled:cursor-not-allowed"
       type="text"
+      :disabled="disabled"
       placeholder="Search"
       @input="$emit('input', value)"
     />
