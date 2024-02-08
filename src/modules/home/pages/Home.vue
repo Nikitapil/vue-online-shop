@@ -1,16 +1,19 @@
 <script setup lang="ts">
+import { onMounted, ref, computed } from 'vue';
+
+import { useAuthStore } from '@/modules/auth/authStore';
+import { useProductList } from '@/widgets/ProductList/useProductList';
+import { useDebounce } from '@/helpers/useDebounce';
+
+import type { ISelectOptions } from '@/components/ui/AppSelect/types';
+import { ERoutesName } from '@/router';
+
 import CategoriesSelect from '../../categories/components/CategoriesSelect.vue';
 import ProductList from '../../../widgets/ProductList/components/ProductList.vue';
-import { onMounted, ref } from 'vue';
 import AppButton from '@/components/ui/AppButton.vue';
-import { useAuthStore } from '@/modules/auth/authStore';
-import { ERoutesName } from '@/router';
-import { useProductList } from '@/widgets/ProductList/useProductList';
 import Pagination from '@/components/ui/Pagination.vue';
 import AppSelect from '@/components/ui/AppSelect/AppSelect.vue';
-import type { ISelectOptions } from '@/components/ui/AppSelect/types';
 import SearchInput from '@/components/ui/SearchInput.vue';
-import { useDebounce } from '@/helpers/useDebounce';
 
 const authStore = useAuthStore();
 
@@ -20,13 +23,21 @@ const sortingOptions: ISelectOptions[] = [
   { value: 'desc', name: 'By price(expensive)' }
 ];
 
+const limitOptions: ISelectOptions[] = [
+  { value: '10', name: '10' },
+  { value: '20', name: '20' },
+  { value: '50', name: '50' }
+];
+
 const page = ref(1);
-const limit = ref(10);
+const limitValue = ref('10');
 const categoryId = ref<string>('');
 const priceSorting = ref<'asc' | 'desc' | ''>('');
 const search = ref('');
 
 const { loadProducts, products, totalProductsCount, isLoading } = useProductList();
+
+const limit = computed(() => +limitValue.value);
 
 const fetchProducts = async () => {
   await loadProducts({
@@ -55,11 +66,14 @@ const onChangeCategory = () => {
   fetchProducts();
 };
 
+const onChangeLimit = () => {
+  resetPagination();
+  fetchProducts();
+};
+
 onMounted(async () => {
   await fetchProducts();
 });
-
-// TODO do it by change and use debounce for input
 </script>
 
 <template>
@@ -104,12 +118,25 @@ onMounted(async () => {
     :is-loading="isLoading"
   />
   <!-- TODO переделать pagination на v-model -->
-  <Pagination
-    class="mt-4"
-    :current-page="page"
-    :limit="limit"
-    :items-count="totalProductsCount"
-    :disabled="isLoading"
-    @set-page="changePage"
-  />
+  <div class="flex justify-between items-center mt-2">
+    <Pagination
+      class="mt-4"
+      :current-page="page"
+      :limit="limit"
+      :items-count="totalProductsCount"
+      :disabled="isLoading"
+      @set-page="changePage"
+    />
+
+    <div class="flex items-center gap-2 ml-auto">
+      <span class="min-w-fit">Products per page</span>
+      <AppSelect
+        v-model="limitValue"
+        :options="limitOptions"
+        :disabled="isLoading"
+        name="limit"
+        @change="onChangeLimit"
+      />
+    </div>
+  </div>
 </template>
