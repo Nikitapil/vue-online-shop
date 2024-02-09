@@ -117,7 +117,7 @@ onMounted(async () => {
     :products="products"
     :is-loading="isLoading"
   />
-  <!-- TODO переделать pagination на v-model -->
+
   <div class="flex justify-between items-center mt-2">
     <Pagination
       class="mt-4"
