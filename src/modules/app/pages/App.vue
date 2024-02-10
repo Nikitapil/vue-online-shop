@@ -1,7 +1,6 @@
 <script setup lang="ts">
 // TODO adaptive
 // TODO real backend
-import Drawer from '@/components/Drawer.vue';
 import { computed, onMounted, ref } from 'vue';
 import type { IProduct } from '@/types/sneakers';
 import AppHeader from '@/modules/app/components/AppHeader.vue';
@@ -35,7 +34,6 @@ const toggleAddedToCart = (item: IProduct) => {
 };
 
 const openCart = () => (isCartOpened.value = true);
-const closeCart = () => (isCartOpened.value = false);
 
 onMounted(async () => {
   await authStore.refresh();
@@ -43,14 +41,6 @@ onMounted(async () => {
 </script>
 
 <template>
-  <Drawer
-    :is-opened="isCartOpened"
-    :products="cartProducts"
-    :cart-price="totalCartPrice"
-    @close-cart="closeCart"
-    @remove-from-cart="removeFromCart"
-  />
-
   <div class="w-4/5 m-auto bg-white rounded-xl shadow-xl my-10">
     <AppHeader
       :cart-price="totalCartPrice"

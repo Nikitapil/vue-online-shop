@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import Cart from '../../cart/components/Cart.vue';
 import AppButton from '@/components/ui/AppButton.vue';
 import { ref } from 'vue';
 import AuthModal from '@/modules/auth/components/AuthModal.vue';
@@ -54,15 +55,8 @@ const openAuthModal = (type: 'login' | 'register') => {
     <nav v-else-if="isAuthenticated">
       <ul class="flex gap-8 items-center">
         <!--        Todo refactor общие классы и изменить на кнопку-->
-        <li
-          class="flex gap-3 items-center text-slate-500 cursor-pointer hover:text-black"
-          @click="$emit('openCart')"
-        >
-          <img
-            src="/cart.svg"
-            alt="cart"
-          />
-          <b>{{ cartPrice }}₽</b>
+        <li>
+          <Cart />
         </li>
 
         <li>
