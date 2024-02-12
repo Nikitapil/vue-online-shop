@@ -1,5 +1,19 @@
+<script setup lang="ts">
+withDefaults(
+  defineProps<{
+    size?: 'sm' | 'md';
+  }>(),
+  {
+    size: 'md'
+  }
+);
+</script>
+
 <template>
-  <div class="loader"></div>
+  <div
+    class="loader"
+    :class="[size]"
+  ></div>
 </template>
 
 <style scoped>
@@ -12,6 +26,12 @@
   display: inline-block;
   box-sizing: border-box;
   animation: rotation 1s linear infinite;
+
+  &.sm {
+    width: 25px;
+    height: 25px;
+    border-width: 3px;
+  }
 }
 
 @keyframes rotation {

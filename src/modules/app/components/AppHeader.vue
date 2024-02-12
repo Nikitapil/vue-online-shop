@@ -8,13 +8,8 @@ import LogoutModal from '@/modules/auth/components/LogoutModal.vue';
 import IconButton from '@/components/ui/IconButton.vue';
 
 defineProps<{
-  cartPrice: number;
   isAuthenticated: boolean;
   isAuthLoading: boolean;
-}>();
-
-defineEmits<{
-  openCart: [];
 }>();
 
 const isAuthModalOpen = ref(false);

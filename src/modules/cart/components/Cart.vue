@@ -1,14 +1,29 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue';
-import { ref } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import Drawer from '@/components/ui/Drawer.vue';
+import { useCartStore } from '../cartStore';
+import RoundedLoaderVue from '@/components/ui/loaders/RoundedLoader.vue';
+import EmptyState from '@/components/EmptyState.vue';
 
-const cartPrice = 0;
+const store = useCartStore();
+
 const isOpened = ref(false);
+
+const cartPrice = computed(() => store.cart?.price || 0);
+const products = computed(() => store.cart?.productInCart || []);
+
+onMounted(() => {
+  store.loadCart();
+});
 </script>
 
 <template>
-  <div>
+  <RoundedLoaderVue
+    v-if="store.isCartLoading"
+    size="sm"
+  />
+  <div v-else>
     <button
       class="flex gap-1 items-center text-slate-500 cursor-pointer hover:text-black transition-all duration-300"
       @click="isOpened = true"
@@ -23,6 +38,13 @@ const isOpened = ref(false);
     <Drawer
       v-model="isOpened"
       title="Cart"
-    />
+    >
+      <EmptyState
+        v-if="!products.length"
+        title="Cart is empty"
+        image-url="/package-icon.png"
+        description="Add at least one product to make an order"
+      />
+    </Drawer>
   </div>
 </template>
