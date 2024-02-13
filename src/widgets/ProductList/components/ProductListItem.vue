@@ -2,6 +2,7 @@
 import type { ProductReturnDto } from '@/api/swagger/data-contracts';
 import IconButton from '@/components/ui/IconButton.vue';
 import { useProduct } from '@/composables/useProduct';
+import AddToCart from '@/modules/cart/components/AddToCart.vue';
 import { ERoutesName } from '@/router';
 import ToggleFavouritesButton from '@/widgets/ToggleFavouriteButton/ToggleFavouritesButton.vue';
 import { toRefs } from 'vue';
@@ -40,13 +41,18 @@ const productData = useProduct(product);
         <span class="text-slate-400">Price:</span>
         <b v-price="product.price"></b>
       </div>
-      <!--    TODO add to cart button-->
-      <IconButton
-        class="self-center border rounded-lg hover:border-black transition-all duration-300 hover:bg-transparent"
-        icon="heroicons:plus"
-        color="gray"
-        @click.prevent
-      />
+      <AddToCart
+        v-slot="{ clickHandler, isLoading }"
+        :product-id="product.id"
+      >
+        <IconButton
+          class="self-center border rounded-lg hover:border-black transition-all duration-300 hover:bg-transparent"
+          icon="heroicons:plus"
+          color="gray"
+          :disabled="isLoading"
+          @click.prevent="clickHandler"
+        />
+      </AddToCart>
     </div>
   </RouterLink>
 </template>

@@ -26,12 +26,12 @@ withDefaults(
   display: inline-block;
   box-sizing: border-box;
   animation: rotation 1s linear infinite;
+}
 
-  &.sm {
-    width: 25px;
-    height: 25px;
-    border-width: 3px;
-  }
+.loader.sm {
+  width: 25px;
+  height: 25px;
+  border-width: 3px;
 }
 
 @keyframes rotation {

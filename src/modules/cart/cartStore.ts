@@ -31,5 +31,5 @@ export const useCartStore = defineStore('cart', () => {
     }
   };
 
-  return { cart, isCartLoading, loadCart, addToCart };
+  return { cart, isCartLoading, isAddToCartInProgress, loadCart, addToCart };
 });
