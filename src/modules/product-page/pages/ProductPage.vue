@@ -13,6 +13,8 @@ import { useRouter } from 'vue-router';
 import ProductNotFound from '@/components/products/ProductNotFound.vue';
 import ToggleFavouritesButton from '@/widgets/ToggleFavouriteButton/ToggleFavouritesButton.vue';
 import { useAuthStore } from '@/modules/auth/authStore';
+import AddToCart from '@/modules/cart/components/AddToCart.vue';
+import AppButton from '@/components/ui/AppButton.vue';
 
 const router = useRouter();
 
@@ -45,6 +47,18 @@ onMounted(() => {
 
     <div v-else-if="product">
       <div class="flex w-full justify-end gap-3">
+        <AddToCart
+          v-slot="{ clickHandler }"
+          :product-id="product.id"
+          need-to-notify
+        >
+          <AppButton
+            appearance="secondary"
+            @click="clickHandler"
+          >
+            Add to cart +
+          </AppButton>
+        </AddToCart>
         <ToggleFavouritesButton
           v-if="authStore.isAuthenticated && productFromStore"
           v-model="productFromStore"
