@@ -48,10 +48,11 @@ onMounted(async () => {
 </script>
 
 <template>
-  <AuthProtected>
+  <AuthProtected :admitted-roles="['ADMIN']">
     <EmptyStateCentered v-if="isLoading">
       <RoundedLoader />
     </EmptyStateCentered>
+
     <ProductForm
       v-else-if="product && initialImageFile"
       title="Edit product"
