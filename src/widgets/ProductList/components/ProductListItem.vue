@@ -44,6 +44,7 @@ const productData = useProduct(product);
       <AddToCart
         v-slot="{ clickHandler, isLoading }"
         :product-id="product.id"
+        need-to-notify
       >
         <IconButton
           class="self-center border rounded-lg hover:border-black transition-all duration-300 hover:bg-transparent"

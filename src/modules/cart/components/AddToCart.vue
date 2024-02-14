@@ -1,14 +1,24 @@
 <script setup lang="ts">
+import { toast } from 'vue3-toastify';
 import { useCartStore } from '../cartStore';
 
 const store = useCartStore();
 
-const props = defineProps<{
-  productId: string;
-}>();
+const props = withDefaults(
+  defineProps<{
+    productId: string;
+    needToNotify?: boolean;
+  }>(),
+  {
+    needToNotify: false
+  }
+);
 
-const addToCart = () => {
-  store.addToCart(props.productId);
+const addToCart = async () => {
+  const isAdded = await store.addToCart(props.productId);
+  if (isAdded && props.needToNotify) {
+    toast.success('Added to cart');
+  }
 };
 </script>
 

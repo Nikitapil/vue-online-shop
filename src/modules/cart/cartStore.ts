@@ -24,8 +24,10 @@ export const useCartStore = defineStore('cart', () => {
     try {
       isAddToCartInProgress.value = true;
       cart.value = await api.addToCart({ productId });
+      return true;
     } catch (e: any) {
       toast.error(e?.response?.data?.message || 'Error');
+      return false;
     } finally {
       isAddToCartInProgress.value = false;
     }
