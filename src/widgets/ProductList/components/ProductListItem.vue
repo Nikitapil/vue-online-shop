@@ -5,13 +5,13 @@ import { useProduct } from '@/composables/useProduct';
 import AddToCart from '@/modules/cart/components/AddToCart.vue';
 import { ERoutesName } from '@/router';
 import ToggleFavouritesButton from '@/widgets/ToggleFavouriteButton/ToggleFavouritesButton.vue';
-import { toRefs } from 'vue';
+import { computed } from 'vue';
 
 const props = defineProps<{
   product: ProductReturnDto;
 }>();
 
-const { product } = toRefs(props);
+const product = computed(() => props.product);
 
 const productData = useProduct(product);
 </script>
@@ -23,6 +23,7 @@ const productData = useProduct(product);
     class="relative flex flex-col bg-white border border-slate-100 rounded-3xl p-8 cursor-pointer hover:-translate-y-2 hover:shadow-xl transition duration-300"
   >
     <ToggleFavouritesButton
+      v-if="product.canAddToFavourites"
       v-model="product"
       class="absolute top-3 left-3"
       @click.prevent

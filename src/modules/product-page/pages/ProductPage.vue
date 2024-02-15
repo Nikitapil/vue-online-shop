@@ -12,14 +12,12 @@ import { ERoutesName } from '@/router';
 import { useRouter } from 'vue-router';
 import ProductNotFound from '@/components/products/ProductNotFound.vue';
 import ToggleFavouritesButton from '@/widgets/ToggleFavouriteButton/ToggleFavouritesButton.vue';
-import { useAuthStore } from '@/modules/auth/authStore';
 import AddToCart from '@/modules/cart/components/AddToCart.vue';
 import AppButton from '@/components/ui/AppButton.vue';
 
 const router = useRouter();
 
 const store = useProductPageStore();
-const authStore = useAuthStore();
 
 const { product: productFromStore } = storeToRefs(store);
 
@@ -60,7 +58,7 @@ onMounted(() => {
           </AppButton>
         </AddToCart>
         <ToggleFavouritesButton
-          v-if="authStore.isAuthenticated && productFromStore"
+          v-if="productFromStore?.canAddToFavourites"
           v-model="productFromStore"
         />
         <IconButton

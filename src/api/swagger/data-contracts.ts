@@ -125,6 +125,8 @@ export interface ProductReturnDto {
   canEdit: boolean;
   /** Can delete product flag */
   canDelete: boolean;
+  /** Can add to favourites */
+  canAddToFavourites: boolean;
 }
 
 export interface UpdateProductBody {
