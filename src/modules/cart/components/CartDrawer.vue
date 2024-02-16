@@ -43,8 +43,7 @@ const createOrder = async () => {
   }
 };
 </script>
-<!-- TODO make this component universal and decompose cart logic in another component-->
-<!--TODO закрытие по клику-->
+<!-- TODO Delete this component -->
 <template>
   <div
     v-if="isOpened"
