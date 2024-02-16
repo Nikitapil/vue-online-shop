@@ -4,7 +4,7 @@ import { ref, onMounted, computed } from 'vue';
 import Drawer from '@/components/ui/Drawer.vue';
 import { useCartStore } from '../cartStore';
 import RoundedLoaderVue from '@/components/ui/loaders/RoundedLoader.vue';
-import EmptyState from '@/components/EmptyState.vue';
+import EmptyStateCentered from '@/components/ui/EmptyStateCentered.vue';
 
 const store = useCartStore();
 
@@ -39,12 +39,17 @@ onMounted(() => {
       v-model="isOpened"
       title="Cart"
     >
-      <EmptyState
-        v-if="!products.length"
-        title="Cart is empty"
-        image-url="/package-icon.png"
-        description="Add at least one product to make an order"
-      />
+      <EmptyStateCentered v-if="!products.length">
+        <div class="h-full flex flex-col justify-center items-center">
+          <Icon
+            class="w-96 h-96"
+            icon="raphael:package"
+            color="#dda61f"
+          />
+          <h2 class="mt-4 text-2xl font-medium">Cart is empty</h2>
+          <p class="text-slate-500 mt-2">Add at least one product to make an order</p>
+        </div>
+      </EmptyStateCentered>
     </Drawer>
   </div>
 </template>
