@@ -205,7 +205,10 @@ export interface CartReturnDto {
   taxSum: number;
 }
 
-export type RemoveFromCartDto = object;
+export interface RemoveFromCartDto {
+  /** id of product that will be removed from cart */
+  productInCartId: string;
+}
 
 export interface CreateOrderDto {
   /** user address */
@@ -215,8 +218,6 @@ export interface CreateOrderDto {
   /** order comment */
   comment?: string;
 }
-
-export type CreateOrderReturnDto = object;
 
 export interface ProductInOrderReturnDto {
   /** product in order id */
@@ -254,6 +255,13 @@ export interface OrderReturnDto {
   productsInOrder: ProductInOrderReturnDto[];
   /** order cancel reason */
   cancelReason: string | null;
+}
+
+export interface CreateOrderReturnDto {
+  /** Order object */
+  order: OrderReturnDto;
+  /** updated cart after create order */
+  cart: CartReturnDto;
 }
 
 export interface GetOrdersReturnDto {

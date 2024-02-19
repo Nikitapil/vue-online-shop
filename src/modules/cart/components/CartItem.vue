@@ -3,16 +3,17 @@ import type { ProductInCartReturnDto } from '@/api/swagger/data-contracts';
 import IconButton from '@/components/ui/IconButton.vue';
 import { useProduct } from '@/composables/useProduct';
 import { toRef } from 'vue';
+import AddToCart from './AddToCart.vue';
 
 const props = defineProps<{
-  product: ProductInCartReturnDto;
+  productInCart: ProductInCartReturnDto;
 }>();
 
 defineEmits<{
   removeFromCart: [];
 }>();
 
-const product = useProduct(toRef(props.product.product));
+const product = useProduct(toRef(props.productInCart.product));
 </script>
 
 <template>
@@ -28,21 +29,28 @@ const product = useProduct(toRef(props.product.product));
 
     <div class="flex flex-col gap-2">
       <p>{{ product.name }}</p>
-      <!--      TODO buttons for increase count and decrease count-->
       <div class="flex justify-between">
-        <b>{{ product.price }}₽</b>
+        <b v-price="product.price"></b>
       </div>
     </div>
 
     <div class="ml-auto flex gap-4">
-      <IconButton
-        class="border"
-        icon="mynaui:plus"
-      />
-      <p>{{ props.product.count }}</p>
+      <AddToCart
+        v-slot="{ clickHandler, isLoading }"
+        :product-id="product.id"
+      >
+        <IconButton
+          class="border"
+          icon="mynaui:plus"
+          :disabled="isLoading"
+          @click="clickHandler"
+        />
+      </AddToCart>
+      <p>{{ props.productInCart.count }}</p>
       <IconButton
         class="border"
         icon="mynaui:minus"
+        @click="$emit('removeFromCart')"
       />
     </div>
   </div>

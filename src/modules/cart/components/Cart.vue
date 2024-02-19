@@ -58,7 +58,9 @@ onMounted(() => {
           <CartItem
             v-for="product in products"
             :key="product.id"
-            :product="product"
+            :product-in-cart="product"
+            class="mb-3"
+            @remove-from-cart="store.removeFromCart(product.id)"
           />
         </div>
 

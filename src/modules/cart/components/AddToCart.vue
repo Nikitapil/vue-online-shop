@@ -38,7 +38,7 @@ const addToCart = async () => {
 <template>
   <slot
     :clickHandler="addToCart"
-    :isLoading="store.isCartLoading || store.isAddToCartInProgress"
+    :isLoading="store.isCartLoading || store.isChangeInCartCountInProgress"
   />
   <Teleport to="body">
     <AuthModal v-model="isShowAuthModal" />

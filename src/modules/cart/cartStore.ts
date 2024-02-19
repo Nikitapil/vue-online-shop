@@ -7,7 +7,7 @@ import { toast } from 'vue3-toastify';
 export const useCartStore = defineStore('cart', () => {
   const cart = ref<CartReturnDto | null>(null);
   const isCartLoading = ref(false);
-  const isAddToCartInProgress = ref(false);
+  const isChangeInCartCountInProgress = ref(false);
 
   const loadCart = async () => {
     try {
@@ -22,16 +22,27 @@ export const useCartStore = defineStore('cart', () => {
 
   const addToCart = async (productId: string) => {
     try {
-      isAddToCartInProgress.value = true;
+      isChangeInCartCountInProgress.value = true;
       cart.value = await api.addToCart({ productId });
       return true;
     } catch (e: any) {
       toast.error(e?.response?.data?.message || 'Error');
       return false;
     } finally {
-      isAddToCartInProgress.value = false;
+      isChangeInCartCountInProgress.value = false;
     }
   };
 
-  return { cart, isCartLoading, isAddToCartInProgress, loadCart, addToCart };
+  const removeFromCart = async (productInCartId: string) => {
+    try {
+      isChangeInCartCountInProgress.value = true;
+      cart.value = await api.removeFromCart({ productInCartId });
+    } catch (e: any) {
+      toast.error(e?.response?.data?.message || 'Error');
+    } finally {
+      isChangeInCartCountInProgress.value = false;
+    }
+  };
+
+  return { cart, isCartLoading, isChangeInCartCountInProgress, loadCart, addToCart, removeFromCart };
 });
