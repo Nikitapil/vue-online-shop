@@ -6,10 +6,13 @@ import { useCartStore } from '../cartStore';
 import RoundedLoaderVue from '@/components/ui/loaders/RoundedLoader.vue';
 import EmptyStateCentered from '@/components/ui/EmptyStateCentered.vue';
 import CartItem from './CartItem.vue';
+import CreateOrderModal from './CreateOrderModal.vue';
+import AppButton from '@/components/ui/AppButton.vue';
 
 const store = useCartStore();
 
 const isOpened = ref(false);
+const isCreateOrderModalOpened = ref(false);
 
 const cartPrice = computed(() => store.cart?.price || 0);
 const tax = computed(() => store.cart?.taxSum);
@@ -68,23 +71,25 @@ onMounted(() => {
           <div class="flex gap-2">
             <span>Summary: </span>
             <div class="flex-1 border-b border-dashed"></div>
-            <b>{{ cartPrice }} ₽</b>
+            <b v-price="cartPrice"></b>
           </div>
 
           <div class="flex gap-2">
+            <!-- TODO add tax setting from backend -->
             <span>Tax 5%: </span>
             <div class="flex-1 border-b border-dashed"></div>
-            <b>{{ tax }} ₽</b>
+            <b v-price="tax"></b>
           </div>
         </div>
-        <!-- <button
-          :disabled="isMakeOrderDisabled"
-          class="bg-lime-500 w-full rounded-xl py-3 text-white hover:bg-lime-600 transition duration-300 active:bg-lime-700 disabled:bg-slate-300"
-          @click="createOrder"
+        <AppButton
+          appearance="success"
+          :disabled="false"
+          @click="isCreateOrderModalOpened = true"
         >
-          {{ makeOrderButtonText }}
-        </button> -->
+          Make an order
+        </AppButton>
       </template>
     </Drawer>
+    <CreateOrderModal v-model="isCreateOrderModalOpened" />
   </div>
 </template>

@@ -1,0 +1,3 @@
+.input {
+    @apply w-full border outline-0 focus-visible:border-black py-1 px-2 rounded-md disabled:bg-gray-100 disabled:cursor-not-allowed transition duration-300
+}

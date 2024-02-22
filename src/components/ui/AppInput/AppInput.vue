@@ -50,7 +50,7 @@ const maskOptions = computed(() => masks[props.mask]);
       v-model="value"
       v-maska:[maskOptions]
       :name="name"
-      class="w-full border outline-0 focus-visible:border-black py-1 px-2 rounded-md disabled:bg-gray-100 disabled:cursor-not-allowed transition duration-300"
+      class="input"
       :class="{ 'border-red-500': !!errorMessage }"
       :type="type"
       :placeholder="placeholder"
@@ -65,3 +65,7 @@ const maskOptions = computed(() => masks[props.mask]);
     </p>
   </div>
 </template>
+
+<style scoped>
+@import './style.css';
+</style>
