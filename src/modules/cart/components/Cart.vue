@@ -8,6 +8,8 @@ import EmptyStateCentered from '@/components/ui/EmptyStateCentered.vue';
 import CartItem from './CartItem.vue';
 import CreateOrderModal from './CreateOrderModal.vue';
 import AppButton from '@/components/ui/AppButton.vue';
+import type { CreateOrderDto } from '@/api/swagger/data-contracts';
+import { toast } from 'vue3-toastify';
 
 const store = useCartStore();
 
@@ -17,6 +19,17 @@ const isCreateOrderModalOpened = ref(false);
 const cartPrice = computed(() => store.cart?.price || 0);
 const tax = computed(() => store.cart?.taxSum);
 const products = computed(() => store.cart?.productInCart || []);
+const isCreateOrderDisabled = computed(
+  () => store.isChangeInCartCountInProgress || store.isCartLoading || store.isCreateOrderInProgress
+);
+
+const onCreateOrder = async (orderData: CreateOrderDto) => {
+  const isCreated = await store.createOrder(orderData);
+  if (isCreated) {
+    isCreateOrderModalOpened.value = false;
+    toast.success('Order created');
+  }
+};
 
 onMounted(() => {
   store.loadCart();
@@ -62,6 +75,7 @@ onMounted(() => {
             v-for="product in products"
             :key="product.id"
             :product-in-cart="product"
+            :is-removing-in-progress="store.isChangeInCartCountInProgress"
             class="mb-3"
             @remove-from-cart="store.removeFromCart(product.id)"
           />
@@ -83,13 +97,16 @@ onMounted(() => {
         </div>
         <AppButton
           appearance="success"
-          :disabled="false"
+          :disabled="isCreateOrderDisabled"
           @click="isCreateOrderModalOpened = true"
         >
           Make an order
         </AppButton>
       </template>
     </Drawer>
-    <CreateOrderModal v-model="isCreateOrderModalOpened" />
+    <CreateOrderModal
+      v-model="isCreateOrderModalOpened"
+      @create="onCreateOrder"
+    />
   </div>
 </template>

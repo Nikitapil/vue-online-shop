@@ -1,5 +1,5 @@
 import { api } from '@/api/apiInstance';
-import type { CartReturnDto } from '@/api/swagger/data-contracts';
+import type { CartReturnDto, CreateOrderDto } from '@/api/swagger/data-contracts';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import { toast } from 'vue3-toastify';
@@ -8,6 +8,7 @@ export const useCartStore = defineStore('cart', () => {
   const cart = ref<CartReturnDto | null>(null);
   const isCartLoading = ref(false);
   const isChangeInCartCountInProgress = ref(false);
+  const isCreateOrderInProgress = ref(false);
 
   const loadCart = async () => {
     try {
@@ -44,5 +45,28 @@ export const useCartStore = defineStore('cart', () => {
     }
   };
 
-  return { cart, isCartLoading, isChangeInCartCountInProgress, loadCart, addToCart, removeFromCart };
+  const createOrder = async (orderData: CreateOrderDto) => {
+    try {
+      isCreateOrderInProgress.value = true;
+      const { cart: cartResponse } = await api.createOrder(orderData);
+      cart.value = cartResponse;
+      return true;
+    } catch (e: any) {
+      toast.error(e?.response?.data?.message || 'Error');
+      return false;
+    } finally {
+      isCreateOrderInProgress.value = false;
+    }
+  };
+
+  return {
+    cart,
+    isCartLoading,
+    isChangeInCartCountInProgress,
+    isCreateOrderInProgress,
+    loadCart,
+    addToCart,
+    removeFromCart,
+    createOrder
+  };
 });

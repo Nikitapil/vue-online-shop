@@ -5,9 +5,15 @@ import { useProduct } from '@/composables/useProduct';
 import { toRef } from 'vue';
 import AddToCart from './AddToCart.vue';
 
-const props = defineProps<{
-  productInCart: ProductInCartReturnDto;
-}>();
+const props = withDefaults(
+  defineProps<{
+    productInCart: ProductInCartReturnDto;
+    isRemovingInProgress?: boolean;
+  }>(),
+  {
+    isRemovingInProgress: false
+  }
+);
 
 defineEmits<{
   removeFromCart: [];
@@ -50,6 +56,7 @@ const product = useProduct(toRef(props.productInCart.product));
       <IconButton
         class="border"
         icon="mynaui:minus"
+        :disabled="props.isRemovingInProgress"
         @click="$emit('removeFromCart')"
       />
     </div>

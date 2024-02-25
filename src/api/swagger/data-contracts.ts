@@ -33,6 +33,10 @@ export interface UserReturnDto {
   roles: ('ADMIN' | 'USER')[];
   /** user cartId */
   cartId: string;
+  /** user address */
+  address?: string | null;
+  /** user phone */
+  phone?: string | null;
 }
 
 export interface AuthResponseDto {

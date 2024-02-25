@@ -49,12 +49,13 @@ const passwordMatchValidation = () => {
 };
 
 const register = async () => {
-  const { email, password, name, address } = form.value;
+  const { email, password, name, address, phone } = form.value;
   await authStore.register({
     email,
     password,
     name,
-    address
+    address,
+    phone
   });
 };
 
