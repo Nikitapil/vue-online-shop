@@ -11,6 +11,10 @@ import type { CreateOrderDto } from '@/api/swagger/data-contracts';
 const isOpened = defineModel<boolean>();
 const authStore = useAuthStore();
 
+const props = defineProps<{
+  isLoading: boolean;
+}>();
+
 const emit = defineEmits<{
   create: [CreateOrderDto];
 }>();
@@ -34,9 +38,11 @@ const onSubmit = async () => {
 </script>
 
 <template>
+  <!-- TODO loaders -->
   <Modal
     v-model="isOpened"
     size="md"
+    :prevent-close="props.isLoading"
   >
     <form
       class="flex flex-col gap-3"
@@ -50,6 +56,7 @@ const onSubmit = async () => {
         label="Delivery address"
         placeholder="Enter delivery address"
         rules="required"
+        :disabled="props.isLoading"
       />
       <AppInput
         id="phone"
@@ -58,17 +65,25 @@ const onSubmit = async () => {
         label="Your contact phone"
         placeholder="Enter contact phone"
         rules="required"
+        :disabled="props.isLoading"
       />
       <AppTextarea
         id="commet"
         label="Comment"
         placeholder="Enter comment for order"
+        :disabled="props.isLoading"
       />
       <div class="flex gap-3 justify-end">
-        <AppButton @click="isOpened = false">Cancel</AppButton>
+        <AppButton
+          :disabled="props.isLoading"
+          @click="isOpened = false"
+        >
+          Cancel
+        </AppButton>
         <AppButton
           appearance="success"
           type="submit"
+          :disabled="props.isLoading"
         >
           Create
         </AppButton>

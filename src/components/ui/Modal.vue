@@ -3,16 +3,22 @@ import IconButton from '@/components/ui/IconButton.vue';
 
 const isOpen = defineModel<boolean>();
 
-const closeModal = () => (isOpen.value = false);
-
-withDefaults(
+const props = withDefaults(
   defineProps<{
     size?: 'sm' | 'md' | 'lg';
+    preventClose?: boolean;
   }>(),
   {
-    size: 'lg'
+    size: 'lg',
+    preventClose: false
   }
 );
+
+const onClose = () => {
+  if (!props.preventClose) {
+    isOpen.value = false;
+  }
+};
 </script>
 
 <template>
@@ -25,7 +31,7 @@ withDefaults(
     <div
       v-if="isOpen"
       class="fixed top-0 left-0 z-30 w-full min-h-screen h-full bg-black/80"
-      @click="closeModal"
+      @click="onClose"
     ></div>
   </transition>
   <transition
@@ -40,10 +46,13 @@ withDefaults(
       :class="size"
       @click.stop
     >
-      <div class="absolute right-0 top-0">
+      <div
+        v-if="!props.preventClose"
+        class="absolute right-0 top-0"
+      >
         <IconButton
           icon="entypo:cross"
-          @click="closeModal"
+          @click="onClose"
         />
       </div>
       <slot />

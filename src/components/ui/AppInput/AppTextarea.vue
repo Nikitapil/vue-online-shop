@@ -6,10 +6,12 @@ const props = withDefaults(
     id: string;
     label?: string;
     placeholder?: string;
+    disabled?: boolean;
   }>(),
   {
     label: '',
-    placeholder: ''
+    placeholder: '',
+    disabled: false
   }
 );
 </script>
@@ -30,6 +32,7 @@ const props = withDefaults(
       class="input resize-none"
       rows="4"
       :placeholder="props.placeholder"
+      :disabled="props.disabled"
     ></textarea>
   </div>
 </template>

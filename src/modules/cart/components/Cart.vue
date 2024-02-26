@@ -27,6 +27,7 @@ const onCreateOrder = async (orderData: CreateOrderDto) => {
   const isCreated = await store.createOrder(orderData);
   if (isCreated) {
     isCreateOrderModalOpened.value = false;
+    // TODO order link
     toast.success('Order created');
   }
 };
@@ -106,6 +107,7 @@ onMounted(() => {
     </Drawer>
     <CreateOrderModal
       v-model="isCreateOrderModalOpened"
+      :is-loading="store.isCreateOrderInProgress"
       @create="onCreateOrder"
     />
   </div>
