@@ -9,11 +9,13 @@ const props = withDefaults(
     disabled?: boolean;
     rules?: MaybeRef<RuleExpression<any>>;
     full?: boolean;
+    emptyOptionEnabled?: boolean;
   }>(),
   {
     disabled: false,
     rules: '',
-    full: false
+    full: false,
+    emptyOptionEnabled: false
   }
 );
 
@@ -29,12 +31,22 @@ const isLoading = ref(false);
 
 const isDisabled = computed(() => props.disabled || isLoading.value);
 
-const options = computed(() =>
-  store.categories.map((category) => ({
+const options = computed(() => {
+  const opts = store.categories.map((category) => ({
     name: category.name,
     value: category.id
-  }))
-);
+  }));
+  if (props.emptyOptionEnabled) {
+    return [
+      {
+        name: 'Reset',
+        value: ''
+      },
+      ...opts
+    ];
+  }
+  return opts;
+});
 
 onMounted(async () => {
   if (!store.categories.length) {

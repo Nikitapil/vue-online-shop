@@ -87,6 +87,7 @@ onMounted(async () => {
       <CategoriesSelect
         v-model="categoryId"
         :disabled="isLoading"
+        empty-option-enabled
         @change="onChangeCategory"
       />
 
