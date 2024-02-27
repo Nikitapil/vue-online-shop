@@ -1,7 +1,7 @@
 import EditProductPage from '@/modules/product-form/pages/EditProductPage.vue';
 import { createRouter, createWebHistory } from 'vue-router';
 import Home from '@/modules/home/pages/Home.vue';
-import Bookmarks from '@/pages/Bookmarks.vue';
+import Bookmarks from '@/modules/Bookmarks/pages/Bookmarks.vue';
 import CreateProductPage from '@/modules/product-form/pages/CreateProductPage.vue';
 import ProductPage from '@/modules/product-page/pages/ProductPage.vue';
 

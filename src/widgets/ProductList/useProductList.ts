@@ -1,5 +1,10 @@
 import { api } from '@/api/apiInstance';
-import type { GetProductsParams, ProductReturnDto } from '@/api/swagger/data-contracts';
+import type {
+  GetFavoriteProductsParams,
+  GetProductsParams,
+  GetProductsReturnDto,
+  ProductReturnDto
+} from '@/api/swagger/data-contracts';
 import { ref } from 'vue';
 import { toast } from 'vue3-toastify';
 
@@ -8,10 +13,10 @@ export const useProductList = () => {
   const totalProductsCount = ref(0);
   const isLoading = ref(false);
 
-  const loadProducts = async (params: GetProductsParams) => {
+  const callGetProductsMethod = async (method: () => Promise<GetProductsReturnDto>) => {
     try {
       isLoading.value = true;
-      const response = await api.getProducts(params);
+      const response = await method();
       products.value = response.products;
       totalProductsCount.value = response.totalCount;
     } catch (e: any) {
@@ -19,6 +24,10 @@ export const useProductList = () => {
     } finally {
       isLoading.value = false;
     }
+  };
+
+  const loadProducts = async (params: GetProductsParams) => {
+    await callGetProductsMethod(() => api.getProducts(params));
   };
 
   return { products, totalProductsCount, isLoading, loadProducts };

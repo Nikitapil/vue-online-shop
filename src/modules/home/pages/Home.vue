@@ -11,9 +11,9 @@ import { ERoutesName } from '@/router';
 import CategoriesSelect from '../../categories/components/CategoriesSelect.vue';
 import ProductList from '../../../widgets/ProductList/components/ProductList.vue';
 import AppButton from '@/components/ui/AppButton.vue';
-import Pagination from '@/components/ui/Pagination.vue';
 import AppSelect from '@/components/ui/AppSelect/AppSelect.vue';
 import SearchInput from '@/components/ui/SearchInput.vue';
+import ProductsPagination from '@/components/products/ProductsPagination.vue';
 
 const authStore = useAuthStore();
 
@@ -21,12 +21,6 @@ const sortingOptions: ISelectOptions[] = [
   { value: '', name: 'By name' },
   { value: 'asc', name: 'By price(chip)' },
   { value: 'desc', name: 'By price(expensive)' }
-];
-
-const limitOptions: ISelectOptions[] = [
-  { value: '10', name: '10' },
-  { value: '20', name: '20' },
-  { value: '50', name: '50' }
 ];
 
 const page = ref(1);
@@ -118,25 +112,13 @@ onMounted(async () => {
     :is-loading="isLoading"
   />
 
-  <div class="flex justify-between items-center mt-2">
-    <Pagination
-      class="mt-4"
-      :current-page="page"
-      :limit="limit"
-      :items-count="totalProductsCount"
-      :disabled="isLoading"
-      @set-page="changePage"
-    />
-
-    <div class="flex items-center gap-2 ml-auto">
-      <span class="min-w-fit">Products per page</span>
-      <AppSelect
-        v-model="limitValue"
-        :options="limitOptions"
-        :disabled="isLoading"
-        name="limit"
-        @change="onChangeLimit"
-      />
-    </div>
-  </div>
+  <ProductsPagination
+    v-model:limitValue="limitValue"
+    :current-page="page"
+    :limit="limit"
+    :total-products-count="totalProductsCount"
+    :is-loading="isLoading"
+    @change-page="changePage"
+    @change-limit="onChangeLimit"
+  />
 </template>
