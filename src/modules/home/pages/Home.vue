@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref, computed } from 'vue';
+import { onMounted, ref } from 'vue';
 
 import { useAuthStore } from '@/modules/auth/authStore';
 import { useProductList } from '@/widgets/ProductList/useProductList';
@@ -31,12 +31,10 @@ const search = ref('');
 
 const { loadProducts, products, totalProductsCount, isLoading } = useProductList();
 
-const limit = computed(() => +limitValue.value);
-
 const fetchProducts = async () => {
   await loadProducts({
     page: page.value,
-    limit: limit.value,
+    limit: +limitValue.value,
     categoryId: categoryId.value,
     priceSorting: priceSorting.value || null,
     search: search.value
@@ -116,7 +114,6 @@ onMounted(async () => {
   <ProductsPagination
     v-model:limitValue="limitValue"
     :current-page="page"
-    :limit="limit"
     :total-products-count="totalProductsCount"
     :is-loading="isLoading"
     @change-page="changePage"

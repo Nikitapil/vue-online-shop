@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed } from 'vue';
 import AppSelect from '../ui/AppSelect/AppSelect.vue';
 import type { ISelectOptions } from '../ui/AppSelect/types';
 import Pagination from '../ui/Pagination.vue';
@@ -9,11 +10,10 @@ const limitOptions: ISelectOptions[] = [
   { value: '50', name: '50' }
 ];
 
-const limitValue = defineModel<string>('limitValue');
+const limitValue = defineModel<string>('limitValue', { required: true });
 
 const props = defineProps<{
   currentPage: number;
-  limit: number;
   totalProductsCount: number;
   isLoading: boolean;
 }>();
@@ -22,6 +22,8 @@ defineEmits<{
   changePage: [number];
   changeLimit: [string];
 }>();
+
+const limit = computed(() => +limitValue.value);
 </script>
 
 <template>
@@ -29,7 +31,7 @@ defineEmits<{
     <Pagination
       class="mt-4"
       :current-page="props.currentPage"
-      :limit="props.limit"
+      :limit="limit"
       :items-count="props.totalProductsCount"
       :disabled="props.isLoading"
       @set-page="$emit('changePage', $event)"

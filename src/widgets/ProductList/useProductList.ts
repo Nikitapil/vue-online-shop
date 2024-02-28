@@ -30,5 +30,9 @@ export const useProductList = () => {
     await callGetProductsMethod(() => api.getProducts(params));
   };
 
-  return { products, totalProductsCount, isLoading, loadProducts };
+  const loadFavoriteProducts = async (params: GetFavoriteProductsParams) => {
+    await callGetProductsMethod(() => api.getFavoriteProducts(params));
+  };
+
+  return { products, totalProductsCount, isLoading, loadProducts, loadFavoriteProducts };
 };
