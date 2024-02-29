@@ -20,7 +20,7 @@ defineProps<{
   </EmptyStateCentered>
 
   <EmptyStateCentered v-else-if="!products.length">
-    <p class="text-2xl">Products not found</p>
+    <p class="text-2xl">There are no products</p>
   </EmptyStateCentered>
 
   <div
