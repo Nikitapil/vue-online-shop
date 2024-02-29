@@ -37,7 +37,10 @@ const limit = computed(() => +limitValue.value);
       @set-page="$emit('changePage', $event)"
     />
 
-    <div class="flex items-center gap-2 ml-auto">
+    <div
+      v-if="totalProductsCount > 10"
+      class="flex items-center gap-2 ml-auto"
+    >
       <span class="min-w-fit">Products per page</span>
       <AppSelect
         v-model="limitValue"
