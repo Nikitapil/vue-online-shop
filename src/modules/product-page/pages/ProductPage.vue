@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import ProductReviewForm from '../components/ProductReviewForm.vue';
 import { useProductPageStore } from '@/modules/product-page/useProductPageStore';
 import { onMounted, ref } from 'vue';
 import ProductDetails from '@/components/products/ProductDetails.vue';
@@ -74,7 +75,11 @@ onMounted(() => {
           @click="isDeleteModalOpened = true"
         />
       </div>
-      <ProductDetails :product="product" />
+      <ProductDetails
+        class="mb-5"
+        :product="product"
+      />
+      <ProductReviewForm />
       <ConfirmModal
         v-model="isDeleteModalOpened"
         title="Do you want to delete this product?"
