@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import AppButton from '@/components/ui/AppButton.vue';
 import AppTextarea from '@/components/ui/AppInput/AppTextarea.vue';
+import StarRating from '@/components/ui/StarRating.vue';
 </script>
 <template>
   <form
@@ -8,6 +9,7 @@ import AppTextarea from '@/components/ui/AppInput/AppTextarea.vue';
     @submit.prevent
   >
     <h2 class="mb-2 font-bold">Add product review</h2>
+    <StarRating name="product-rating" />
     <AppTextarea
       id="review-input"
       placeholder="Your review..."
