@@ -79,7 +79,10 @@ onMounted(() => {
         class="mb-5"
         :product="product"
       />
-      <ProductReviewForm />
+      <ProductReviewForm
+        v-if="product.canAddReview"
+        :is-loading="store.isAddProductReviewInProgress"
+      />
       <ConfirmModal
         v-model="isDeleteModalOpened"
         title="Do you want to delete this product?"

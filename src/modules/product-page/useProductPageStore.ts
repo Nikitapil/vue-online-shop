@@ -4,11 +4,13 @@ import type { ProductReturnDto } from '@/api/swagger/data-contracts';
 import { api } from '@/api/apiInstance';
 import { useRoute } from 'vue-router';
 import { toast } from 'vue3-toastify';
+import { type CreateReviewDto } from '../../api/swagger/data-contracts';
 
 export const useProductPageStore = defineStore('ProductPage', () => {
   const product = ref<ProductReturnDto | null>(null);
   const isProductLoading = ref(false);
   const isDeleteInProgress = ref(false);
+  const isAddProductReviewInProgress = ref(false);
 
   const route = useRoute();
 
@@ -40,9 +42,31 @@ export const useProductPageStore = defineStore('ProductPage', () => {
     }
   };
 
+  const addProductReview = async (params: CreateReviewDto) => {
+    if (!product.value) {
+      return;
+    }
+    try {
+      isAddProductReviewInProgress.value = true;
+      await api.createReview(params);
+    } catch (e: any) {
+      toast.error(e?.response?.data?.message || 'Error');
+    } finally {
+      isAddProductReviewInProgress.value = false;
+    }
+  };
+
   const init = async () => {
     await loadProduct();
   };
 
-  return { product, isProductLoading, isDeleteInProgress, init, deleteProduct };
+  return {
+    product,
+    isProductLoading,
+    isDeleteInProgress,
+    isAddProductReviewInProgress,
+    init,
+    deleteProduct,
+    addProductReview
+  };
 });

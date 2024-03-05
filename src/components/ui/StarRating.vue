@@ -6,9 +6,11 @@ const props = withDefaults(
   defineProps<{
     count?: number;
     name: string;
+    disabled?: boolean;
   }>(),
   {
-    count: 5
+    count: 5,
+    disabled: false
   }
 );
 </script>
@@ -33,6 +35,7 @@ const props = withDefaults(
         :id="`${props.name}_${radio}`"
         v-model="value"
         :name="props.name"
+        :disabled="props.disabled"
         :value="radio"
         type="radio"
         hidden
@@ -50,5 +53,14 @@ const props = withDefaults(
 .star:has(~ .star:hover) ::v-deep(path),
 .star:has(~ input:checked) ::v-deep(path) {
   fill: #e4d828;
+}
+
+.star:hover ~ .star ::v-deep(path) {
+  fill: transparent;
+}
+
+.star:has(+ input:disabled) {
+  pointer-events: none;
+  cursor: not-allowed;
 }
 </style>
