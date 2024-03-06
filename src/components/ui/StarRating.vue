@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { Icon } from '@iconify/vue/dist/iconify.js';
-const value = defineModel<number>();
+const value = defineModel<number>({ required: true });
 
 const props = withDefaults(
   defineProps<{
@@ -13,6 +13,10 @@ const props = withDefaults(
     disabled: false
   }
 );
+
+defineEmits<{
+  change: [number];
+}>();
 </script>
 
 <template>
@@ -39,6 +43,7 @@ const props = withDefaults(
         :value="radio"
         type="radio"
         hidden
+        @input="$emit('change', value)"
       />
     </template>
   </div>

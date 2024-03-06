@@ -4,7 +4,11 @@ import type { ProductReturnDto } from '@/api/swagger/data-contracts';
 import { api } from '@/api/apiInstance';
 import { useRoute } from 'vue-router';
 import { toast } from 'vue3-toastify';
-import { type CreateReviewDto } from '../../api/swagger/data-contracts';
+
+interface IAddReviewParams {
+  rating: number;
+  comment: string;
+}
 
 export const useProductPageStore = defineStore('ProductPage', () => {
   const product = ref<ProductReturnDto | null>(null);
@@ -42,13 +46,16 @@ export const useProductPageStore = defineStore('ProductPage', () => {
     }
   };
 
-  const addProductReview = async (params: CreateReviewDto) => {
+  const addProductReview = async ({ comment, rating }: IAddReviewParams) => {
     if (!product.value) {
       return;
     }
     try {
       isAddProductReviewInProgress.value = true;
-      await api.createReview(params);
+      const review = await api.createReview({ productId: product.value.id, text: comment, rating });
+      if (review) {
+        product.value.canAddReview = false;
+      }
     } catch (e: any) {
       toast.error(e?.response?.data?.message || 'Error');
     } finally {

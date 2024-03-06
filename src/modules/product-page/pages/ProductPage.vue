@@ -82,6 +82,7 @@ onMounted(() => {
       <ProductReviewForm
         v-if="product.canAddReview"
         :is-loading="store.isAddProductReviewInProgress"
+        @add-review="store.addProductReview"
       />
       <ConfirmModal
         v-model="isDeleteModalOpened"
