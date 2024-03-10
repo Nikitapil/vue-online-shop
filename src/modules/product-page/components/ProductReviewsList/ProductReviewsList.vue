@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import ProductReviewListItem from './ProductReviewListItem.vue';
+import RoundedLoader from '../../../../components/ui/loaders/RoundedLoader.vue';
 import EmptyStateCentered from '../../../../components/ui/EmptyStateCentered.vue';
 import ProductReviewForm from './ProductReviewForm.vue';
 import ProductsPagination from '@/components/products/ProductsPagination.vue';
@@ -32,14 +34,17 @@ onMounted(() => {
   <div v-else>
     <ProductReviewForm
       v-if="props.canAddReview && !store.isReviewAdded"
+      class="mb-2"
       :is-loading="store.isAddReviewInProgress"
       @add-review="store.addProductReview"
     />
-    <div
-      v-for="review in store.reviews"
-      :key="review.id"
-    >
-      {{ review.text }}
+    <div class="p-3 bg-gray-100 rounded-md mb-2">
+      <ProductReviewListItem
+        v-for="review in store.reviews"
+        :key="review.id"
+        :review="review"
+        class="mb-2"
+      />
     </div>
     <ProductsPagination
       v-model:limit-value="limitValue"
