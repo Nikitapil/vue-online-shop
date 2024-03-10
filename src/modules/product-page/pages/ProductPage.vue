@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ProductReviewForm from '../components/ProductReviewForm.vue';
+import ProductReviewsList from '../components/ProductReviewsList/ProductReviewsList.vue';
 import { useProductPageStore } from '@/modules/product-page/useProductPageStore';
 import { onMounted, ref } from 'vue';
 import ProductDetails from '@/components/products/ProductDetails.vue';
@@ -79,10 +79,9 @@ onMounted(() => {
         class="mb-5"
         :product="product"
       />
-      <ProductReviewForm
-        v-if="product.canAddReview"
-        :is-loading="store.isAddProductReviewInProgress"
-        @add-review="store.addProductReview"
+      <ProductReviewsList
+        :product-id="product.id"
+        :can-add-review="product.canAddReview"
       />
       <ConfirmModal
         v-model="isDeleteModalOpened"
@@ -93,3 +92,4 @@ onMounted(() => {
     </div>
   </div>
 </template>
+../components/ProductReviewsList/ProductReviewForm.vue
