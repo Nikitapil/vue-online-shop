@@ -3,14 +3,15 @@ import { computed } from 'vue';
 import AppSelect from '../ui/AppSelect/AppSelect.vue';
 import type { ISelectOptions } from '../ui/AppSelect/types';
 import Pagination from '../ui/Pagination.vue';
+import { EPaginationLimits } from '@/domain/components';
 
-const limitOptions: ISelectOptions[] = [
-  { value: '10', name: '10' },
-  { value: '20', name: '20' },
-  { value: '50', name: '50' }
+const limitOptions: ISelectOptions<EPaginationLimits>[] = [
+  { value: EPaginationLimits.TEN, name: '10' },
+  { value: EPaginationLimits.TWENTY, name: '20' },
+  { value: EPaginationLimits.FIFTY, name: '50' }
 ];
 
-const limitValue = defineModel<string>('limitValue', { required: true });
+const limitValue = defineModel<EPaginationLimits>('limitValue', { required: true });
 const currentPage = defineModel<number>('page', { required: true });
 
 const props = defineProps<{

@@ -14,6 +14,7 @@ import AppButton from '@/components/ui/AppButton.vue';
 import AppSelect from '@/components/ui/AppSelect/AppSelect.vue';
 import SearchInput from '@/components/ui/SearchInput.vue';
 import ProductsPagination from '@/components/products/ProductsPagination.vue';
+import { EPaginationLimits } from '@/domain/components';
 
 const authStore = useAuthStore();
 
@@ -24,7 +25,7 @@ const sortingOptions: ISelectOptions[] = [
 ];
 
 const page = ref(1);
-const limitValue = ref('10');
+const limitValue = ref<EPaginationLimits>(EPaginationLimits.TEN);
 const categoryId = ref<string>('');
 const priceSorting = ref<'asc' | 'desc' | ''>('');
 const search = ref('');
