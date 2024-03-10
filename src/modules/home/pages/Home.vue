@@ -41,11 +41,6 @@ const fetchProducts = async () => {
   });
 };
 
-const changePage = (newPage: number) => {
-  page.value = newPage;
-  fetchProducts();
-};
-
 const resetPagination = () => (page.value = 1);
 
 const onSearch = useDebounce(() => {
@@ -54,11 +49,6 @@ const onSearch = useDebounce(() => {
 });
 
 const onChangeCategory = () => {
-  resetPagination();
-  fetchProducts();
-};
-
-const onChangeLimit = () => {
   resetPagination();
   fetchProducts();
 };
@@ -113,10 +103,9 @@ onMounted(async () => {
 
   <ProductsPagination
     v-model:limitValue="limitValue"
-    :current-page="page"
-    :total-products-count="totalProductsCount"
+    v-model:page="page"
+    :total-count="totalProductsCount"
     :is-loading="isLoading"
-    @change-page="changePage"
-    @change-limit="onChangeLimit"
+    @paginate="fetchProducts"
   />
 </template>

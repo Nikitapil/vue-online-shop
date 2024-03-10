@@ -11,34 +11,43 @@ const limitOptions: ISelectOptions[] = [
 ];
 
 const limitValue = defineModel<string>('limitValue', { required: true });
+const currentPage = defineModel<number>('page', { required: true });
 
 const props = defineProps<{
-  currentPage: number;
-  totalProductsCount: number;
+  totalCount: number;
   isLoading: boolean;
 }>();
 
-defineEmits<{
-  changePage: [number];
-  changeLimit: [string];
+const emit = defineEmits<{
+  paginate: [];
 }>();
 
 const limit = computed(() => +limitValue.value);
+
+const onChangePage = (p: number) => {
+  currentPage.value = p;
+  emit('paginate');
+};
+
+const onChangeLimit = () => {
+  currentPage.value = 1;
+  emit('paginate');
+};
 </script>
 
 <template>
   <div class="flex justify-between items-center mt-2">
     <Pagination
       class="mt-4"
-      :current-page="props.currentPage"
+      :current-page="currentPage"
       :limit="limit"
-      :items-count="props.totalProductsCount"
+      :items-count="props.totalCount"
       :disabled="props.isLoading"
-      @set-page="$emit('changePage', $event)"
+      @set-page="onChangePage"
     />
 
     <div
-      v-if="totalProductsCount > 10"
+      v-if="props.totalCount > 10"
       class="flex items-center gap-2 ml-auto"
     >
       <span class="min-w-fit">Products per page</span>
@@ -47,7 +56,7 @@ const limit = computed(() => +limitValue.value);
         :options="limitOptions"
         :disabled="isLoading"
         name="limit"
-        @change="$emit('changeLimit', $event)"
+        @change="onChangeLimit"
       />
     </div>
   </div>

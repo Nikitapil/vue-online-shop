@@ -10,14 +10,14 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits<{
-  loadProducts: [{ page: number; limit: number }];
+  loadReviews: [{ page: number; limit: number }];
 }>();
 
 const page = ref(1);
 const limitValue = ref('10');
 
 const onPaginate = () => {
-  emit('loadProducts', { page: page.value, limit: +limitValue.value });
+  emit('loadReviews', { page: page.value, limit: +limitValue.value });
 };
 
 const onChangePage = (newPage: number) => {
