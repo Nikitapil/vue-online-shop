@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { ProductReviewReturnDto } from '@/api/swagger/data-contracts';
-import { Icon } from '@iconify/vue/dist/iconify.js';
+import StarIcon from '@/components/ui/icons/StarIcon.vue';
 import { computed } from 'vue';
 
 const props = defineProps<{
@@ -17,11 +17,7 @@ const date = computed(() => new Date(props.review.createdAt).toLocaleDateString(
     </h2>
     <div class="flex items-center pl-2">
       <p>{{ review.rating }}</p>
-      <Icon
-        class="w-7 h-7"
-        icon="ant-design:star-filled"
-        color="#e4d828"
-      />
+      <StarIcon />
     </div>
     <p class="pl-2">{{ props.review.text }}</p>
   </div>

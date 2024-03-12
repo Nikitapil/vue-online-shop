@@ -92,4 +92,3 @@ onMounted(() => {
     </div>
   </div>
 </template>
-../components/ProductReviewsList/ProductReviewForm.vue

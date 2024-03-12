@@ -38,12 +38,15 @@ onMounted(() => {
       :is-loading="store.isAddReviewInProgress"
       @add-review="store.addProductReview"
     />
-    <div class="p-3 bg-gray-100 rounded-md mb-2">
+    <div
+      v-if="store.reviews.length"
+      class="p-3 bg-gray-100 rounded-md mb-2"
+    >
       <ProductReviewListItem
         v-for="review in store.reviews"
         :key="review.id"
         :review="review"
-        class="mb-2"
+        class="mb-3"
       />
     </div>
     <ProductsPagination

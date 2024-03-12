@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { ProductReturnDto } from '@/api/swagger/data-contracts';
 import IconButton from '@/components/ui/IconButton.vue';
+import StarIcon from '@/components/ui/icons/StarIcon.vue';
 import { useProduct } from '@/composables/useProduct';
 import AddToCart from '@/modules/cart/components/AddToCart.vue';
 import { ERoutesName } from '@/router';
@@ -20,7 +21,7 @@ const productData = useProduct(product);
   <RouterLink
     v-if="productData"
     :to="{ name: ERoutesName.PRODUCT, params: { id: product.id } }"
-    class="relative flex flex-col bg-white border border-slate-100 rounded-3xl p-8 cursor-pointer hover:-translate-y-2 hover:shadow-xl transition duration-300"
+    class="relative flex flex-col bg-white border border-slate-100 rounded-3xl p-8 pt-10 cursor-pointer hover:-translate-y-2 hover:shadow-xl transition duration-300"
   >
     <ToggleFavouritesButton
       v-if="product.canAddToFavourites"
@@ -28,6 +29,14 @@ const productData = useProduct(product);
       class="absolute top-3 left-3"
       @click.prevent
     />
+
+    <div
+      v-if="product.rating"
+      class="absolute top-3 right-3 flex"
+    >
+      {{ product.rating }}
+      <StarIcon />
+    </div>
 
     <img
       v-if="productData.imageUrl"
