@@ -66,13 +66,13 @@ export const useProductReviewsListStore = defineStore('ProductReviews', () => {
       return;
     }
     try {
-      isDeleteReviewInprogress.value = true;
+      isDeleteReviewInProgress.value = true;
       await api.deleteReview(id);
       await getProductReviews({ page: 1, limit: 10 });
     } catch (e: any) {
       toast.error(e?.response?.data?.message || 'Error');
     } finally {
-      isDeleteReviewInprogress.value = false;
+      isDeleteReviewInProgress.value = false;
     }
   };
 
