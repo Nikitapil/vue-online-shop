@@ -18,6 +18,7 @@ export const useProductReviewsListStore = defineStore('ProductReviews', () => {
   const productId = ref<string | null>(null);
   const isReviewsLoading = ref(false);
   const isAddReviewInProgress = ref(false);
+  const isDeleteReviewInProgress = ref(false);
   const reviews = ref<ProductReviewReturnDto[]>([]);
   const totalCount = ref(0);
   const isReviewAdded = ref(false);
@@ -60,6 +61,21 @@ export const useProductReviewsListStore = defineStore('ProductReviews', () => {
     }
   };
 
+  const deleteProductReview = async (id: string) => {
+    if (productId.value === null) {
+      return;
+    }
+    try {
+      isDeleteReviewInprogress.value = true;
+      await api.deleteReview(id);
+      await getProductReviews({ page: 1, limit: 10 });
+    } catch (e: any) {
+      toast.error(e?.response?.data?.message || 'Error');
+    } finally {
+      isDeleteReviewInprogress.value = false;
+    }
+  };
+
   const init = (productIdParam: string) => {
     productId.value = productIdParam;
     getProductReviews({ page: 1, limit: 10 });
@@ -70,9 +86,11 @@ export const useProductReviewsListStore = defineStore('ProductReviews', () => {
     totalCount,
     isReviewsLoading,
     isAddReviewInProgress,
+    isDeleteReviewInProgress,
     isReviewAdded,
     init,
     getProductReviews,
-    addProductReview
+    addProductReview,
+    deleteProductReview
   };
 });
