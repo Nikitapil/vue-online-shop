@@ -71,7 +71,7 @@ onMounted(() => {
       </EmptyStateCentered>
 
       <template v-else-if="products.length">
-        <div class="flex-1">
+        <div class="flex-1 max-h-full overflow-auto">
           <CartItem
             v-for="product in products"
             :key="product.id"
