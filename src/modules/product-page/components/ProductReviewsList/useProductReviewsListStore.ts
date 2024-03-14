@@ -69,6 +69,7 @@ export const useProductReviewsListStore = defineStore('ProductReviews', () => {
       isDeleteReviewInProgress.value = true;
       await api.deleteReview(id);
       await getProductReviews({ page: 1, limit: 10 });
+      isReviewAdded.value = false;
     } catch (e: any) {
       toast.error(e?.response?.data?.message || 'Error');
     } finally {

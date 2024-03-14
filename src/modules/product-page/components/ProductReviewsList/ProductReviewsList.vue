@@ -46,7 +46,9 @@ onMounted(() => {
         v-for="review in store.reviews"
         :key="review.id"
         :review="review"
+        :is-delete-review-in-progress="store.isDeleteReviewInProgress"
         class="mb-3"
+        @delete="store.deleteProductReview(review.id)"
       />
     </div>
     <ProductsPagination
