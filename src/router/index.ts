@@ -4,13 +4,15 @@ import Home from '@/modules/home/pages/Home.vue';
 import Bookmarks from '@/modules/Bookmarks/pages/Bookmarks.vue';
 import CreateProductPage from '@/modules/product-form/pages/CreateProductPage.vue';
 import ProductPage from '@/modules/product-page/pages/ProductPage.vue';
+import AdminOrders from '@/modules/admin-orders/pages/AdminOrders.vue';
 
 export enum ERoutesName {
   HOME = 'home',
   BOOKMARKS = 'bookmarks',
   CREATE_PRODUCT = 'create-product',
   EDIT_PRODUCT = 'edit-product',
-  PRODUCT = 'product'
+  PRODUCT = 'product',
+  ADMIN_ORDERS = 'admin-orders'
 }
 
 export const router = createRouter({
@@ -40,6 +42,11 @@ export const router = createRouter({
       path: '/product/:id',
       component: ProductPage,
       name: ERoutesName.PRODUCT
+    },
+    {
+      path: '/admin/orders',
+      component: AdminOrders,
+      name: ERoutesName.ADMIN_ORDERS
     }
   ]
 });
