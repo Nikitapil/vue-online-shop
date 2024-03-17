@@ -1,5 +1,9 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import AuthProtected from '@/modules/auth/components/AuthProtected.vue';
+</script>
 
 <template>
-  <h1>AdminOrders</h1>
+  <AuthProtected :admitted-roles="['ADMIN']">
+    <h1>AdminOrders</h1>
+  </AuthProtected>
 </template>
