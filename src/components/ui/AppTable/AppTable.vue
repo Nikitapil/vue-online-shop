@@ -1,10 +1,11 @@
-<script setup lang="ts" generic="T extends IColumn">
-import type { IColumn } from './types';
+<script setup lang="ts" generic="C extends IColumn, D extends IDataSource">
+import type { IColumn, IDataSource } from './types';
 
 const sort = defineModel<string>();
 
 const props = defineProps<{
-  columns: T[];
+  columns: C[];
+  dataSource: D[];
 }>();
 
 const emit = defineEmits<{
@@ -39,5 +40,24 @@ const onSort = (column: IColumn) => {
         </th>
       </tr>
     </thead>
+    <tbody>
+      <tr
+        v-for="data in dataSource"
+        :key="data.key"
+      >
+        <td
+          v-for="dataCol in columns"
+          :key="data.key + dataCol.key"
+          class="border border-l-0 first-of-type:border p-2"
+        >
+          <slot
+            :name="dataCol.contentSlotName"
+            :content="data"
+          >
+            {{ data[dataCol.key as keyof typeof data] || '' }}
+          </slot>
+        </td>
+      </tr>
+    </tbody>
   </table>
 </template>
