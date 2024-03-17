@@ -1,6 +1,4 @@
-type TColumnRecord = Record<string, any>;
-
-export interface IColumn extends TColumnRecord {
+export interface IColumn {
   key: string;
   title?: string;
   columnSlotName?: string;
