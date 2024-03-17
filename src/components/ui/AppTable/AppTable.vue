@@ -1,7 +1,7 @@
 <script setup lang="ts" generic="C extends IColumn, D extends IDataSource">
 import type { IColumn, IDataSource } from './types';
 
-const sort = defineModel<string>();
+const sort = defineModel<string>('sort');
 
 const props = defineProps<{
   columns: C[];
@@ -23,7 +23,7 @@ const onSort = (column: IColumn) => {
 <template>
   <table class="w-full shadow-lg border-separate border-spacing-0">
     <thead>
-      <tr class="text-xl">
+      <tr>
         <th
           v-for="column in props.columns"
           :key="column.key"

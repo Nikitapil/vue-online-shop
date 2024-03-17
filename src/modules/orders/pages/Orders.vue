@@ -8,12 +8,22 @@ const tableColumns = [
     title: '#'
   },
   {
-    key: 'second',
-    title: 'Second'
+    key: 'createdAt',
+    title: 'Created at',
+    sortable: true
   },
   {
-    key: 'third',
-    title: 'Thirm'
+    key: 'updatedAt',
+    title: 'Updated at',
+    sortable: true
+  },
+  {
+    key: 'price',
+    title: 'Total price'
+  },
+  {
+    key: 'status',
+    title: 'Status'
   }
 ];
 
@@ -28,8 +38,8 @@ const dataSource = [
 </script>
 
 <template>
-  <AuthProtected :admitted-roles="['ADMIN']">
-    <h1>AdminOrders</h1>
+  <AuthProtected>
+    <h1 class="text-center text-xl mb-2">Orders list</h1>
     <AppTable
       :columns="tableColumns"
       :data-source="dataSource"
