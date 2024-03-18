@@ -53,6 +53,7 @@ const onSort = (column: IColumn) => {
           <slot
             :name="dataCol.contentSlotName"
             :content="data"
+            :columnKey="dataCol.key as keyof typeof data"
           >
             {{ data[dataCol.key as keyof typeof data] || '' }}
           </slot>

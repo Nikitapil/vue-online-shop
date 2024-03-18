@@ -16,15 +16,18 @@ const tableColumns: IColumn[] = [
   {
     key: 'createdAt',
     title: 'Created at',
+    contentSlotName: 'dateContent',
     sortable: true
   },
   {
     key: 'updatedAt',
     title: 'Updated at',
+    contentSlotName: 'dateContent',
     sortable: true
   },
   {
     key: 'price',
+    contentSlotName: 'priceContent',
     title: 'Total price'
   },
   {
@@ -73,6 +76,14 @@ onMounted(() => {
             {{ content.id }}
           </RouterLink>
         </div>
+      </template>
+
+      <template #dateContent="{ content, columnKey }">
+        <div v-date="{ date: content[columnKey] }"></div>
+      </template>
+
+      <template #priceContent="{ content }">
+        <div v-price="content.price"></div>
       </template>
     </AppTable>
   </AuthProtected>

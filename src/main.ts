@@ -22,7 +22,7 @@ app.use(validation);
 app.use(Vue3Toastify, {
   autoClose: 3000
 } as ToastContainerOptions);
-
+// TODO read about typing for global directives, now they all are any in components
 app.directive('price', price);
 app.directive('tooltip', tooltip);
 app.directive('date', date);
