@@ -3,7 +3,7 @@ import AppTable from '@/components/ui/AppTable/AppTable.vue';
 import AuthProtected from '@/modules/auth/components/AuthProtected.vue';
 import { onMounted, ref } from 'vue';
 import { useOrdersStore } from '../OrdersStore';
-import { IColumn } from '@/components/ui/AppTable/types';
+import type { IColumn } from '@/components/ui/AppTable/types';
 
 const store = useOrdersStore();
 
@@ -61,10 +61,13 @@ onMounted(() => {
       :data-source="store.dataSource"
       @sort="loadOrders"
     >
-      <template #id="{ column }">
-        <div class="text-md max-w-[100px]">
-          {{ column.title }}
-        </div>
+      <template #idContent="{ content }">
+        <RouterLink
+          :to="`/orders/${content.id}`"
+          class="text-md block underline max-w-[100px] truncate"
+        >
+          {{ content.id }}
+        </RouterLink>
       </template>
     </AppTable>
   </AuthProtected>
