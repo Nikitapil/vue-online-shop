@@ -1,11 +1,17 @@
 <script setup lang="ts">
 import AppTable from '@/components/ui/AppTable/AppTable.vue';
 import AuthProtected from '@/modules/auth/components/AuthProtected.vue';
+import { onMounted, ref } from 'vue';
+import { useOrdersStore } from '../OrdersStore';
+import { IColumn } from '@/components/ui/AppTable/types';
 
-const tableColumns = [
+const store = useOrdersStore();
+
+const tableColumns: IColumn[] = [
   {
     key: 'id',
-    title: '#'
+    title: '#',
+    contentSlotName: 'idContent'
   },
   {
     key: 'createdAt',
@@ -27,25 +33,36 @@ const tableColumns = [
   }
 ];
 
-const dataSource = [
-  {
-    key: '1',
-    id: 'qwerty',
-    second: 'qaz',
-    third: 'wsx'
-  }
-];
+const order = ref<'createdAt' | 'updatedAt'>('createdAt');
+const page = ref(1);
+const limit = ref(10);
+const status = ref(null);
+
+const loadOrders = () => {
+  store.getOrders({
+    page: page.value,
+    limit: limit.value,
+    order: order.value,
+    status: status.value
+  });
+};
+
+onMounted(() => {
+  loadOrders();
+});
 </script>
 
 <template>
   <AuthProtected>
     <h1 class="text-center text-xl mb-2">Orders list</h1>
     <AppTable
+      v-model:sort="order"
       :columns="tableColumns"
-      :data-source="dataSource"
+      :data-source="store.dataSource"
+      @sort="loadOrders"
     >
-      <template #first="{ column }">
-        <div class="text-red-500">
+      <template #id="{ column }">
+        <div class="text-md max-w-[100px]">
           {{ column.title }}
         </div>
       </template>

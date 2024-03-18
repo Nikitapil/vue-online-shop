@@ -1,6 +1,6 @@
 import type { OrderReturnDto } from '@/api/swagger/data-contracts';
 import { defineStore } from 'pinia';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import type { GetOrdersParams } from '../../api/swagger/data-contracts';
 import { toast } from 'vue3-toastify';
 import { api } from '@/api/apiInstance';
@@ -8,6 +8,8 @@ import { api } from '@/api/apiInstance';
 export const useOrdersStore = defineStore('orders', () => {
   const orders = ref<OrderReturnDto[]>([]);
   const totalOrdersCount = ref(0);
+
+  const dataSource = computed(() => orders.value.map((order) => ({ ...order, key: order.id })));
 
   const getOrders = async ({ page, limit, order, status }: GetOrdersParams) => {
     const request: GetOrdersParams = { page, limit, order };
@@ -22,5 +24,5 @@ export const useOrdersStore = defineStore('orders', () => {
       toast.error(e?.response?.data?.message || 'Error');
     }
   };
-  return { orders, totalOrdersCount, getOrders };
+  return { orders, totalOrdersCount, dataSource, getOrders };
 });
