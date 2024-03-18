@@ -9,6 +9,7 @@ import { validation } from '@/plugins/validation';
 import Vue3Toastify, { type ToastContainerOptions } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 import { price } from './directives/price';
+import { tooltip } from './directives/tooltip';
 
 const pinia = createPinia();
 const app = createApp(App);
@@ -22,5 +23,6 @@ app.use(Vue3Toastify, {
 } as ToastContainerOptions);
 
 app.directive<HTMLElement, number>('price', price);
+app.directive<HTMLElement, string>('tooltip', tooltip);
 
 app.mount('#app');

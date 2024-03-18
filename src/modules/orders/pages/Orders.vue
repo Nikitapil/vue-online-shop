@@ -62,12 +62,17 @@ onMounted(() => {
       @sort="loadOrders"
     >
       <template #idContent="{ content }">
-        <RouterLink
-          :to="`/orders/${content.id}`"
-          class="text-md block underline max-w-[100px] truncate"
+        <div
+          v-tooltip="content.id"
+          class="max-w-[100px]"
         >
-          {{ content.id }}
-        </RouterLink>
+          <RouterLink
+            :to="`/orders/${content.id}`"
+            class="text-md block underline max-w-full truncate"
+          >
+            {{ content.id }}
+          </RouterLink>
+        </div>
       </template>
     </AppTable>
   </AuthProtected>

@@ -1,0 +1,26 @@
+.tooltip {
+    display: none;
+    position: absolute;
+    background-color:#000;
+    width: fit-content;
+    white-space: nowrap;
+    color:#fff;
+    padding: 5px;
+    border-radius: 3px;
+    top: calc(100% + 7px);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 20;
+}
+
+.tooltip::before {
+    content: '';
+    display: block;
+    width: 15px;
+    height: 15px;
+    background-color:#000;
+    position: absolute;
+    top: -7px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+}
