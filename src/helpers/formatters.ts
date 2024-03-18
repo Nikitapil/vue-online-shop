@@ -5,4 +5,4 @@ export const formatPrice = (price: string | number, currency = 'RUB') => {
     currencyDisplay: 'symbol',
     currency
   }).format(+price);
-}
+};

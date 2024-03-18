@@ -20,7 +20,11 @@ const date = computed(() => new Date(props.review.createdAt).toLocaleDateString(
   <div class="border-b">
     <div class="flex justify-between items-center">
       <h2 class="font-bold">
-        <span class="font-normal italic">{{ date }}</span> {{ props.review.authorName }}:
+        <span
+          v-date="{ date }"
+          class="font-normal italic"
+        ></span>
+        {{ props.review.authorName }}:
       </h2>
       <IconButton
         v-if="props.review.canDelete"
