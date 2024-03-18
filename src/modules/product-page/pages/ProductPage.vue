@@ -64,7 +64,7 @@ onMounted(() => {
         />
         <IconButton
           v-if="product.canEdit"
-          :icon="['bx:edit', 1]"
+          :icon="'bx:edit'"
           color="#918aa0"
           @click="router.push({ name: ERoutesName.EDIT_PRODUCT, params: { id: store.product.id } })"
         />
