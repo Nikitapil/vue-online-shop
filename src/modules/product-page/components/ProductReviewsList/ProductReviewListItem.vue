@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import ConfirmModal from '../../../../components/ui/ConfirmModal.vue';
 import IconButton from '../../../../components/ui/IconButton.vue';
 import type { ProductReviewReturnDto } from '@/api/swagger/data-contracts';
 import StarIcon from '@/components/ui/icons/StarIcon.vue';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 
 const props = defineProps<{
   review: ProductReviewReturnDto;
@@ -12,6 +13,8 @@ const props = defineProps<{
 defineEmits<{
   delete: [];
 }>();
+
+const isDeleteModalOpened = ref(false);
 
 const date = computed(() => new Date(props.review.createdAt).toLocaleDateString());
 </script>
@@ -29,7 +32,8 @@ const date = computed(() => new Date(props.review.createdAt).toLocaleDateString(
       <IconButton
         v-if="props.review.canDelete"
         icon="charm:cross"
-        @click="$emit('delete')"
+        :disabled="props.isDeleteReviewInProgress"
+        @click="isDeleteModalOpened = true"
       />
     </div>
     <div class="flex items-center pl-2">
@@ -37,5 +41,10 @@ const date = computed(() => new Date(props.review.createdAt).toLocaleDateString(
       <StarIcon />
     </div>
     <p class="pl-2">{{ props.review.text }}</p>
+    <ConfirmModal
+      v-model="isDeleteModalOpened"
+      title="Do you want to delete this review"
+      @confirm="$emit('delete')"
+    />
   </div>
 </template>
