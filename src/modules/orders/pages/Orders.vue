@@ -57,7 +57,7 @@ onMounted(() => {
 
 <template>
   <AuthProtected>
-    <h1 class="text-center text-xl mb-2">Orders list</h1>
+    <h1 class="text-center text-2xl font-semibold mb-3">Orders list</h1>
     <AppTable
       v-model:sort="order"
       :columns="tableColumns"

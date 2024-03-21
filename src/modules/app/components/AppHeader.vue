@@ -6,6 +6,8 @@ import AuthModal from '@/modules/auth/components/AuthModal.vue';
 import HorizontalLoader from '@/components/ui/loaders/HorizontalLoader.vue';
 import LogoutModal from '@/modules/auth/components/LogoutModal.vue';
 import IconButton from '@/components/ui/IconButton.vue';
+import { Icon } from '@iconify/vue';
+import { ERoutesName } from '@/router';
 
 defineProps<{
   isAuthenticated: boolean;
@@ -64,6 +66,19 @@ const openAuthModal = (type: 'login' | 'register') => {
               alt="cart"
             />
             <span>Bookmarks</span>
+          </RouterLink>
+        </li>
+
+        <li>
+          <RouterLink
+            :to="{ name: ERoutesName.ORDERS }"
+            class="flex gap-1 items-center text-slate-500 cursor-pointer hover:text-black"
+          >
+            <Icon
+              class="w-6 h-6"
+              icon="lets-icons:order"
+            />
+            <span>Orders</span>
           </RouterLink>
         </li>
 
