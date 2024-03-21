@@ -1,6 +1,12 @@
 import { defineStore } from 'pinia';
 import { computed, ref } from 'vue';
-import type { AuthResponseDto, LoginDto, RegisterDto, UserReturnDto } from '@/api/swagger/data-contracts';
+import {
+  UserReturnDtoRolesEnum,
+  type AuthResponseDto,
+  type LoginDto,
+  type RegisterDto,
+  type UserReturnDto
+} from '@/api/swagger/data-contracts';
 import { api } from '@/api/apiInstance';
 import { removeTokenFromStorage, setTokenToStorage } from '@/helpers/token-helpers';
 import { toast } from 'vue3-toastify';
@@ -36,7 +42,7 @@ export const useAuthStore = defineStore('authStore', () => {
     await authUnifiedMethod(() => api.login(data), toast.error);
   };
 
-  const isAdmin = computed(() => user.value?.roles?.includes('ADMIN'));
+  const isAdmin = computed(() => user.value?.roles?.includes(UserReturnDtoRolesEnum.ADMIN));
 
   const logout = async () => {
     try {

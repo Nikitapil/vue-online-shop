@@ -33,6 +33,7 @@ const tableColumns: IColumn[] = [
   },
   {
     key: 'status',
+    contentSlotName: 'statusContent',
     title: 'Status'
   }
 ];
@@ -85,6 +86,10 @@ onMounted(() => {
 
       <template #priceContent="{ content }">
         <div v-price="content.price"></div>
+      </template>
+
+      <template #statusContent="{ content }">
+        <div :style="{ color: content.statusColor }">{{ content.status }}</div>
       </template>
     </AppTable>
   </AuthProtected>

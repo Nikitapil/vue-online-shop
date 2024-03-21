@@ -2,7 +2,7 @@
 import type { ContentSwitcherOption } from '@/components/ui/ContentSwitcher/types';
 import ContentSwitcherButton from '@/components/ui/ContentSwitcher/ContentSwitcherButton.vue';
 
-const value = defineModel<string>();
+const value = defineModel<string>({ required: true });
 
 defineProps<{
   options: ContentSwitcherOption[];

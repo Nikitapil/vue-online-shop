@@ -8,7 +8,7 @@ import { useForm } from 'vee-validate';
 import CategoriesList from '@/modules/categories/components/CategoriesList.vue';
 import type { CategoryReturnDto } from '@/api/swagger/data-contracts';
 
-const isOpen = defineModel();
+const isOpen = defineModel<boolean>();
 
 const store = useCategoriesStore();
 

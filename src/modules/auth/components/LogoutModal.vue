@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import ConfirmModal from '@/components/ui/ConfirmModal.vue';
 import { useAuthStore } from '@/modules/auth/authStore';
-const isOpen = defineModel();
+const isOpen = defineModel<boolean>();
 
 const authStore = useAuthStore();
 

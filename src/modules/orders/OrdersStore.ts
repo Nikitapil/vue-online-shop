@@ -4,12 +4,15 @@ import { computed, ref } from 'vue';
 import type { GetOrdersParams } from '../../api/swagger/data-contracts';
 import { toast } from 'vue3-toastify';
 import { api } from '@/api/apiInstance';
+import { getStatusColor } from './helpers/utils';
 
 export const useOrdersStore = defineStore('orders', () => {
   const orders = ref<OrderReturnDto[]>([]);
   const totalOrdersCount = ref(0);
 
-  const dataSource = computed(() => orders.value.map((order) => ({ ...order, key: order.id })));
+  const dataSource = computed(() =>
+    orders.value.map((order) => ({ ...order, key: order.id, statusColor: getStatusColor(order.status) }))
+  );
 
   const getOrders = async ({ page, limit, order, status }: GetOrdersParams) => {
     const request: GetOrdersParams = { page, limit, order };

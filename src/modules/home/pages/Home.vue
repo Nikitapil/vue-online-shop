@@ -15,6 +15,7 @@ import AppSelect from '@/components/ui/AppSelect/AppSelect.vue';
 import SearchInput from '@/components/ui/SearchInput.vue';
 import ProductsPagination from '@/components/products/ProductsPagination.vue';
 import { EPaginationLimits } from '@/domain/components';
+import type { PriceSortingEnum } from '@/api/swagger/data-contracts';
 
 const authStore = useAuthStore();
 
@@ -27,7 +28,7 @@ const sortingOptions: ISelectOptions[] = [
 const page = ref(1);
 const limitValue = ref<EPaginationLimits>(EPaginationLimits.TEN);
 const categoryId = ref<string>('');
-const priceSorting = ref<'asc' | 'desc' | ''>('');
+const priceSorting = ref<PriceSortingEnum | ''>('');
 const search = ref('');
 
 const { loadProducts, products, totalProductsCount, isLoading } = useProductList();
@@ -37,7 +38,7 @@ const fetchProducts = async () => {
     page: page.value,
     limit: +limitValue.value,
     categoryId: categoryId.value,
-    priceSorting: priceSorting.value || null,
+    priceSorting: priceSorting.value || undefined,
     search: search.value
   });
 };
