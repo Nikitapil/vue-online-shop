@@ -4,7 +4,9 @@ import AuthProtected from '@/modules/auth/components/AuthProtected.vue';
 import { onMounted, ref } from 'vue';
 import { useOrdersStore } from '../OrdersStore';
 import type { IColumn } from '@/components/ui/AppTable/types';
-import { OrderEnum } from '@/api/swagger/data-contracts';
+import { OrderEnum, OrderReturnDtoStatusEnum, StatusEnum } from '@/api/swagger/data-contracts';
+import type { ISelectOptions } from '@/components/ui/AppSelect/types';
+import AppSelect from '@/components/ui/AppSelect/AppSelect.vue';
 
 const store = useOrdersStore();
 
@@ -38,17 +40,40 @@ const tableColumns: IColumn[] = [
   }
 ];
 
+const statusOptions: ISelectOptions<OrderReturnDtoStatusEnum | 'all'>[] = [
+  {
+    name: 'All',
+    value: 'all'
+  },
+  {
+    name: OrderReturnDtoStatusEnum.CREATED,
+    value: OrderReturnDtoStatusEnum.CREATED
+  },
+  {
+    name: OrderReturnDtoStatusEnum.INPROGRESS,
+    value: OrderReturnDtoStatusEnum.INPROGRESS
+  },
+  {
+    name: OrderReturnDtoStatusEnum.CLOSED,
+    value: OrderReturnDtoStatusEnum.CLOSED
+  },
+  {
+    name: OrderReturnDtoStatusEnum.CANCELED,
+    value: OrderReturnDtoStatusEnum.CANCELED
+  }
+];
+
 const order = ref<OrderEnum>(OrderEnum.CreatedAt);
 const page = ref(1);
 const limit = ref(10);
-const status = ref(null);
+const status = ref<StatusEnum | 'all'>('all');
 
 const loadOrders = () => {
   store.getOrders({
     page: page.value,
     limit: limit.value,
     order: order.value,
-    status: status.value || undefined
+    status: status.value === 'all' ? undefined : status.value
   });
 };
 
@@ -59,7 +84,16 @@ onMounted(() => {
 
 <template>
   <AuthProtected>
-    <h1 class="text-center text-2xl font-semibold mb-3">Orders list</h1>
+    <div class="mb-3 flex">
+      <h1 class="ml-auto mr-auto text-2xl font-semibold">Orders list</h1>
+      <AppSelect
+        v-model="status"
+        name="status"
+        placeholder="Select status"
+        :full="false"
+        :options="statusOptions"
+      />
+    </div>
     <AppTable
       v-model:sort="order"
       :columns="tableColumns"
