@@ -4,6 +4,7 @@ import AuthProtected from '@/modules/auth/components/AuthProtected.vue';
 import { onMounted, ref } from 'vue';
 import { useOrdersStore } from '../OrdersStore';
 import type { IColumn } from '@/components/ui/AppTable/types';
+import { OrderEnum } from '@/api/swagger/data-contracts';
 
 const store = useOrdersStore();
 
@@ -36,7 +37,7 @@ const tableColumns: IColumn[] = [
   }
 ];
 
-const order = ref<'createdAt' | 'updatedAt'>('createdAt');
+const order = ref<OrderEnum>(OrderEnum.CreatedAt);
 const page = ref(1);
 const limit = ref(10);
 const status = ref(null);
@@ -46,7 +47,7 @@ const loadOrders = () => {
     page: page.value,
     limit: limit.value,
     order: order.value,
-    status: status.value
+    status: status.value || undefined
   });
 };
 

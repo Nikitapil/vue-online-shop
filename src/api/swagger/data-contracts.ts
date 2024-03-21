@@ -30,7 +30,7 @@ export interface UserReturnDto {
   /** user name */
   name: string;
   /** user role */
-  roles: ('ADMIN' | 'USER')[];
+  roles: UserReturnDtoRolesEnum[];
   /** user cartId */
   cartId: string;
   /** user address */
@@ -254,7 +254,7 @@ export interface OrderReturnDto {
   /** order price */
   price: number;
   /** order status */
-  status: 'CREATED' | 'INPROGRESS' | 'CANCELED' | 'CLOSED';
+  status: OrderReturnDtoStatusEnum;
   /** order products */
   productsInOrder: ProductInOrderReturnDto[];
   /** order cancel reason */
@@ -279,7 +279,7 @@ export interface UpdateOrderStatusDto {
   /** Order id */
   id: string;
   /** New order status */
-  status: 'CREATED' | 'INPROGRESS' | 'CANCELED' | 'CLOSED';
+  status: UpdateOrderStatusDtoStatusEnum;
   /** cance reason if status is canceled */
   cancelReason?: string | null;
 }
@@ -321,6 +321,27 @@ export interface GetProductsReviewsReturnDto {
   totalCount: number;
 }
 
+export enum UserReturnDtoRolesEnum {
+  ADMIN = 'ADMIN',
+  USER = 'USER'
+}
+
+/** order status */
+export enum OrderReturnDtoStatusEnum {
+  CREATED = 'CREATED',
+  INPROGRESS = 'INPROGRESS',
+  CANCELED = 'CANCELED',
+  CLOSED = 'CLOSED'
+}
+
+/** New order status */
+export enum UpdateOrderStatusDtoStatusEnum {
+  CREATED = 'CREATED',
+  INPROGRESS = 'INPROGRESS',
+  CANCELED = 'CANCELED',
+  CLOSED = 'CLOSED'
+}
+
 export interface GetProductsParams {
   /** Page number */
   page: number;
@@ -329,9 +350,21 @@ export interface GetProductsParams {
   /** products categoryId */
   categoryId?: string | null;
   /** price sorting direction */
-  priceSorting?: 'asc' | 'desc' | null;
+  priceSorting?: PriceSortingEnum;
   /** search query */
   search?: string | null;
+}
+
+/** price sorting direction */
+export enum PriceSortingEnum {
+  Asc = 'asc',
+  Desc = 'desc'
+}
+
+/** price sorting direction */
+export enum GetProductsParams1PriceSortingEnum {
+  Asc = 'asc',
+  Desc = 'desc'
 }
 
 export interface GetFavoriteProductsParams {
@@ -347,9 +380,37 @@ export interface GetOrdersParams {
   /** Limit number */
   limit: number;
   /** orders by param */
-  order?: 'updatedAt' | 'createdAt' | null;
+  order?: OrderEnum;
   /** orders status */
-  status?: 'CREATED' | 'INPROGRESS' | 'CANCELED' | 'CLOSED' | null;
+  status?: StatusEnum;
+}
+
+/** orders by param */
+export enum OrderEnum {
+  UpdatedAt = 'updatedAt',
+  CreatedAt = 'createdAt'
+}
+
+/** orders status */
+export enum StatusEnum {
+  CREATED = 'CREATED',
+  INPROGRESS = 'INPROGRESS',
+  CANCELED = 'CANCELED',
+  CLOSED = 'CLOSED'
+}
+
+/** orders by param */
+export enum GetOrdersParams1OrderEnum {
+  UpdatedAt = 'updatedAt',
+  CreatedAt = 'createdAt'
+}
+
+/** orders status */
+export enum GetOrdersParams1StatusEnum {
+  CREATED = 'CREATED',
+  INPROGRESS = 'INPROGRESS',
+  CANCELED = 'CANCELED',
+  CLOSED = 'CLOSED'
 }
 
 export interface GetReviewsParams {

@@ -8,7 +8,7 @@ generateApi({
   templates: path.resolve(process.cwd(), './bin/templates'),
   url: 'http://localhost:5000/api/docs-yaml',
   httpClientType: 'axios',
-  extractEnums: false,
+  extractEnums: true,
   extractRequestParams: true,
   unwrapResponseData: true,
   cleanOutput: true,
