@@ -4,7 +4,8 @@ import Home from '@/modules/home/pages/Home.vue';
 import Bookmarks from '@/modules/Bookmarks/pages/Bookmarks.vue';
 import CreateProductPage from '@/modules/product-form/pages/CreateProductPage.vue';
 import ProductPage from '@/modules/product-page/pages/ProductPage.vue';
-import Orders from '@/modules/orders/pages/Orders.vue';
+import Orders from '@/modules/orders/pages/OrdersPage/Orders.vue';
+import SingleOrder from '@/modules/orders/pages/SingleOrderPage/SingleOrder.vue';
 
 export enum ERoutesName {
   HOME = 'home',
@@ -12,7 +13,8 @@ export enum ERoutesName {
   CREATE_PRODUCT = 'create-product',
   EDIT_PRODUCT = 'edit-product',
   PRODUCT = 'product',
-  ORDERS = 'orders'
+  ORDERS = 'orders',
+  SINGLE_ORDER = 'single.order'
 }
 
 export const router = createRouter({
@@ -47,6 +49,11 @@ export const router = createRouter({
       path: '/orders',
       component: Orders,
       name: ERoutesName.ORDERS
+    },
+    {
+      path: '/orders/:id',
+      component: SingleOrder,
+      name: ERoutesName.SINGLE_ORDER
     }
   ]
 });

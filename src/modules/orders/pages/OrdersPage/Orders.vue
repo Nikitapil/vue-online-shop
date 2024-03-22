@@ -2,12 +2,13 @@
 import AppTable from '@/components/ui/AppTable/AppTable.vue';
 import AuthProtected from '@/modules/auth/components/AuthProtected.vue';
 import { onMounted, ref } from 'vue';
-import { useOrdersStore } from '../OrdersStore';
+import { useOrdersStore } from './OrdersStore';
 import type { IColumn } from '@/components/ui/AppTable/types';
 import { OrderEnum, OrderReturnDtoStatusEnum, StatusEnum } from '@/api/swagger/data-contracts';
 import type { ISelectOptions } from '@/components/ui/AppSelect/types';
 import AppSelect from '@/components/ui/AppSelect/AppSelect.vue';
 import Pagination from '@/components/ui/Pagination.vue';
+import { ERoutesName } from '@/router';
 
 const store = useOrdersStore();
 
@@ -118,7 +119,7 @@ onMounted(() => {
           class="max-w-[100px]"
         >
           <RouterLink
-            :to="`/orders/${content.id}`"
+            :to="{ name: ERoutesName.SINGLE_ORDER, params: { id: content.id } }"
             class="text-md block underline max-w-full truncate"
           >
             {{ content.id }}

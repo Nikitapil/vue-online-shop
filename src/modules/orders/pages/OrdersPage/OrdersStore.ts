@@ -1,10 +1,10 @@
 import type { OrderReturnDto } from '@/api/swagger/data-contracts';
 import { defineStore } from 'pinia';
 import { computed, ref } from 'vue';
-import type { GetOrdersParams } from '../../api/swagger/data-contracts';
+import type { GetOrdersParams } from '../../../../api/swagger/data-contracts';
 import { toast } from 'vue3-toastify';
 import { api } from '@/api/apiInstance';
-import { getStatusColor } from './helpers/utils';
+import { getStatusColor } from '../../helpers/utils';
 
 export const useOrdersStore = defineStore('orders', () => {
   const orders = ref<OrderReturnDto[]>([]);
