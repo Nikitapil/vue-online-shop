@@ -9,6 +9,7 @@ import { getStatusColor } from './helpers/utils';
 export const useOrdersStore = defineStore('orders', () => {
   const orders = ref<OrderReturnDto[]>([]);
   const totalOrdersCount = ref(0);
+  const isOrdersLoading = ref(false);
 
   const dataSource = computed(() =>
     orders.value.map((order) => ({ ...order, key: order.id, statusColor: getStatusColor(order.status) }))
@@ -20,12 +21,15 @@ export const useOrdersStore = defineStore('orders', () => {
       request.status = status;
     }
     try {
+      isOrdersLoading.value = true;
       const { totalCount, orders: ordersResponse } = await api.getOrders(request);
       orders.value = ordersResponse;
       totalOrdersCount.value = totalCount;
     } catch (e: any) {
       toast.error(e?.response?.data?.message || 'Error');
+    } finally {
+      isOrdersLoading.value = false;
     }
   };
-  return { orders, totalOrdersCount, dataSource, getOrders };
+  return { orders, totalOrdersCount, dataSource, isOrdersLoading, getOrders };
 });

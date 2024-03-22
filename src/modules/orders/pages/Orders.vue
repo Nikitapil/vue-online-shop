@@ -7,6 +7,7 @@ import type { IColumn } from '@/components/ui/AppTable/types';
 import { OrderEnum, OrderReturnDtoStatusEnum, StatusEnum } from '@/api/swagger/data-contracts';
 import type { ISelectOptions } from '@/components/ui/AppSelect/types';
 import AppSelect from '@/components/ui/AppSelect/AppSelect.vue';
+import Pagination from '@/components/ui/Pagination.vue';
 
 const store = useOrdersStore();
 
@@ -77,6 +78,16 @@ const loadOrders = () => {
   });
 };
 
+const onChangePage = (p: number) => {
+  page.value = p;
+  loadOrders();
+};
+
+const onChangeStatus = () => {
+  page.value = 0;
+  loadOrders();
+};
+
 onMounted(() => {
   loadOrders();
 });
@@ -92,6 +103,7 @@ onMounted(() => {
         placeholder="Select status"
         :full="false"
         :options="statusOptions"
+        @change="onChangeStatus"
       />
     </div>
     <AppTable
@@ -126,5 +138,13 @@ onMounted(() => {
         <div :style="{ color: content.statusColor }">{{ content.status }}</div>
       </template>
     </AppTable>
+    <Pagination
+      class="mt-2"
+      :items-count="store.totalOrdersCount"
+      :current-page="page"
+      :limit="limit"
+      :disabled="store.isOrdersLoading"
+      @set-page="onChangePage"
+    />
   </AuthProtected>
 </template>
