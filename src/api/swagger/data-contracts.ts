@@ -257,6 +257,8 @@ export interface OrderReturnDto {
   status: OrderReturnDtoStatusEnum;
   /** order products */
   productsInOrder: ProductInOrderReturnDto[];
+  /** order user */
+  user: UserReturnDto;
   /** order cancel reason */
   cancelReason: string | null;
 }
