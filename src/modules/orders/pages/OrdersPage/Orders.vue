@@ -9,6 +9,7 @@ import type { ISelectOptions } from '@/components/ui/AppSelect/types';
 import AppSelect from '@/components/ui/AppSelect/AppSelect.vue';
 import Pagination from '@/components/ui/Pagination.vue';
 import { ERoutesName } from '@/router';
+import { orderStatusOptions } from '../../constants';
 
 const store = useOrdersStore();
 
@@ -47,22 +48,7 @@ const statusOptions: ISelectOptions<OrderReturnDtoStatusEnum | 'all'>[] = [
     name: 'All',
     value: 'all'
   },
-  {
-    name: OrderReturnDtoStatusEnum.CREATED,
-    value: OrderReturnDtoStatusEnum.CREATED
-  },
-  {
-    name: OrderReturnDtoStatusEnum.INPROGRESS,
-    value: OrderReturnDtoStatusEnum.INPROGRESS
-  },
-  {
-    name: OrderReturnDtoStatusEnum.CLOSED,
-    value: OrderReturnDtoStatusEnum.CLOSED
-  },
-  {
-    name: OrderReturnDtoStatusEnum.CANCELED,
-    value: OrderReturnDtoStatusEnum.CANCELED
-  }
+  ...orderStatusOptions
 ];
 
 const order = ref<OrderEnum>(OrderEnum.CreatedAt);
@@ -85,7 +71,7 @@ const onChangePage = (p: number) => {
 };
 
 const onChangeStatus = () => {
-  page.value = 0;
+  page.value = 1;
   loadOrders();
 };
 
