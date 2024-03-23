@@ -25,5 +25,5 @@ export const useSingleOrderStore = defineStore('single-order', () => {
     loadOrder();
   };
 
-  return { order, init };
+  return { order, isLoading, init };
 });
