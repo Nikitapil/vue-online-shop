@@ -30,6 +30,7 @@ onMounted(() => {
         <h3 class="text-lg">Requisites:</h3>
         <p><span class="font-bold">Address:</span> {{ store.order.address }}</p>
         <p><span class="font-bold">Phone:</span> {{ store.order.phone }}</p>
+        <p><span class="font-bold">Username:</span> {{ store.order.user.name }}</p>
       </div>
 
       <OrderProduct
@@ -38,6 +39,10 @@ onMounted(() => {
         :product="product"
         class="mb-3"
       />
+
+      <p class="ml-auto w-fit text-xl">
+        <span class="font-bold">Total sum:</span> <span v-price="store.order.price"></span>
+      </p>
     </div>
   </AuthProtected>
 </template>
