@@ -6,8 +6,8 @@ import EmptyStateCentered from '../../../../components/ui/EmptyStateCentered.vue
 import { useRoute } from 'vue-router';
 import { useSingleOrderStore } from './SingleOrderStore';
 import AuthProtected from '@/modules/auth/components/AuthProtected.vue';
-import { onMounted } from 'vue';
-import { orderStatusOptions } from '../../constants';
+import { computed, onMounted } from 'vue';
+import { getAvailableStatusOptions } from '../../helpers/utils';
 
 const store = useSingleOrderStore();
 
@@ -15,6 +15,8 @@ onMounted(() => {
   const route = useRoute();
   store.init(route.params.id as string);
 });
+
+const statusOptions = computed(() => (store.order ? getAvailableStatusOptions(store.order) : []));
 </script>
 
 <template>
@@ -41,7 +43,7 @@ onMounted(() => {
           name="order-status"
           placeholder="Status..."
           :full="false"
-          :options="orderStatusOptions"
+          :options="statusOptions"
         />
       </section>
 
