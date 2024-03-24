@@ -257,6 +257,14 @@ export interface OrderReturnDto {
   status: OrderReturnDtoStatusEnum;
   /** order products */
   productsInOrder: ProductInOrderReturnDto[];
+  /** can cancel */
+  canCancel: boolean;
+  /** can set order status in progress */
+  canSetInProgress: boolean;
+  /** can set order status to created */
+  canSetCreated: boolean;
+  /** can set order status to closed */
+  canSetClosed: boolean;
   /** order user */
   user: UserReturnDto;
   /** order cancel reason */
