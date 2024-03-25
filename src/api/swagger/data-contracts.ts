@@ -223,6 +223,13 @@ export interface CreateOrderDto {
   comment?: string;
 }
 
+export enum OrderStatusEnum {
+  CREATED = 'CREATED',
+  INPROGRESS = 'INPROGRESS',
+  CANCELED = 'CANCELED',
+  CLOSED = 'CLOSED'
+}
+
 export interface ProductInOrderReturnDto {
   /** product in order id */
   id: string;
@@ -254,7 +261,7 @@ export interface OrderReturnDto {
   /** order price */
   price: number;
   /** order status */
-  status: OrderReturnDtoStatusEnum;
+  status: OrderStatusEnum;
   /** order products */
   productsInOrder: ProductInOrderReturnDto[];
   /** can cancel */
@@ -289,8 +296,8 @@ export interface UpdateOrderStatusDto {
   /** Order id */
   id: string;
   /** New order status */
-  status: UpdateOrderStatusDtoStatusEnum;
-  /** cance reason if status is canceled */
+  status: OrderStatusEnum;
+  /** cancel reason if status is canceled */
   cancelReason?: string | null;
 }
 
@@ -336,22 +343,6 @@ export enum UserReturnDtoRolesEnum {
   USER = 'USER'
 }
 
-/** order status */
-export enum OrderReturnDtoStatusEnum {
-  CREATED = 'CREATED',
-  INPROGRESS = 'INPROGRESS',
-  CANCELED = 'CANCELED',
-  CLOSED = 'CLOSED'
-}
-
-/** New order status */
-export enum UpdateOrderStatusDtoStatusEnum {
-  CREATED = 'CREATED',
-  INPROGRESS = 'INPROGRESS',
-  CANCELED = 'CANCELED',
-  CLOSED = 'CLOSED'
-}
-
 export interface GetProductsParams {
   /** Page number */
   page: number;
@@ -392,7 +383,7 @@ export interface GetOrdersParams {
   /** orders by param */
   order?: OrderEnum;
   /** orders status */
-  status?: StatusEnum;
+  status?: OrderStatusEnum;
 }
 
 /** orders by param */
@@ -401,26 +392,10 @@ export enum OrderEnum {
   CreatedAt = 'createdAt'
 }
 
-/** orders status */
-export enum StatusEnum {
-  CREATED = 'CREATED',
-  INPROGRESS = 'INPROGRESS',
-  CANCELED = 'CANCELED',
-  CLOSED = 'CLOSED'
-}
-
 /** orders by param */
 export enum GetOrdersParams1OrderEnum {
   UpdatedAt = 'updatedAt',
   CreatedAt = 'createdAt'
-}
-
-/** orders status */
-export enum GetOrdersParams1StatusEnum {
-  CREATED = 'CREATED',
-  INPROGRESS = 'INPROGRESS',
-  CANCELED = 'CANCELED',
-  CLOSED = 'CLOSED'
 }
 
 export interface GetReviewsParams {

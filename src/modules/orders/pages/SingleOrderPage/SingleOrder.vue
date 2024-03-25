@@ -6,17 +6,28 @@ import EmptyStateCentered from '../../../../components/ui/EmptyStateCentered.vue
 import { useRoute } from 'vue-router';
 import { useSingleOrderStore } from './SingleOrderStore';
 import AuthProtected from '@/modules/auth/components/AuthProtected.vue';
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { getAvailableStatusOptions } from '../../helpers/utils';
+import { OrderStatusEnum } from '@/api/swagger/data-contracts';
 
 const store = useSingleOrderStore();
-
-onMounted(() => {
-  const route = useRoute();
-  store.init(route.params.id as string);
-});
+const status = ref(OrderStatusEnum.CREATED);
 
 const statusOptions = computed(() => (store.order ? getAvailableStatusOptions(store.order) : []));
+
+const onChangeStatus = () => {
+  if (status.value !== OrderStatusEnum.CANCELED) {
+    store.updateteOrderStatus({ status: status.value });
+  }
+};
+
+onMounted(async () => {
+  const route = useRoute();
+  await store.init(route.params.id as string);
+  if (store.order?.status) {
+    status.value = store.order?.status;
+  }
+});
 </script>
 
 <template>
@@ -37,14 +48,24 @@ const statusOptions = computed(() => (store.order ? getAvailableStatusOptions(st
         <p><span class="font-bold">Username:</span> {{ store.order.user.name }}</p>
       </section>
 
-      <section class="flex gap-3 items-center mt-3">
+      <section
+        v-if="statusOptions.length > 1"
+        class="flex gap-3 items-center mt-3"
+      >
         <span>Change product status</span>
         <AppSelect
+          v-model="status"
           name="order-status"
           placeholder="Status..."
+          :disabled="store.isUpdateStatusInProgress"
           :full="false"
           :options="statusOptions"
+          @change="onChangeStatus"
         />
+      </section>
+
+      <section v-else>
+        Order status: <span :style="{ color: store.statusColor }">{{ store.order.status }}</span>
       </section>
 
       <OrderProduct

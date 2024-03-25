@@ -1,15 +1,15 @@
 import type { ISelectOptions } from '@/components/ui/AppSelect/types';
-import { OrderReturnDtoStatusEnum, type OrderReturnDto } from '../../../api/swagger/data-contracts';
+import { OrderStatusEnum, type OrderReturnDto } from '../../../api/swagger/data-contracts';
 import { orderStatusOptionsByStatus } from '../constants';
-export const getStatusColor = (status: OrderReturnDtoStatusEnum) => {
+export const getStatusColor = (status: OrderStatusEnum) => {
   switch (status) {
-    case OrderReturnDtoStatusEnum.CREATED:
+    case OrderStatusEnum.CREATED:
       return '#4ade80';
-    case OrderReturnDtoStatusEnum.INPROGRESS:
+    case OrderStatusEnum.INPROGRESS:
       return '#60a5fa';
-    case OrderReturnDtoStatusEnum.CLOSED:
+    case OrderStatusEnum.CLOSED:
       return '#000';
-    case OrderReturnDtoStatusEnum.CANCELED:
+    case OrderStatusEnum.CANCELED:
       return '#fa3c3c';
     default:
       return '#000';
@@ -24,5 +24,5 @@ export const getAvailableStatusOptions = (order: OrderReturnDto) => {
     order.canCancel && orderStatusOptionsByStatus.canceled
   ];
 
-  return options.filter(Boolean) as ISelectOptions<OrderReturnDtoStatusEnum>[];
+  return options.filter(Boolean) as ISelectOptions<OrderStatusEnum>[];
 };

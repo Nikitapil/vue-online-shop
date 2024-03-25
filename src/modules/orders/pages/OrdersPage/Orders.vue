@@ -4,7 +4,7 @@ import AuthProtected from '@/modules/auth/components/AuthProtected.vue';
 import { onMounted, ref } from 'vue';
 import { useOrdersStore } from './OrdersStore';
 import type { IColumn } from '@/components/ui/AppTable/types';
-import { OrderEnum, OrderReturnDtoStatusEnum, StatusEnum } from '@/api/swagger/data-contracts';
+import { OrderEnum, OrderStatusEnum } from '@/api/swagger/data-contracts';
 import type { ISelectOptions } from '@/components/ui/AppSelect/types';
 import AppSelect from '@/components/ui/AppSelect/AppSelect.vue';
 import Pagination from '@/components/ui/Pagination.vue';
@@ -43,7 +43,7 @@ const tableColumns: IColumn[] = [
   }
 ];
 
-const statusOptions: ISelectOptions<OrderReturnDtoStatusEnum | 'all'>[] = [
+const statusOptions: ISelectOptions<OrderStatusEnum | 'all'>[] = [
   {
     name: 'All',
     value: 'all'
@@ -54,7 +54,7 @@ const statusOptions: ISelectOptions<OrderReturnDtoStatusEnum | 'all'>[] = [
 const order = ref<OrderEnum>(OrderEnum.CreatedAt);
 const page = ref(1);
 const limit = ref(10);
-const status = ref<StatusEnum | 'all'>('all');
+const status = ref<OrderStatusEnum | 'all'>('all');
 
 const loadOrders = () => {
   store.getOrders({

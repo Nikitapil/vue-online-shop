@@ -1,23 +1,23 @@
-import { OrderReturnDtoStatusEnum } from '@/api/swagger/data-contracts';
+import { OrderStatusEnum } from '@/api/swagger/data-contracts';
 import type { ISelectOptions } from '@/components/ui/AppSelect/types';
 
 export const orderStatusOptionsByStatus = {
   created: {
-    name: OrderReturnDtoStatusEnum.CREATED,
-    value: OrderReturnDtoStatusEnum.CREATED
+    name: OrderStatusEnum.CREATED,
+    value: OrderStatusEnum.CREATED
   },
   inprogress: {
-    name: OrderReturnDtoStatusEnum.INPROGRESS,
-    value: OrderReturnDtoStatusEnum.INPROGRESS
+    name: OrderStatusEnum.INPROGRESS,
+    value: OrderStatusEnum.INPROGRESS
   },
   closed: {
-    name: OrderReturnDtoStatusEnum.CLOSED,
-    value: OrderReturnDtoStatusEnum.CLOSED
+    name: OrderStatusEnum.CLOSED,
+    value: OrderStatusEnum.CLOSED
   },
   canceled: {
-    name: OrderReturnDtoStatusEnum.CANCELED,
-    value: OrderReturnDtoStatusEnum.CANCELED
+    name: OrderStatusEnum.CANCELED,
+    value: OrderStatusEnum.CANCELED
   }
 };
 
-export const orderStatusOptions: ISelectOptions<OrderReturnDtoStatusEnum>[] = Object.values(orderStatusOptionsByStatus);
+export const orderStatusOptions: ISelectOptions<OrderStatusEnum>[] = Object.values(orderStatusOptionsByStatus);
