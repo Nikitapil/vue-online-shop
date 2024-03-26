@@ -51,6 +51,7 @@ const submitHandler = () => {
       id="review-input"
       v-model="comment"
       placeholder="Your review..."
+      name="review-text"
       :disabled="props.isLoading"
     />
     <AppButton

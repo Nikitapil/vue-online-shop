@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import CancelOrderModal from '../../components/CancelOrderModal.vue'
 import AppSelect from '../../../../components/ui/AppSelect/AppSelect.vue';
 import OrderProduct from '../../components/OrderProduct.vue';
 import RoundedLoader from '../../../../components/ui/loaders/RoundedLoader.vue';
@@ -11,13 +12,17 @@ import { getAvailableStatusOptions } from '../../helpers/utils';
 import { OrderStatusEnum } from '@/api/swagger/data-contracts';
 
 const store = useSingleOrderStore();
+
 const status = ref(OrderStatusEnum.CREATED);
+const isShowCancelModal = ref(false);
 
 const statusOptions = computed(() => (store.order ? getAvailableStatusOptions(store.order) : []));
 
 const onChangeStatus = () => {
   if (status.value !== OrderStatusEnum.CANCELED) {
     store.updateteOrderStatus({ status: status.value });
+  } else {
+    isShowCancelModal.value = true;
   }
 };
 
@@ -79,5 +84,6 @@ onMounted(async () => {
         <span class="font-bold">Total sum:</span> <span v-price="store.order.price"></span>
       </p>
     </section>
+    <CancelOrderModal v-model="isShowCancelModal" />
   </AuthProtected>
 </template>

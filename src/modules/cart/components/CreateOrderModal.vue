@@ -69,7 +69,9 @@ const onSubmit = async () => {
       />
       <AppTextarea
         id="commet"
+        v-model="comment"
         label="Comment"
+        name="comment"
         placeholder="Enter comment for order"
         :disabled="props.isLoading"
       />
