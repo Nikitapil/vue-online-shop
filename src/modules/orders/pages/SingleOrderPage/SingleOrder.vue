@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import CancelOrderModal from '../../components/CancelOrderModal.vue'
+import CancelOrderModal from '../../components/CancelOrderModal.vue';
 import AppSelect from '../../../../components/ui/AppSelect/AppSelect.vue';
 import OrderProduct from '../../components/OrderProduct.vue';
 import RoundedLoader from '../../../../components/ui/loaders/RoundedLoader.vue';
@@ -18,12 +18,20 @@ const isShowCancelModal = ref(false);
 
 const statusOptions = computed(() => (store.order ? getAvailableStatusOptions(store.order) : []));
 
-const onChangeStatus = () => {
+const onChangeStatus = (cancelReason?: string) => {
   if (status.value !== OrderStatusEnum.CANCELED) {
-    store.updateteOrderStatus({ status: status.value });
+    store.updateteOrderStatus({ status: status.value, cancelReason });
   } else {
     isShowCancelModal.value = true;
   }
+};
+
+const onCancelOrderCanceling = () => {
+  if (!store.order) {
+    return;
+  }
+  status.value = store.order?.status;
+  isShowCancelModal.value = false;
 };
 
 onMounted(async () => {
@@ -65,7 +73,7 @@ onMounted(async () => {
           :disabled="store.isUpdateStatusInProgress"
           :full="false"
           :options="statusOptions"
-          @change="onChangeStatus"
+          @change="onChangeStatus()"
         />
       </section>
 
@@ -84,6 +92,10 @@ onMounted(async () => {
         <span class="font-bold">Total sum:</span> <span v-price="store.order.price"></span>
       </p>
     </section>
-    <CancelOrderModal v-model="isShowCancelModal" />
+    <CancelOrderModal
+      v-model="isShowCancelModal"
+      :is-loading="store.isUpdateStatusInProgress"
+      @cancel="onCancelOrderCanceling"
+    />
   </AuthProtected>
 </template>
