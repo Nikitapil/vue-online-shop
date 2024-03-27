@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import HorizontalLoader from '../../../../components/ui/loaders/HorizontalLoader.vue';
 import CancelOrderModal from '../../components/CancelOrderModal.vue';
 import AppSelect from '../../../../components/ui/AppSelect/AppSelect.vue';
 import OrderProduct from '../../components/OrderProduct.vue';

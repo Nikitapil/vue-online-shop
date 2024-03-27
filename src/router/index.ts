@@ -6,6 +6,7 @@ import CreateProductPage from '@/modules/product-form/pages/CreateProductPage.vu
 import ProductPage from '@/modules/product-page/pages/ProductPage.vue';
 import Orders from '@/modules/orders/pages/OrdersPage/Orders.vue';
 import SingleOrder from '@/modules/orders/pages/SingleOrderPage/SingleOrder.vue';
+import ProfilePage from '@/modules/profile/pages/ProfilePage.vue';
 
 export enum ERoutesName {
   HOME = 'home',
@@ -14,7 +15,8 @@ export enum ERoutesName {
   EDIT_PRODUCT = 'edit-product',
   PRODUCT = 'product',
   ORDERS = 'orders',
-  SINGLE_ORDER = 'single.order'
+  SINGLE_ORDER = 'single.order',
+  PROFILE = 'profile'
 }
 
 export const router = createRouter({
@@ -54,6 +56,11 @@ export const router = createRouter({
       path: '/orders/:id',
       component: SingleOrder,
       name: ERoutesName.SINGLE_ORDER
+    },
+    {
+      path: '/profile',
+      component: ProfilePage,
+      name: ERoutesName.PROFILE
     }
   ]
 });

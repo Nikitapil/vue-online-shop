@@ -82,13 +82,19 @@ const openAuthModal = (type: 'login' | 'register') => {
           </RouterLink>
         </li>
 
-        <li class="flex gap-3 items-center text-slate-500 cursor-pointer hover:text-black">
-          <img
-            src="/profile.svg"
-            alt="cart"
-          />
-          <span>Profile</span>
+        <li>
+          <RouterLink
+            :to="{ name: ERoutesName.PROFILE }"
+            class="flex gap-1 items-center text-slate-500 cursor-pointer hover:text-black"
+          >
+            <Icon
+              class="w-6 h-6"
+              icon="iconamoon:profile-circle"
+            />
+            <span>Profile</span>
+          </RouterLink>
         </li>
+
         <li class="h-7">
           <IconButton
             icon="ion:log-out-outline"
