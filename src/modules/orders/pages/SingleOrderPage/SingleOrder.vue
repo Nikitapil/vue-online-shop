@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import HorizontalLoader from '../../../../components/ui/loaders/HorizontalLoader.vue';
 import CancelOrderModal from '../../components/CancelOrderModal.vue';
 import AppSelect from '../../../../components/ui/AppSelect/AppSelect.vue';
 import OrderProduct from '../../components/OrderProduct.vue';
@@ -67,6 +68,7 @@ onMounted(async () => {
         <p><span class="font-bold">Address:</span> {{ store.order.address }}</p>
         <p><span class="font-bold">Phone:</span> {{ store.order.phone }}</p>
         <p><span class="font-bold">Username:</span> {{ store.order.user.name }}</p>
+        <p v-if="store.order.comment"><span class="font-bold">Order comment:</span> {{ store.order.comment }}</p>
       </section>
 
       <section
@@ -87,6 +89,13 @@ onMounted(async () => {
 
       <section v-else>
         Order status: <span :style="{ color: store.statusColor }">{{ store.order.status }}</span>
+      </section>
+
+      <section
+        v-if="store.order.cancelReason"
+        class="text-red-500"
+      >
+        <p><span class="font-bold text-black mt-2">Cancel reason:</span> {{ store.order.cancelReason }}</p>
       </section>
 
       <OrderProduct
