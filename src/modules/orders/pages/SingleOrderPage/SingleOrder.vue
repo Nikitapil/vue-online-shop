@@ -17,13 +17,21 @@ const status = ref(OrderStatusEnum.CREATED);
 const isShowCancelModal = ref(false);
 
 const statusOptions = computed(() => (store.order ? getAvailableStatusOptions(store.order) : []));
+const isShowStatusSelect = computed(
+  () => statusOptions.value.length > 1 || statusOptions.value[0]?.value !== store.order?.status
+);
 
-const onChangeStatus = (cancelReason?: string) => {
+const onChangeStatus = () => {
   if (status.value !== OrderStatusEnum.CANCELED) {
-    store.updateteOrderStatus({ status: status.value, cancelReason });
+    store.updateOrderStatus({ status: status.value });
   } else {
     isShowCancelModal.value = true;
   }
+};
+
+const onCancelOrder = async (cancelReason: string) => {
+  await store.updateOrderStatus({ status: OrderStatusEnum.CANCELED, cancelReason });
+  isShowCancelModal.value = false;
 };
 
 const onCancelOrderCanceling = () => {
@@ -62,7 +70,7 @@ onMounted(async () => {
       </section>
 
       <section
-        v-if="statusOptions.length > 1"
+        v-if="isShowStatusSelect"
         class="flex gap-3 items-center mt-3"
       >
         <span>Change product status</span>
@@ -96,6 +104,7 @@ onMounted(async () => {
       v-model="isShowCancelModal"
       :is-loading="store.isUpdateStatusInProgress"
       @cancel="onCancelOrderCanceling"
+      @confirm="onCancelOrder"
     />
   </AuthProtected>
 </template>

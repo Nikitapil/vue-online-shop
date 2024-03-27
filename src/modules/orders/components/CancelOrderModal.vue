@@ -13,14 +13,18 @@ const props = defineProps<{
   isLoading: boolean;
 }>();
 
-defineEmits<{
+const emit = defineEmits<{
   cancel: [];
+  confirm: [string];
 }>();
 
 const cancelReason = ref('');
 
 const onConfirm = async () => {
   const { valid } = await validate();
+  if (valid) {
+    emit('confirm', cancelReason.value);
+  }
 };
 </script>
 

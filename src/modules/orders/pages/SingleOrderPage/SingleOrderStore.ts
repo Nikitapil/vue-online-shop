@@ -30,10 +30,7 @@ export const useSingleOrderStore = defineStore('single-order', () => {
     await loadOrder();
   };
 
-  const updateteOrderStatus = async ({
-    status,
-    cancelReason
-  }: Pick<UpdateOrderStatusDto, 'status' | 'cancelReason'>) => {
+  const updateOrderStatus = async ({ status, cancelReason }: Pick<UpdateOrderStatusDto, 'status' | 'cancelReason'>) => {
     if (!order.value) {
       return;
     }
@@ -49,5 +46,5 @@ export const useSingleOrderStore = defineStore('single-order', () => {
     }
   };
 
-  return { order, isLoading, isUpdateStatusInProgress, statusColor, init, updateteOrderStatus };
+  return { order, isLoading, isUpdateStatusInProgress, statusColor, init, updateOrderStatus };
 });
