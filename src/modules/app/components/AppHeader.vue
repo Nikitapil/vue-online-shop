@@ -50,7 +50,7 @@ const openAuthModal = (type: 'login' | 'register') => {
     </div>
 
     <nav v-else-if="isAuthenticated">
-      <ul class="flex gap-8 items-center">
+      <ul class="flex gap-3 lg:gap-8 items-center">
         <!--        Todo refactor общие классы и изменить на кнопку-->
         <li>
           <Cart />
@@ -61,11 +61,11 @@ const openAuthModal = (type: 'login' | 'register') => {
             to="/bookmarks"
             class="flex gap-3 items-center text-slate-500 cursor-pointer hover:text-black"
           >
-            <img
-              src="/heart.svg"
-              alt="cart"
+            <Icon
+              class="w-6 h-6"
+              icon="mdi:heart-outline"
             />
-            <span>Bookmarks</span>
+            <span class="text-black hidden lg:block">Bookmarks</span>
           </RouterLink>
         </li>
 
@@ -78,7 +78,7 @@ const openAuthModal = (type: 'login' | 'register') => {
               class="w-6 h-6"
               icon="lets-icons:order"
             />
-            <span>Orders</span>
+            <span class="hidden lg:block">Orders</span>
           </RouterLink>
         </li>
 
@@ -91,7 +91,7 @@ const openAuthModal = (type: 'login' | 'register') => {
               class="w-6 h-6"
               icon="iconamoon:profile-circle"
             />
-            <span>Profile</span>
+            <span class="hidden lg:block">Profile</span>
           </RouterLink>
         </li>
 
