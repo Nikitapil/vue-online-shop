@@ -17,6 +17,7 @@ withDefaults(
 <template>
   <button
     class="hover:bg-gray-200 rounded transition duration-300 disabled:opacity-60"
+    type="button"
     :disabled="disabled"
   >
     <Icon

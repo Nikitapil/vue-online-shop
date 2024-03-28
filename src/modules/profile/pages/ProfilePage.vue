@@ -1,5 +1,24 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import AuthProtected from '@/modules/auth/components/AuthProtected.vue';
+import EditableText from '../../../components/ui/EditableText.vue';
+import { useAuthStore } from '@/modules/auth/authStore';
+import { computed } from 'vue';
+
+const authStore = useAuthStore();
+
+const user = computed(() => authStore.user);
+</script>
 
 <template>
-  <div>Profile</div>
+  <AuthProtected>
+    <div v-if="user">
+      <h2 class="text-xl text-center mb-3">Profile</h2>
+      <EditableText
+        id="email"
+        name="email"
+        label="Email:"
+        :initial-value="user.email"
+      />
+    </div>
+  </AuthProtected>
 </template>
