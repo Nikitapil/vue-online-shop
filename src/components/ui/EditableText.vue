@@ -1,21 +1,42 @@
 <script setup lang="ts">
 import IconButton from './IconButton.vue';
-import { ref } from 'vue';
+import { ref, type MaybeRef } from 'vue';
 import AppInput from './AppInput/AppInput.vue';
+import { useForm, type RuleExpression } from 'vee-validate';
 
 const isEditMode = defineModel<boolean>();
 
-const props = defineProps<{
-  id: string;
-  name: string;
-  initialValue: string;
-  label?: string;
+const { validate } = useForm();
+
+const props = withDefaults(
+  defineProps<{
+    id: string;
+    name: string;
+    initialValue: string;
+    label?: string;
+    rules?: MaybeRef<RuleExpression<any>>;
+  }>(),
+  {
+    rules: '',
+    label: ''
+  }
+);
+
+const emit = defineEmits<{
+  submit: [value: string];
 }>();
 
 const value = ref<string>(props.initialValue);
 
 const openEditMode = () => (isEditMode.value = true);
 const closeEditMode = () => (isEditMode.value = false);
+
+const onSubmit = async () => {
+  const { valid } = await validate();
+  if (valid) {
+    emit('submit', value.value);
+  }
+};
 </script>
 
 <template>
@@ -29,13 +50,18 @@ const closeEditMode = () => (isEditMode.value = false);
     <form
       v-if="isEditMode"
       class="flex gap-2"
+      @submit.prevent="onSubmit"
     >
       <AppInput
         :id="props.id"
         v-model="value"
         :name="props.name"
+        :rules="props.rules"
       />
-      <IconButton icon="line-md:circle-to-confirm-circle-transition" />
+      <IconButton
+        icon="line-md:circle-to-confirm-circle-transition"
+        type="submit"
+      />
       <IconButton
         icon="carbon:close-outline"
         @click="closeEditMode"

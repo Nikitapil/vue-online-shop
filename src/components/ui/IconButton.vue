@@ -1,15 +1,17 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue';
 
-withDefaults(
+const props = withDefaults(
   defineProps<{
     icon: string;
     color?: string;
     disabled?: boolean;
+    type?: 'button' | 'submit';
   }>(),
   {
     color: 'black',
-    disabled: false
+    disabled: false,
+    type: 'button'
   }
 );
 </script>
@@ -17,7 +19,7 @@ withDefaults(
 <template>
   <button
     class="hover:bg-gray-200 rounded transition duration-300 disabled:opacity-60"
-    type="button"
+    :type="props.type"
     :disabled="disabled"
   >
     <Icon
