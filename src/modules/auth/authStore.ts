@@ -5,7 +5,8 @@ import {
   type AuthResponseDto,
   type LoginDto,
   type RegisterDto,
-  type UserReturnDto
+  type UserReturnDto,
+  type UpdateUserDataDto
 } from '@/api/swagger/data-contracts';
 import { api } from '@/api/apiInstance';
 import { removeTokenFromStorage, setTokenToStorage } from '@/helpers/token-helpers';
@@ -57,5 +58,9 @@ export const useAuthStore = defineStore('authStore', () => {
     }
   };
 
-  return { user, isAuthenticated, isAuthLoading, isAdmin, refresh, register, login, logout };
+  const updateUserData = async (data: UpdateUserDataDto) => {
+    await authUnifiedMethod(() => api.updateUserData(data), toast.error);
+  };
+
+  return { user, isAuthenticated, isAuthLoading, isAdmin, refresh, register, login, logout, updateUserData };
 });
