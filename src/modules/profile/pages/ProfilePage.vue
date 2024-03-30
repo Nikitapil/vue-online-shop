@@ -59,6 +59,7 @@ const onUpdateAdress = async (value: string) => {
       <EditableText
         id="email"
         v-model="isEmailEditMode"
+        class="mb-2"
         name="email"
         label="Email:"
         rules="email|required"
@@ -68,6 +69,7 @@ const onUpdateAdress = async (value: string) => {
       <EditableText
         id="name"
         v-model="isNameEditMode"
+        class="mb-2"
         name="name"
         label="Name:"
         rules="required"
@@ -77,6 +79,7 @@ const onUpdateAdress = async (value: string) => {
       <EditableText
         id="phone"
         v-model="isPhoneEditMode"
+        class="mb-2"
         name="phone"
         label="Phone:"
         :initial-value="userPhone"

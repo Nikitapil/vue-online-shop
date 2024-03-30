@@ -29,7 +29,10 @@ const emit = defineEmits<{
 const value = ref<string>(props.initialValue);
 
 const openEditMode = () => (isEditMode.value = true);
-const closeEditMode = () => (isEditMode.value = false);
+const closeEditMode = () => {
+  value.value = props.initialValue;
+  isEditMode.value = false;
+};
 
 const onSubmit = async () => {
   const { valid } = await validate();
@@ -61,9 +64,11 @@ const onSubmit = async () => {
       <IconButton
         icon="line-md:circle-to-confirm-circle-transition"
         type="submit"
+        color="#1fe425"
       />
       <IconButton
         icon="carbon:close-outline"
+        color="#e30b1a"
         @click="closeEditMode"
       />
     </form>
