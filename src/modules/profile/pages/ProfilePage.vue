@@ -9,8 +9,12 @@ const authStore = useAuthStore();
 
 const isEmailEditMode = ref(false);
 const isNameEditMode = ref(false);
+const isPhoneEditMode = ref(false);
+const isAddressEditMode = ref(false);
 
 const user = computed(() => authStore.user);
+const userPhone = computed(() => authStore.user?.phone || 'Not specified');
+const userAddress = computed(() => authStore.user?.address || 'Not specified');
 
 const updateUser = async (value: string, key: keyof UpdateUserDataDto) => {
   if (!user.value) {
@@ -36,6 +40,16 @@ const onUpdateName = async (value: string) => {
   await updateUser(value, 'name');
   isNameEditMode.value = false;
 };
+
+const onUpdatePhone = async (value: string) => {
+  await updateUser(value, 'phone');
+  isPhoneEditMode.value = false;
+};
+
+const onUpdateAdress = async (value: string) => {
+  await updateUser(value, 'address');
+  isAddressEditMode.value = false;
+};
 </script>
 
 <template>
@@ -59,6 +73,22 @@ const onUpdateName = async (value: string) => {
         rules="required"
         :initial-value="user.name"
         @submit="onUpdateName"
+      />
+      <EditableText
+        id="phone"
+        v-model="isPhoneEditMode"
+        name="phone"
+        label="Phone:"
+        :initial-value="userPhone"
+        @submit="onUpdatePhone"
+      />
+      <EditableText
+        id="address"
+        v-model="isAddressEditMode"
+        name="address"
+        label="Address:"
+        :initial-value="userAddress"
+        @submit="onUpdateAdress"
       />
     </div>
   </AuthProtected>
