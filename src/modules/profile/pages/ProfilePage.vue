@@ -55,7 +55,7 @@ const onUpdateAdress = async (value: string) => {
 <template>
   <AuthProtected>
     <div v-if="user">
-      <h2 class="text-xl text-center mb-3">Profile</h2>
+      <h2 class="text-2xl text-center mb-3">Profile</h2>
       <EditableText
         id="email"
         v-model="isEmailEditMode"

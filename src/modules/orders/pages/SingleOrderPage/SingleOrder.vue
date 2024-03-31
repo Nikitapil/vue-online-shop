@@ -17,9 +17,7 @@ const status = ref(OrderStatusEnum.CREATED);
 const isShowCancelModal = ref(false);
 
 const statusOptions = computed(() => (store.order ? getAvailableStatusOptions(store.order) : []));
-const isShowStatusSelect = computed(
-  () => statusOptions.value.length > 1 || statusOptions.value[0]?.value !== store.order?.status
-);
+const isShowStatusSelect = computed(() => !!statusOptions.value.length);
 
 const onChangeStatus = () => {
   if (status.value !== OrderStatusEnum.CANCELED) {
