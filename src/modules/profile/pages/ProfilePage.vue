@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import ChangePasswordModal from '../components/ChangePasswordModal.vue';
+import AppButton from '../../../components/ui/AppButton.vue';
 import AuthProtected from '@/modules/auth/components/AuthProtected.vue';
 import EditableText from '../../../components/ui/EditableText.vue';
 import { useAuthStore } from '@/modules/auth/authStore';
@@ -11,6 +13,7 @@ const isEmailEditMode = ref(false);
 const isNameEditMode = ref(false);
 const isPhoneEditMode = ref(false);
 const isAddressEditMode = ref(false);
+const isShowChangePasswordModal = ref(false);
 
 const user = computed(() => authStore.user);
 const userPhone = computed(() => authStore.user?.phone || 'Not specified');
@@ -88,11 +91,19 @@ const onUpdateAdress = async (value: string) => {
       <EditableText
         id="address"
         v-model="isAddressEditMode"
+        class="mb-2"
         name="address"
         label="Address:"
         :initial-value="userAddress"
         @submit="onUpdateAdress"
       />
+      <AppButton
+        appearance="secondary"
+        @click="isShowChangePasswordModal = true"
+      >
+        Change Password
+      </AppButton>
+      <ChangePasswordModal v-model="isShowChangePasswordModal" />
     </div>
   </AuthProtected>
 </template>
