@@ -30,10 +30,9 @@ const openAuthModal = (type: 'login' | 'register') => {
       to="/"
       class="flex items-center gap-4"
     >
-      <img
-        class="w-10"
-        src="/logo.png"
-        alt="Logo "
+      <Icon
+        class="w-10 h-10"
+        icon="noto-v1:shopping-bags"
       />
 
       <div>

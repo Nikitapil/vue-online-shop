@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { Icon } from '@iconify/vue';
+
 const value = defineModel<string>({ required: true });
 
 withDefaults(
@@ -17,10 +19,10 @@ defineEmits<{
 
 <template>
   <div class="relative">
-    <img
-      class="absolute left-3 top-3.5"
-      src="/search.svg"
-      alt="Search icon"
+    <Icon
+      class="absolute left-3 top-3 w-5 h-5"
+      color="#E4E4E4"
+      icon="fluent:search-12-filled"
     />
     <input
       v-model="value"
