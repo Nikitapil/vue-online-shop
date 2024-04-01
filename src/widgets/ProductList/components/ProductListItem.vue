@@ -41,7 +41,7 @@ const productData = useProduct(product);
     <img
       v-if="productData.imageUrl"
       :src="productData.imageUrl"
-      alt="Sneaker"
+      alt="product logo"
     />
 
     <h3 class="mt-auto text-xl font-bold">{{ productData.name }}</h3>
