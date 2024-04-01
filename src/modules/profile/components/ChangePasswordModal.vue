@@ -3,11 +3,19 @@ import { ref } from 'vue';
 import AppButton from '../../../components/ui/AppButton.vue';
 import AppInput from '../../../components/ui/AppInput/AppInput.vue';
 import Modal from '../../../components/ui/Modal.vue';
+import type { ChangePasswordDto } from '@/api/swagger/data-contracts';
+import { useForm } from 'vee-validate';
+
+const { validate } = useForm();
 
 const isShowed = defineModel<boolean>();
 
 const props = defineProps<{
   isLoading: boolean;
+}>();
+
+const emit = defineEmits<{
+  confirm: [ChangePasswordDto];
 }>();
 
 const oldPassword = ref('');
@@ -20,12 +28,27 @@ const passwordMatchValidation = () => {
   }
   return true;
 };
+
+const onSubmit = async () => {
+  const { valid } = await validate();
+
+  if (valid) {
+    emit('confirm', {
+      oldPassword: oldPassword.value,
+      newPassword: newPassword.value,
+      confirmPassword: repeatPassword.value
+    });
+  }
+};
 </script>
 
 <template>
-  <Modal v-model="isShowed">
+  <Modal
+    v-model="isShowed"
+    size="md"
+  >
     <h2 class="text-xl text-center font-bold mb-2">Change password</h2>
-    <form @submit.prevent>
+    <form @submit.prevent="onSubmit">
       <AppInput
         id="old-password"
         v-model="oldPassword"
@@ -66,6 +89,7 @@ const passwordMatchValidation = () => {
         <AppButton
           :disabled="props.isLoading"
           appearance="primary"
+          type="submit"
         >
           Submit
         </AppButton>

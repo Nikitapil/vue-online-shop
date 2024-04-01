@@ -14,6 +14,7 @@ import type {
   AuthResponseDto,
   CartReturnDto,
   CategoryReturnDto,
+  ChangePasswordDto,
   CreateCategoryDto,
   CreateOrderDto,
   CreateOrderReturnDto,
@@ -118,6 +119,23 @@ export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType
   updateUserData = (data: UpdateUserDataDto, params: RequestParams = {}) =>
     this.request<AuthResponseDto, any>({
       path: `/api/auth`,
+      method: 'PUT',
+      body: data,
+      type: ContentType.Json,
+      format: 'json',
+      ...params
+    });
+  /**
+   * No description
+   *
+   * @tags Auth
+   * @name ChangePassword
+   * @summary change password
+   * @request PUT:/api/auth/password
+   */
+  changePassword = (data: ChangePasswordDto, params: RequestParams = {}) =>
+    this.request<AuthResponseDto, any>({
+      path: `/api/auth/password`,
       method: 'PUT',
       body: data,
       type: ContentType.Json,

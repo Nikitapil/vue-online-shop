@@ -11,6 +11,7 @@ import {
 import { api } from '@/api/apiInstance';
 import { removeTokenFromStorage, setTokenToStorage } from '@/helpers/token-helpers';
 import { toast } from 'vue3-toastify';
+import type { ChangePasswordDto } from '../../api/swagger/data-contracts';
 
 export const useAuthStore = defineStore('authStore', () => {
   const user = ref<UserReturnDto | null>(null);
@@ -62,5 +63,20 @@ export const useAuthStore = defineStore('authStore', () => {
     await authUnifiedMethod(() => api.updateUserData(data), toast.error);
   };
 
-  return { user, isAuthenticated, isAuthLoading, isAdmin, refresh, register, login, logout, updateUserData };
+  const changePassword = async (data: ChangePasswordDto) => {
+    await authUnifiedMethod(() => api.changePassword(data), toast.error);
+  };
+
+  return {
+    user,
+    isAuthenticated,
+    isAuthLoading,
+    isAdmin,
+    refresh,
+    register,
+    login,
+    logout,
+    updateUserData,
+    changePassword
+  };
 });

@@ -4,7 +4,7 @@ import AppButton from '../../../components/ui/AppButton.vue';
 import AuthProtected from '@/modules/auth/components/AuthProtected.vue';
 import EditableText from '../../../components/ui/EditableText.vue';
 import { useAuthStore } from '@/modules/auth/authStore';
-import type { UpdateUserDataDto } from '@/api/swagger/data-contracts';
+import type { ChangePasswordDto, UpdateUserDataDto } from '@/api/swagger/data-contracts';
 import { computed, ref } from 'vue';
 
 const authStore = useAuthStore();
@@ -52,6 +52,11 @@ const onUpdatePhone = async (value: string) => {
 const onUpdateAdress = async (value: string) => {
   await updateUser(value, 'address');
   isAddressEditMode.value = false;
+};
+
+const onChangePassword = (request: ChangePasswordDto) => {
+  authStore.changePassword(request);
+  isShowChangePasswordModal.value = false;
 };
 </script>
 
@@ -103,7 +108,11 @@ const onUpdateAdress = async (value: string) => {
       >
         Change Password
       </AppButton>
-      <ChangePasswordModal v-model="isShowChangePasswordModal" />
+      <ChangePasswordModal
+        v-model="isShowChangePasswordModal"
+        :is-loading="authStore.isAuthLoading"
+        @confirm="onChangePassword"
+      />
     </div>
   </AuthProtected>
 </template>

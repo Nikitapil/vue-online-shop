@@ -67,6 +67,15 @@ export interface UpdateUserDataDto {
   phone?: string;
 }
 
+export interface ChangePasswordDto {
+  /** user old password */
+  oldPassword: string;
+  /** user new password */
+  newPassword: string;
+  /** user confirm password */
+  confirmPassword: string;
+}
+
 export interface CreateProductBody {
   /** Product name */
   name: string;
