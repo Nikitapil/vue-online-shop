@@ -43,7 +43,7 @@ const onSubmit = async () => {
 </script>
 
 <template>
-  <div class="flex gap-2 items-center">
+  <div class="flex flex-wrap gap-2 items-center">
     <h3
       v-if="label"
       class="font-bold text-xl"
