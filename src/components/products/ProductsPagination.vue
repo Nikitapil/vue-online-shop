@@ -39,7 +39,6 @@ const onChangeLimit = () => {
 <template>
   <div class="flex justify-between items-center mt-2">
     <Pagination
-      class="mt-4"
       :current-page="currentPage"
       :limit="limit"
       :items-count="props.totalCount"
@@ -51,7 +50,7 @@ const onChangeLimit = () => {
       v-if="props.totalCount > 10"
       class="flex items-center gap-2 ml-auto"
     >
-      <span class="min-w-fit">Products per page</span>
+      <span class="min-w-fit hidden sm:inline">Products per page</span>
       <AppSelect
         v-model="limitValue"
         :options="limitOptions"
