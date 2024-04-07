@@ -77,11 +77,13 @@ onMounted(() => {
 </script>
 
 <template>
-  <ContentSwitcher
-    v-model="currentView"
-    class="mb-3"
-    :options="switcherOptions"
-  />
+  <div class="max-w-full overflow-auto">
+    <ContentSwitcher
+      v-model="currentView"
+      class="mb-3"
+      :options="switcherOptions"
+    />
+  </div>
   <ProductDetails
     v-if="currentView === 'preview'"
     :product="productReview"
