@@ -371,6 +371,21 @@ export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType
   /**
    * No description
    *
+   * @tags Cart
+   * @name ClearCart
+   * @summary Clear cart
+   * @request PATCH:/api/cart/clear
+   */
+  clearCart = (params: RequestParams = {}) =>
+    this.request<CartReturnDto, any>({
+      path: `/api/cart/clear`,
+      method: 'PATCH',
+      format: 'json',
+      ...params
+    });
+  /**
+   * No description
+   *
    * @tags Orders
    * @name CreateOrder
    * @summary Create order

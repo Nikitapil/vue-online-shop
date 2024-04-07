@@ -19,7 +19,7 @@ const isCreateOrderModalOpened = ref(false);
 const cartPrice = computed(() => store.cart?.price || 0);
 const tax = computed(() => store.cart?.taxSum);
 const products = computed(() => store.cart?.productInCart || []);
-const isCreateOrderDisabled = computed(
+const isCartButtonsDisabled = computed(
   () => store.isChangeInCartCountInProgress || store.isCartLoading || store.isCreateOrderInProgress
 );
 
@@ -97,8 +97,16 @@ onMounted(() => {
           </div>
         </div>
         <AppButton
+          class="mb-2"
+          appearance="danger"
+          :disabled="isCartButtonsDisabled"
+          @click="store.clearCart"
+        >
+          Remove all from cart
+        </AppButton>
+        <AppButton
           appearance="success"
-          :disabled="isCreateOrderDisabled"
+          :disabled="isCartButtonsDisabled"
           @click="isCreateOrderModalOpened = true"
         >
           Make an order

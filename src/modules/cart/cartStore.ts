@@ -59,6 +59,19 @@ export const useCartStore = defineStore('cart', () => {
     }
   };
 
+  const clearCart = async () => {
+    try {
+      isChangeInCartCountInProgress.value = true;
+      cart.value = await api.clearCart();
+      return true;
+    } catch (e: any) {
+      toast.error(e?.response?.data?.message || 'Error');
+      return false;
+    } finally {
+      isChangeInCartCountInProgress.value = false;
+    }
+  };
+
   return {
     cart,
     isCartLoading,
@@ -67,6 +80,7 @@ export const useCartStore = defineStore('cart', () => {
     loadCart,
     addToCart,
     removeFromCart,
-    createOrder
+    createOrder,
+    clearCart
   };
 });
