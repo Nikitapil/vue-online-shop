@@ -26,7 +26,7 @@ defineProps<{
   <div
     v-else
     v-auto-animate
-    class="grid gap-3 grid-cols-[repeat(auto-fill,270px)] justify-between"
+    class="grid gap-3 sm:grid-cols-[repeat(auto-fill,270px)] justify-between"
   >
     <ProductListItem
       v-for="product in products"
