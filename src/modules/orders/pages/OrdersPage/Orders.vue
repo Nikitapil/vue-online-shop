@@ -93,38 +93,40 @@ onMounted(() => {
         @change="onChangeStatus"
       />
     </div>
-    <AppTable
-      v-model:sort="order"
-      :columns="tableColumns"
-      :data-source="store.dataSource"
-      @sort="loadOrders"
-    >
-      <template #idContent="{ content }">
-        <div
-          v-tooltip="content.id"
-          class="max-w-[100px]"
-        >
-          <RouterLink
-            :to="{ name: ERoutesName.SINGLE_ORDER, params: { id: content.id } }"
-            class="text-md block underline max-w-full truncate"
+    <div class="max-w-full overflow-auto">
+      <AppTable
+        v-model:sort="order"
+        :columns="tableColumns"
+        :data-source="store.dataSource"
+        @sort="loadOrders"
+      >
+        <template #idContent="{ content }">
+          <div
+            v-tooltip="content.id"
+            class="max-w-[100px]"
           >
-            {{ content.id }}
-          </RouterLink>
-        </div>
-      </template>
+            <RouterLink
+              :to="{ name: ERoutesName.SINGLE_ORDER, params: { id: content.id } }"
+              class="text-md block underline max-w-full truncate"
+            >
+              {{ content.id }}
+            </RouterLink>
+          </div>
+        </template>
 
-      <template #dateContent="{ content, columnKey }">
-        <div v-date="{ date: content[columnKey] }"></div>
-      </template>
+        <template #dateContent="{ content, columnKey }">
+          <div v-date="{ date: content[columnKey] }"></div>
+        </template>
 
-      <template #priceContent="{ content }">
-        <div v-price="content.price"></div>
-      </template>
+        <template #priceContent="{ content }">
+          <div v-price="content.price"></div>
+        </template>
 
-      <template #statusContent="{ content }">
-        <div :style="{ color: content.statusColor }">{{ content.status }}</div>
-      </template>
-    </AppTable>
+        <template #statusContent="{ content }">
+          <div :style="{ color: content.statusColor }">{{ content.status }}</div>
+        </template>
+      </AppTable>
+    </div>
     <Pagination
       class="mt-2"
       :items-count="store.totalOrdersCount"
