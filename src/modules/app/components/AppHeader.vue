@@ -25,7 +25,7 @@ const openAuthModal = (type: 'login' | 'register') => {
 </script>
 
 <template>
-  <header class="flex justify-between items-center border-b border-b-slate-300 px-8 py-6">
+  <header class="flex flex-wrap gap-3 justify-between items-center border-b border-b-slate-300 px-8 py-6">
     <RouterLink
       to="/"
       class="flex items-center gap-4"
