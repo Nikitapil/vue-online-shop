@@ -1,5 +1,12 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import AdminNav from '@/modules/admin/components/AdminNav.vue';
+</script>
 
 <template>
-  <div>Admin Page</div>
+  <div class="flex">
+    <AdminNav />
+    <div class="px-8">
+      <RouterView />
+    </div>
+  </div>
 </template>

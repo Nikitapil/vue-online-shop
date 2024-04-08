@@ -8,6 +8,7 @@ import Orders from '@/modules/orders/pages/OrdersPage/Orders.vue';
 import SingleOrder from '@/modules/orders/pages/SingleOrderPage/SingleOrder.vue';
 import ProfilePage from '@/modules/profile/pages/ProfilePage.vue';
 import Admin from '@/modules/admin/pages/Admin.vue';
+import FinanceSettings from '@/modules/admin/submodules/finance-settings/pages/FinanceSettings.vue';
 
 export enum ERoutesName {
   HOME = 'home',
@@ -18,7 +19,8 @@ export enum ERoutesName {
   ORDERS = 'orders',
   SINGLE_ORDER = 'single.order',
   PROFILE = 'profile',
-  ADMIN = 'admin'
+  ADMIN = 'admin',
+  FINANCE_SETTINGS = 'finance-settings'
 }
 
 export const router = createRouter({
@@ -67,7 +69,14 @@ export const router = createRouter({
     {
       path: '/admin',
       component: Admin,
-      name: ERoutesName.ADMIN
+      name: ERoutesName.ADMIN,
+      children: [
+        {
+          path: '/admin/finance',
+          component: FinanceSettings,
+          name: ERoutesName.FINANCE_SETTINGS
+        }
+      ]
     }
   ]
 });

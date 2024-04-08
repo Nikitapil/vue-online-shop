@@ -56,7 +56,7 @@ const openAuthModal = (type: 'login' | 'register') => {
           <LinkWithIcon
             icon="mdi:settings-outline"
             label="Admin"
-            :to="{ name: ERoutesName.ADMIN }"
+            :to="{ name: ERoutesName.FINANCE_SETTINGS }"
           />
         </li>
 

@@ -2,17 +2,24 @@
 import { Icon } from '@iconify/vue';
 import type { RouteLocationRaw } from 'vue-router';
 
-const props = defineProps<{
-  icon: string;
-  label: string;
-  to: RouteLocationRaw;
-}>();
+const props = withDefaults(
+  defineProps<{
+    icon: string;
+    label: string;
+    to: RouteLocationRaw;
+    activeClassName?: string;
+  }>(),
+  {
+    activeClassName: ''
+  }
+);
 </script>
 
 <template>
   <RouterLink
     :to="to"
-    class="flex gap-2 items-center text-slate-500 cursor-pointer hover:text-black"
+    class="flex gap-2 items-center text-slate-500 cursor-pointer hover:text-black transition-all duration-300"
+    :exact-active-class="props.activeClassName"
   >
     <Icon
       class="w-6 h-6"
