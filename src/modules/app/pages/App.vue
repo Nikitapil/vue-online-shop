@@ -1,6 +1,4 @@
 <script setup lang="ts">
-// TODO adaptive
-// TODO real backend
 import { onMounted } from 'vue';
 import AppHeader from '@/modules/app/components/AppHeader.vue';
 import { useAuthStore } from '@/modules/auth/authStore';
@@ -17,6 +15,7 @@ onMounted(async () => {
     <AppHeader
       :is-authenticated="authStore.isAuthenticated"
       :is-auth-loading="authStore.isAuthLoading"
+      :is-admin="authStore.isAdmin"
     />
 
     <div class="px-8 py-5">

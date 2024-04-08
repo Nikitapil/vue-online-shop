@@ -9,9 +9,10 @@ import IconButton from '@/components/ui/IconButton.vue';
 import { Icon } from '@iconify/vue';
 import { ERoutesName } from '@/router';
 
-defineProps<{
+const props = defineProps<{
   isAuthenticated: boolean;
   isAuthLoading: boolean;
+  isAdmin: boolean;
 }>();
 
 const isAuthModalOpen = ref(false);
@@ -50,7 +51,19 @@ const openAuthModal = (type: 'login' | 'register') => {
 
     <nav v-else-if="isAuthenticated">
       <ul class="flex gap-3 lg:gap-8 items-center">
-        <!--        Todo refactor общие классы и изменить на кнопку-->
+        <li v-if="props.isAdmin">
+          <RouterLink
+            :to="{ name: ERoutesName.ADMIN }"
+            class="flex gap-2 items-center text-slate-500 cursor-pointer hover:text-black"
+          >
+            <Icon
+              class="w-6 h-6"
+              icon="mdi:settings-outline"
+            />
+            <span class="hidden xl:block">Admin</span>
+          </RouterLink>
+        </li>
+
         <li>
           <Cart />
         </li>
@@ -64,7 +77,7 @@ const openAuthModal = (type: 'login' | 'register') => {
               class="w-6 h-6"
               icon="mdi:heart-outline"
             />
-            <span class="text-black hidden lg:block">Bookmarks</span>
+            <span class="hidden xl:block">Bookmarks</span>
           </RouterLink>
         </li>
 
@@ -77,7 +90,7 @@ const openAuthModal = (type: 'login' | 'register') => {
               class="w-6 h-6"
               icon="lets-icons:order"
             />
-            <span class="hidden lg:block">Orders</span>
+            <span class="hidden xl:block">Orders</span>
           </RouterLink>
         </li>
 
@@ -90,7 +103,7 @@ const openAuthModal = (type: 'login' | 'register') => {
               class="w-6 h-6"
               icon="iconamoon:profile-circle"
             />
-            <span class="hidden lg:block">Profile</span>
+            <span class="hidden xl:block">Profile</span>
           </RouterLink>
         </li>
 

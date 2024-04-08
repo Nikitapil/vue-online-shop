@@ -44,7 +44,7 @@ export const useAuthStore = defineStore('authStore', () => {
     await authUnifiedMethod(() => api.login(data), toast.error);
   };
 
-  const isAdmin = computed(() => user.value?.roles?.includes(UserReturnDtoRolesEnum.ADMIN));
+  const isAdmin = computed(() => !!user.value?.roles?.includes(UserReturnDtoRolesEnum.ADMIN));
 
   const logout = async () => {
     try {
