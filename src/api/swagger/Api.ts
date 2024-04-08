@@ -20,6 +20,7 @@ import type {
   CreateOrderReturnDto,
   CreateProductBody,
   CreateReviewDto,
+  FinanceSettingsReturnDto,
   GetFavoriteProductsParams,
   GetOrdersParams,
   GetOrdersReturnDto,
@@ -33,6 +34,7 @@ import type {
   ProductReviewReturnDto,
   RegisterDto,
   RemoveFromCartDto,
+  SetTaxDto,
   SuccessMessageDto,
   ToggleFavoriteReturnDto,
   ToggleFavoritesDto,
@@ -493,6 +495,36 @@ export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<SuccessMessageDto, any>({
       path: `/api/product-reviews/${id}`,
       method: 'DELETE',
+      format: 'json',
+      ...params
+    });
+  /**
+   * No description
+   *
+   * @name GetFinanceSettings
+   * @summary Get finance setting
+   * @request GET:/api/finance/settings
+   */
+  getFinanceSettings = (params: RequestParams = {}) =>
+    this.request<FinanceSettingsReturnDto, any>({
+      path: `/api/finance/settings`,
+      method: 'GET',
+      format: 'json',
+      ...params
+    });
+  /**
+   * No description
+   *
+   * @name SetTaxValue
+   * @summary Set new tax value
+   * @request PUT:/api/finance/settings/tax
+   */
+  setTaxValue = (data: SetTaxDto, params: RequestParams = {}) =>
+    this.request<FinanceSettingsReturnDto, any>({
+      path: `/api/finance/settings/tax`,
+      method: 'PUT',
+      body: data,
+      type: ContentType.Json,
       format: 'json',
       ...params
     });

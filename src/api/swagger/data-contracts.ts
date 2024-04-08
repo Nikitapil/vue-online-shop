@@ -347,6 +347,16 @@ export interface GetProductsReviewsReturnDto {
   totalCount: number;
 }
 
+export interface FinanceSettingsReturnDto {
+  /** Tax setting */
+  tax: number;
+}
+
+export interface SetTaxDto {
+  /** tax value */
+  tax: number;
+}
+
 export enum UserReturnDtoRolesEnum {
   ADMIN = 'ADMIN',
   USER = 'USER'
