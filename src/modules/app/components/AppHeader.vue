@@ -8,6 +8,7 @@ import LogoutModal from '@/modules/auth/components/LogoutModal.vue';
 import IconButton from '@/components/ui/IconButton.vue';
 import { Icon } from '@iconify/vue';
 import { ERoutesName } from '@/router';
+import LinkWithIcon from '@/components/ui/LinkWithIcon.vue';
 
 const props = defineProps<{
   isAuthenticated: boolean;
@@ -52,16 +53,11 @@ const openAuthModal = (type: 'login' | 'register') => {
     <nav v-else-if="isAuthenticated">
       <ul class="flex gap-3 lg:gap-8 items-center">
         <li v-if="props.isAdmin">
-          <RouterLink
+          <LinkWithIcon
+            icon="mdi:settings-outline"
+            label="Admin"
             :to="{ name: ERoutesName.ADMIN }"
-            class="flex gap-2 items-center text-slate-500 cursor-pointer hover:text-black"
-          >
-            <Icon
-              class="w-6 h-6"
-              icon="mdi:settings-outline"
-            />
-            <span class="hidden xl:block">Admin</span>
-          </RouterLink>
+          />
         </li>
 
         <li>
@@ -69,42 +65,27 @@ const openAuthModal = (type: 'login' | 'register') => {
         </li>
 
         <li>
-          <RouterLink
-            to="/bookmarks"
-            class="flex gap-3 items-center text-slate-500 cursor-pointer hover:text-black"
-          >
-            <Icon
-              class="w-6 h-6"
-              icon="mdi:heart-outline"
-            />
-            <span class="hidden xl:block">Bookmarks</span>
-          </RouterLink>
+          <LinkWithIcon
+            icon="mdi:heart-outline"
+            label="Bookmarks"
+            :to="{ name: ERoutesName.BOOKMARKS }"
+          />
         </li>
 
         <li>
-          <RouterLink
+          <LinkWithIcon
+            icon="lets-icons:order"
+            label="Orders"
             :to="{ name: ERoutesName.ORDERS }"
-            class="flex gap-1 items-center text-slate-500 cursor-pointer hover:text-black"
-          >
-            <Icon
-              class="w-6 h-6"
-              icon="lets-icons:order"
-            />
-            <span class="hidden xl:block">Orders</span>
-          </RouterLink>
+          />
         </li>
 
         <li>
-          <RouterLink
+          <LinkWithIcon
+            icon="iconamoon:profile-circle"
+            label="Profile"
             :to="{ name: ERoutesName.PROFILE }"
-            class="flex gap-1 items-center text-slate-500 cursor-pointer hover:text-black"
-          >
-            <Icon
-              class="w-6 h-6"
-              icon="iconamoon:profile-circle"
-            />
-            <span class="hidden xl:block">Profile</span>
-          </RouterLink>
+          />
         </li>
 
         <li class="h-7">
