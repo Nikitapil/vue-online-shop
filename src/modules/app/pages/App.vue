@@ -2,11 +2,14 @@
 import { onMounted } from 'vue';
 import AppHeader from '@/modules/app/components/AppHeader.vue';
 import { useAuthStore } from '@/modules/auth/authStore';
+import { useAppStore } from '../appStore';
 
 const authStore = useAuthStore();
+const appStore = useAppStore();
 
 onMounted(async () => {
   await authStore.refresh();
+  await appStore.getFinanceSettings();
 });
 </script>
 
