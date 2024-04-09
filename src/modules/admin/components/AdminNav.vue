@@ -14,9 +14,3 @@ import { ERoutesName } from '@/router';
     />
   </div>
 </template>
-
-<style>
-.test {
-  background: #e4d828;
-}
-</style>

@@ -8,10 +8,15 @@ export const useAppStore = defineStore('app', () => {
   const financeSettings = ref<FinanceSettingsReturnDto | null>(null);
 
   const { isLoading: isFinanceSettingsLoading, call: getFinanceSettingsApi } = useApiMethod(api.getFinanceSettings);
+  const { isLoading: isSetTaxInProgress, call: setTaxValue } = useApiMethod(api.setTaxValue);
 
   const getFinanceSettings = async () => {
     financeSettings.value = await getFinanceSettingsApi();
   };
 
-  return { financeSettings, isFinanceSettingsLoading, getFinanceSettings };
+  const setTax = async (tax: number) => {
+    financeSettings.value = await setTaxValue({ tax });
+  };
+
+  return { financeSettings, isFinanceSettingsLoading, isSetTaxInProgress, getFinanceSettings, setTax };
 });

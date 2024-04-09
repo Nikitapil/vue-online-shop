@@ -7,10 +7,10 @@ export const useApiMethod = <T extends (...args: any) => any>(apiMethod: T) => {
   const call = async (...args: Parameters<T>): Promise<ReturnType<T> | null> => {
     try {
       isLoading.value = true;
-      return await apiMethod(args);
+      return await apiMethod(...(args as any));
     } catch (e: any) {
       toast.error(e?.response?.data?.message || 'Error');
-      return null
+      return null;
     } finally {
       isLoading.value = false;
     }

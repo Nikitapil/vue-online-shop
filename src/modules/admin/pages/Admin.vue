@@ -5,7 +5,7 @@ import AdminNav from '@/modules/admin/components/AdminNav.vue';
 <template>
   <div class="flex">
     <AdminNav />
-    <div class="px-8">
+    <div class="px-8 flex-1">
       <RouterView />
     </div>
   </div>

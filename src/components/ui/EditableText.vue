@@ -3,6 +3,7 @@ import IconButton from './IconButton.vue';
 import { ref, type MaybeRef } from 'vue';
 import AppInput from './AppInput/AppInput.vue';
 import { useForm, type RuleExpression } from 'vee-validate';
+import type { TMasks } from '@/components/ui/AppInput/masks';
 
 const isEditMode = defineModel<boolean>();
 
@@ -15,10 +16,14 @@ const props = withDefaults(
     initialValue: string;
     label?: string;
     rules?: MaybeRef<RuleExpression<any>>;
+    mask?: TMasks;
+    isLoading: boolean;
   }>(),
   {
     rules: '',
-    label: ''
+    label: '',
+    mask: 'noMask',
+    isLoading: false
   }
 );
 
@@ -60,15 +65,19 @@ const onSubmit = async () => {
         v-model="value"
         :name="props.name"
         :rules="props.rules"
+        :disabled="props.isLoading"
+        :mask="props.mask"
       />
       <IconButton
         icon="line-md:circle-to-confirm-circle-transition"
         type="submit"
         color="#1fe425"
+        :disabled="props.isLoading"
       />
       <IconButton
         icon="carbon:close-outline"
         color="#e30b1a"
+        :disabled="props.isLoading"
         @click="closeEditMode"
       />
     </form>
@@ -79,6 +88,7 @@ const onSubmit = async () => {
       <p>{{ value }}</p>
       <IconButton
         icon="ic:outline-edit"
+        :disabled="props.isLoading"
         @click="openEditMode"
       />
     </div>
