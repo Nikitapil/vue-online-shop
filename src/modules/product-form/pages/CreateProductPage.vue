@@ -2,7 +2,7 @@
 import ProductForm from '@/modules/product-form/components/ProductForm.vue';
 import AuthProtected from '@/modules/auth/components/AuthProtected.vue';
 import { useCreateProduct } from '@/modules/product-form/composables/useCreateProduct';
-import type { CreateProductBody } from '@/api/swagger/data-contracts';
+import { type CreateProductBody, UserReturnDtoRolesEnum } from '@/api/swagger/data-contracts';
 import { useRouter } from 'vue-router';
 import { ERoutesName } from '@/router';
 
@@ -20,7 +20,7 @@ const onCreateProduct = async (productData: CreateProductBody) => {
 
 <template>
   <div>
-    <AuthProtected :admitted-roles="['ADMIN']">
+    <AuthProtected :admitted-roles="[UserReturnDtoRolesEnum.ADMIN]">
       <ProductForm
         title="Create product"
         :is-loading="isLoading"

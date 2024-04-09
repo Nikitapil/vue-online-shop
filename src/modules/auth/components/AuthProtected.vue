@@ -3,10 +3,11 @@ import { useAuthStore } from '@/modules/auth/authStore';
 import RoundedLoader from '@/components/ui/loaders/RoundedLoader.vue';
 import AuthForm from '@/modules/auth/components/AuthForm.vue';
 import { computed } from 'vue';
+import { UserReturnDtoRolesEnum } from '@/api/swagger/data-contracts';
 
 const props = withDefaults(
   defineProps<{
-    admittedRoles?: string[];
+    admittedRoles?: UserReturnDtoRolesEnum[];
   }>(),
   {
     admittedRoles: () => []

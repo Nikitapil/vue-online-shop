@@ -10,7 +10,7 @@ import RoundedLoader from '@/components/ui/loaders/RoundedLoader.vue';
 import EmptyStateCentered from '@/components/ui/EmptyStateCentered.vue';
 import ProductNotFound from '@/components/products/ProductNotFound.vue';
 import { useEditProduct } from '../composables/useEditProduct';
-import type { CreateProductBody } from '@/api/swagger/data-contracts';
+import { type CreateProductBody, UserReturnDtoRolesEnum } from "@/api/swagger/data-contracts";
 import { ERoutesName } from '@/router';
 
 const route = useRoute();
@@ -48,7 +48,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <AuthProtected :admitted-roles="['ADMIN']">
+  <AuthProtected :admitted-roles="[UserReturnDtoRolesEnum.ADMIN]">
     <EmptyStateCentered v-if="isLoading">
       <RoundedLoader />
     </EmptyStateCentered>
