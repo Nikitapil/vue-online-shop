@@ -10,5 +10,6 @@ const props = defineProps<{
   <div class="border rounded-xl p-2">
     <h3 class="font-semibold mb-1">{{ props.discount.name }}</h3>
     <p>Discount percent: {{ props.discount.percentage }}%</p>
+    <p class="text-sm text-slate-600">Products count: {{ props.discount.productsCount }}</p>
   </div>
 </template>

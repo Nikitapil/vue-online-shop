@@ -395,6 +395,10 @@ export interface DiscountReturnDto {
   percentage: string;
   /** products */
   products: ProductReturnDto[];
+  /** products count */
+  productsCount: number;
+  /** can delete discount */
+  canDelete: boolean;
 }
 
 export interface EditDiscountDto {
