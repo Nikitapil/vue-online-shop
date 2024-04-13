@@ -10,7 +10,9 @@ export const tooltip: Directive<HTMLElement, string> = (el, bindings) => {
   el.appendChild(tooltip);
 
   el.addEventListener('mouseenter', () => {
-    tooltip.style.display = 'block';
+    if (bindings.value) {
+      tooltip.style.display = 'block';
+    }
   });
 
   el.addEventListener('mouseleave', () => {

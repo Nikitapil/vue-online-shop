@@ -16,10 +16,14 @@ import type {
   CategoryReturnDto,
   ChangePasswordDto,
   CreateCategoryDto,
+  CreateDiscountDto,
   CreateOrderDto,
   CreateOrderReturnDto,
   CreateProductBody,
   CreateReviewDto,
+  DiscountReturnDto,
+  EditDiscountDto,
+  EditProductDiscountDto,
   FinanceSettingsReturnDto,
   GetFavoriteProductsParams,
   GetOrdersParams,
@@ -254,6 +258,23 @@ export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<SuccessMessageDto, any>({
       path: `/api/products/${id}`,
       method: 'DELETE',
+      format: 'json',
+      ...params
+    });
+  /**
+   * No description
+   *
+   * @tags Products
+   * @name EditProductDiscount
+   * @summary edit product discount
+   * @request PUT:/api/products/discount
+   */
+  editProductDiscount = (data: EditProductDiscountDto, params: RequestParams = {}) =>
+    this.request<ProductReturnDto, any>({
+      path: `/api/products/discount`,
+      method: 'PUT',
+      body: data,
+      type: ContentType.Json,
       format: 'json',
       ...params
     });
@@ -525,6 +546,80 @@ export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       method: 'PUT',
       body: data,
       type: ContentType.Json,
+      format: 'json',
+      ...params
+    });
+  /**
+   * No description
+   *
+   * @name CreateDiscount
+   * @summary Create discount
+   * @request POST:/api/discounts
+   */
+  createDiscount = (data: CreateDiscountDto, params: RequestParams = {}) =>
+    this.request<DiscountReturnDto, any>({
+      path: `/api/discounts`,
+      method: 'POST',
+      body: data,
+      type: ContentType.Json,
+      format: 'json',
+      ...params
+    });
+  /**
+   * No description
+   *
+   * @name GetDiscounts
+   * @summary Get discounts
+   * @request GET:/api/discounts
+   */
+  getDiscounts = (params: RequestParams = {}) =>
+    this.request<DiscountReturnDto[], any>({
+      path: `/api/discounts`,
+      method: 'GET',
+      format: 'json',
+      ...params
+    });
+  /**
+   * No description
+   *
+   * @name EditDiscount
+   * @summary Edit discounts
+   * @request PUT:/api/discounts
+   */
+  editDiscount = (data: EditDiscountDto, params: RequestParams = {}) =>
+    this.request<DiscountReturnDto, any>({
+      path: `/api/discounts`,
+      method: 'PUT',
+      body: data,
+      type: ContentType.Json,
+      format: 'json',
+      ...params
+    });
+  /**
+   * No description
+   *
+   * @name GetSingleDiscount
+   * @summary Get discount
+   * @request GET:/api/discounts/{id}
+   */
+  getSingleDiscount = (id: string, params: RequestParams = {}) =>
+    this.request<DiscountReturnDto, any>({
+      path: `/api/discounts/${id}`,
+      method: 'GET',
+      format: 'json',
+      ...params
+    });
+  /**
+   * No description
+   *
+   * @name DeleteDiscount
+   * @summary Delete discounts
+   * @request DELETE:/api/discounts/{id}
+   */
+  deleteDiscount = (id: string, params: RequestParams = {}) =>
+    this.request<SuccessMessageDto, any>({
+      path: `/api/discounts/${id}`,
+      method: 'DELETE',
       format: 'json',
       ...params
     });

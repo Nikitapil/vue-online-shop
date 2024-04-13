@@ -21,10 +21,12 @@ const props = withDefaults(
     class="flex gap-2 items-center text-slate-500 cursor-pointer hover:text-black transition-all duration-300"
     :exact-active-class="props.activeClassName"
   >
-    <Icon
-      class="w-6 h-6"
-      :icon="props.icon"
-    />
+    <span v-tooltip="props.label">
+      <Icon
+        class="w-6 h-6"
+        :icon="props.icon"
+      />
+    </span>
     <span class="hidden xl:block">{{ props.label }}</span>
   </RouterLink>
 </template>

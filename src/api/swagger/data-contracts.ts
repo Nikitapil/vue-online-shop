@@ -109,6 +109,15 @@ export interface CategoryReturnDto {
   updatedAt: string;
 }
 
+export interface ProductDiscountReturnDto {
+  /** discount id */
+  id: string;
+  /** discount name */
+  name: string;
+  /** discount name */
+  percentage: string;
+}
+
 export interface ProductReturnDto {
   /** product id */
   id: string;
@@ -140,6 +149,12 @@ export interface ProductReturnDto {
   canDelete: boolean;
   /** Can add to favourites */
   canAddToFavourites: boolean;
+  /** Can add discount */
+  canAddDiscount: boolean;
+  /** Can remove discount */
+  canRemoveDiscount: boolean;
+  /** Product discount */
+  discount: ProductDiscountReturnDto | null;
 }
 
 export interface UpdateProductBody {
@@ -175,6 +190,13 @@ export interface ToggleFavoritesDto {
 export interface ToggleFavoriteReturnDto {
   /** Favorite product state */
   isInFavorites: boolean;
+}
+
+export interface EditProductDiscountDto {
+  /** discount id */
+  discountId: string | null;
+  /** product id */
+  productId: string;
 }
 
 export interface CreateCategoryDto {
@@ -355,6 +377,33 @@ export interface FinanceSettingsReturnDto {
 export interface SetTaxDto {
   /** tax value */
   tax: number;
+}
+
+export interface CreateDiscountDto {
+  /** discount name */
+  name: string;
+  /** discount name */
+  percentage: string;
+}
+
+export interface DiscountReturnDto {
+  /** discount id */
+  id: string;
+  /** discount name */
+  name: string;
+  /** discount name */
+  percentage: string;
+  /** products */
+  products: ProductReturnDto[];
+}
+
+export interface EditDiscountDto {
+  /** discount name */
+  id: string;
+  /** discount name */
+  name: string;
+  /** discount name */
+  percentage: string;
 }
 
 export enum UserReturnDtoRolesEnum {

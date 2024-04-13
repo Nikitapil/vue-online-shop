@@ -51,7 +51,7 @@ const openAuthModal = (type: 'login' | 'register') => {
     </div>
 
     <nav v-else-if="isAuthenticated">
-      <ul class="flex gap-3 lg:gap-8 items-center">
+      <ul class="flex gap-3 xl:gap-5 items-center">
         <li v-if="props.isAdmin">
           <LinkWithIcon
             icon="mdi:settings-outline"
@@ -77,6 +77,14 @@ const openAuthModal = (type: 'login' | 'register') => {
             icon="lets-icons:order"
             label="Orders"
             :to="{ name: ERoutesName.ORDERS }"
+          />
+        </li>
+
+        <li>
+          <LinkWithIcon
+            icon="iconamoon:discount"
+            label="Discounts"
+            :to="{ name: ERoutesName.DISCOUNTS }"
           />
         </li>
 

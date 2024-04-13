@@ -9,6 +9,7 @@ import SingleOrder from '@/modules/orders/pages/SingleOrderPage/SingleOrder.vue'
 import ProfilePage from '@/modules/profile/pages/ProfilePage.vue';
 import Admin from '@/modules/admin/pages/Admin.vue';
 import FinanceSettings from '@/modules/admin/submodules/finance-settings/pages/FinanceSettings.vue';
+import Discounts from '@/modules/discounts/pages/Discounts.vue';
 
 export enum ERoutesName {
   HOME = 'home',
@@ -20,7 +21,8 @@ export enum ERoutesName {
   SINGLE_ORDER = 'single.order',
   PROFILE = 'profile',
   ADMIN = 'admin',
-  FINANCE_SETTINGS = 'finance-settings'
+  FINANCE_SETTINGS = 'finance-settings',
+  DISCOUNTS = 'discounts'
 }
 
 export const router = createRouter({
@@ -65,6 +67,11 @@ export const router = createRouter({
       path: '/profile',
       component: ProfilePage,
       name: ERoutesName.PROFILE
+    },
+    {
+      path: '/discounts',
+      component: Discounts,
+      name: ERoutesName.DISCOUNTS
     },
     {
       path: '/admin',
