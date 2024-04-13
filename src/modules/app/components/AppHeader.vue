@@ -51,7 +51,7 @@ const openAuthModal = (type: 'login' | 'register') => {
     </div>
 
     <nav v-else-if="isAuthenticated">
-      <ul class="flex gap-3 xl:gap-5 items-center">
+      <ul class="flex gap-3 flex-wrap xl:gap-5 items-center">
         <li v-if="props.isAdmin">
           <LinkWithIcon
             icon="mdi:settings-outline"

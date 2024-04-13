@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
-import type { DiscountReturnDto } from '@/api/swagger/data-contracts';
+import type { CreateDiscountDto, DiscountReturnDto } from '@/api/swagger/data-contracts';
 import { useApiMethod } from '@/api/useApiMethod';
 import { api } from '@/api/apiInstance';
 
@@ -8,6 +8,7 @@ export const useDiscountsStore = defineStore('discounts', () => {
   const discounts = ref<DiscountReturnDto[]>([]);
 
   const { isLoading: isDiscountsLoading, call: getDiscountsApi } = useApiMethod(api.getDiscounts);
+  const { isLoading: isDiscountCreateInProgress, call: createDiscountApi } = useApiMethod(api.createDiscount);
 
   const getDiscounts = async () => {
     const discountsResponse = await getDiscountsApi();
@@ -16,5 +17,10 @@ export const useDiscountsStore = defineStore('discounts', () => {
     }
   };
 
-  return { discounts, isDiscountsLoading, getDiscounts };
+  const createDiscount = async (data: CreateDiscountDto) => {
+    await createDiscountApi(data);
+    await getDiscounts();
+  };
+
+  return { discounts, isDiscountsLoading, isDiscountCreateInProgress, getDiscounts, createDiscount };
 });

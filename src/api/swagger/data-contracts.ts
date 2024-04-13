@@ -383,7 +383,7 @@ export interface CreateDiscountDto {
   /** discount name */
   name: string;
   /** discount name */
-  percentage: string;
+  percentage: number;
 }
 
 export interface DiscountReturnDto {
@@ -407,7 +407,7 @@ export interface EditDiscountDto {
   /** discount name */
   name: string;
   /** discount name */
-  percentage: string;
+  percentage: number;
 }
 
 export enum UserReturnDtoRolesEnum {
