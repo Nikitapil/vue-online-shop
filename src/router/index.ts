@@ -9,7 +9,7 @@ import SingleOrder from '@/modules/orders/pages/SingleOrderPage/SingleOrder.vue'
 import ProfilePage from '@/modules/profile/pages/ProfilePage.vue';
 import Admin from '@/modules/admin/pages/Admin.vue';
 import FinanceSettings from '@/modules/admin/submodules/finance-settings/pages/FinanceSettings.vue';
-import Discounts from '@/modules/discounts/pages/Discounts.vue';
+import Discounts from '@/modules/discounts/pages/Discounts/Discounts.vue';
 
 export enum ERoutesName {
   HOME = 'home',
