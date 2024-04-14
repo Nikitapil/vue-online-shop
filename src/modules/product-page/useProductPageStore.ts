@@ -1,11 +1,17 @@
 import { defineStore } from 'pinia';
 import { computed, ref } from 'vue';
-import type { ProductReturnDto } from '@/api/swagger/data-contracts';
+import type { EditProductDiscountDto, ProductReturnDto } from '@/api/swagger/data-contracts';
 import { api } from '@/api/apiInstance';
 import { useRoute } from 'vue-router';
 import { toast } from 'vue3-toastify';
+import { useApiMethod } from '@/api/useApiMethod';
+import { NO_DISCOUNTS } from '@/domain/discounts';
 
 export const useProductPageStore = defineStore('ProductPage', () => {
+  const { isLoading: isEditProductDiscountInProgress, call: editProductDiscountApi } = useApiMethod(
+    api.editProductDiscount
+  );
+
   const product = ref<ProductReturnDto | null>(null);
   const isProductLoading = ref(false);
   const isDeleteInProgress = ref(false);
@@ -40,6 +46,15 @@ export const useProductPageStore = defineStore('ProductPage', () => {
     }
   };
 
+  const editProductDiscount = async (discountIdFromForm: string) => {
+    if (!product.value) {
+      return;
+    }
+    const discountId = discountIdFromForm === NO_DISCOUNTS ? null : discountIdFromForm;
+    await editProductDiscountApi({ productId: product.value.id, discountId });
+    await loadProduct();
+  };
+
   const init = async () => {
     await loadProduct();
   };
@@ -48,7 +63,9 @@ export const useProductPageStore = defineStore('ProductPage', () => {
     product,
     isProductLoading,
     isDeleteInProgress,
+    isEditProductDiscountInProgress,
     init,
-    deleteProduct
+    deleteProduct,
+    editProductDiscount
   };
 });

@@ -2,11 +2,11 @@
 import { useDiscountsStore } from '@/modules/discounts/pages/Discounts/discountsStore';
 import EmptyStateCentered from '@/components/ui/EmptyStateCentered.vue';
 import RoundedLoader from '@/components/ui/loaders/RoundedLoader.vue';
-import DiscountCard from '@/modules/discounts/pages/components/DiscountCard.vue';
+import DiscountCard from '@/modules/discounts/components/DiscountCard.vue';
 import { onMounted, ref } from 'vue';
 import AppButton from '@/components/ui/AppButton.vue';
 import { useAuthStore } from '@/modules/auth/authStore';
-import CreateDiscountModal from '@/modules/discounts/pages/components/CreateDiscountModal.vue';
+import CreateDiscountModal from '@/modules/discounts/components/CreateDiscountModal.vue';
 import type { CreateDiscountDto } from '@/api/swagger/data-contracts';
 
 const store = useDiscountsStore();
