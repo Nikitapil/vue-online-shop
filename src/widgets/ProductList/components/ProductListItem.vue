@@ -49,7 +49,17 @@ const productData = useProduct(product);
     <div class="flex justify-between mt-4">
       <div class="flex flex-col">
         <span class="text-slate-400">Price:</span>
-        <b v-price="product.price"></b>
+        <div
+          v-if="product.discount"
+          class="flex gap-2"
+        >
+          <p
+            v-price="product.price"
+            class="text-slate-400 line-through"
+          ></p>
+          <span class="text-red-900">-{{ product.discount.percentage }}%</span>
+        </div>
+        <b v-price="product.priceWithDiscount"></b>
       </div>
       <AddToCart
         v-slot="{ clickHandler, isLoading }"

@@ -129,6 +129,8 @@ export interface ProductReturnDto {
   imageUrl: string;
   /** product price */
   price: number;
+  /** product price with discount */
+  priceWithDiscount: number;
   /** product category id */
   categoryId: string;
   /** product created at Date */
@@ -150,9 +152,7 @@ export interface ProductReturnDto {
   /** Can add to favourites */
   canAddToFavourites: boolean;
   /** Can add discount */
-  canAddDiscount: boolean;
-  /** Can remove discount */
-  canRemoveDiscount: boolean;
+  canEditProductDiscount: boolean;
   /** Product discount */
   discount: ProductDiscountReturnDto | null;
 }

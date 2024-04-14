@@ -15,14 +15,12 @@ import ProductNotFound from '@/components/products/ProductNotFound.vue';
 import ToggleFavouritesButton from '@/widgets/ToggleFavouriteButton/ToggleFavouritesButton.vue';
 import AddToCart from '@/modules/cart/components/AddToCart.vue';
 import AppButton from '@/components/ui/AppButton.vue';
-import { useAuthStore } from '@/modules/auth/authStore';
 import SetupDiscountModal from '@/modules/product-page/components/SetupDiscountModal/SetupDiscountModal.vue';
 import { NO_DISCOUNTS } from '@/domain/discounts';
 
 const router = useRouter();
 
 const store = useProductPageStore();
-const authStore = useAuthStore();
 
 const { product: productFromStore } = storeToRefs(store);
 
@@ -71,7 +69,7 @@ onMounted(() => {
           </AppButton>
         </AddToCart>
         <AppButton
-          v-if="authStore.isAdmin"
+          v-if="product.canEditProductDiscount"
           @click="isSetupDiscountModalOpened = true"
         >
           Setup discount
