@@ -7,6 +7,7 @@ import AddToCart from '@/modules/cart/components/AddToCart.vue';
 import { ERoutesName } from '@/router';
 import ToggleFavouritesButton from '@/widgets/ToggleFavouriteButton/ToggleFavouritesButton.vue';
 import { computed } from 'vue';
+import ProductPrice from '@/components/products/ProductPrice.vue';
 
 const props = defineProps<{
   product: ProductReturnDto;
@@ -49,17 +50,7 @@ const productData = useProduct(product);
     <div class="flex justify-between mt-4">
       <div class="flex flex-col">
         <span class="text-slate-400">Price:</span>
-        <div
-          v-if="product.discount"
-          class="flex gap-2"
-        >
-          <p
-            v-price="product.price"
-            class="text-slate-400 line-through"
-          ></p>
-          <span class="text-red-900">-{{ product.discount.percentage }}%</span>
-        </div>
-        <b v-price="product.priceWithDiscount"></b>
+        <ProductPrice :product="product" />
       </div>
       <AddToCart
         v-slot="{ clickHandler, isLoading }"

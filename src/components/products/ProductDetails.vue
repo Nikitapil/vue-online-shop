@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { ProductReturnDto } from '@/api/swagger/data-contracts';
 import StarIcon from '../ui/icons/StarIcon.vue';
+import ProductPrice from '@/components/products/ProductPrice.vue';
 
 defineProps<{
   product: Partial<ProductReturnDto>;
@@ -38,11 +39,9 @@ defineProps<{
         >
           {{ product.description }}
         </p>
-        <p
-          v-if="product.price"
-          v-price="product.price"
-          class="text-2xl font-bold"
-        ></p>
+        <div class="text-rxl">
+          <ProductPrice :product="product" />
+        </div>
         <div
           v-if="product.rating"
           class="flex items-center"
