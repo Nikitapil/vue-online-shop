@@ -4,6 +4,7 @@ import IconButton from '@/components/ui/IconButton.vue';
 import { useProduct } from '@/composables/useProduct';
 import { toRef } from 'vue';
 import AddToCart from './AddToCart.vue';
+import ProductPrice from "@/components/products/ProductPrice.vue";
 
 const props = withDefaults(
   defineProps<{
@@ -35,8 +36,8 @@ const product = useProduct(toRef(props.productInCart.product));
 
     <div class="flex flex-col gap-2">
       <p>{{ product.name }}</p>
-      <div class="flex justify-between">
-        <b v-price="product.price"></b>
+      <div class="text-sm">
+        <ProductPrice :product="product" />
       </div>
     </div>
 
