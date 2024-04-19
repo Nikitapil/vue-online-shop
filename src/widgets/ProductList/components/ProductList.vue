@@ -4,10 +4,6 @@ import EmptyStateCentered from '@/components/ui/EmptyStateCentered.vue';
 import ProductListItem from './ProductListItem.vue';
 import type { ProductReturnDto } from '@/api/swagger/data-contracts';
 
-defineEmits<{
-  clickAddToCart: [ProductReturnDto];
-}>();
-
 defineProps<{
   products: ProductReturnDto[];
   isLoading: boolean;
@@ -32,7 +28,6 @@ defineProps<{
       v-for="product in products"
       :key="product.id"
       :product="product"
-      @click-add-to-cart="$emit('clickAddToCart', product)"
     />
   </div>
 </template>
