@@ -24,5 +24,5 @@ export const useDiscountOptions = () => {
     }
   };
 
-  return { options, isLoading, getDiscountOptions };
+  return { discounts, options, isLoading, getDiscountOptions };
 };

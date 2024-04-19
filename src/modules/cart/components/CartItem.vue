@@ -4,7 +4,7 @@ import IconButton from '@/components/ui/IconButton.vue';
 import { useProduct } from '@/composables/useProduct';
 import { toRef } from 'vue';
 import AddToCart from './AddToCart.vue';
-import ProductPrice from "@/components/products/ProductPrice.vue";
+import ProductPrice from '@/components/products/ProductPrice.vue';
 
 const props = withDefaults(
   defineProps<{

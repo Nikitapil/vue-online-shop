@@ -10,6 +10,7 @@ import ProfilePage from '@/modules/profile/pages/ProfilePage.vue';
 import Admin from '@/modules/admin/pages/Admin.vue';
 import FinanceSettings from '@/modules/admin/submodules/finance-settings/pages/FinanceSettings.vue';
 import Discounts from '@/modules/discounts/pages/Discounts/Discounts.vue';
+import SingleDiscount from "@/modules/discounts/pages/SingleDiscount/SingleDiscount.vue";
 
 export enum ERoutesName {
   HOME = 'home',
@@ -22,7 +23,8 @@ export enum ERoutesName {
   PROFILE = 'profile',
   ADMIN = 'admin',
   FINANCE_SETTINGS = 'finance-settings',
-  DISCOUNTS = 'discounts'
+  DISCOUNTS = 'discounts',
+  SINGLE_DISCOUNT = 'single-discount'
 }
 
 export const router = createRouter({
@@ -72,6 +74,11 @@ export const router = createRouter({
       path: '/discounts',
       component: Discounts,
       name: ERoutesName.DISCOUNTS
+    },
+    {
+      path: '/discount/:id',
+      component: SingleDiscount,
+      name: ERoutesName.SINGLE_DISCOUNT
     },
     {
       path: '/admin',

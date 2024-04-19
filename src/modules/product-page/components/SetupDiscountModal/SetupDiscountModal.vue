@@ -5,7 +5,7 @@ import { computed, onMounted, ref } from 'vue';
 import AppSelect from '@/components/ui/AppSelect/AppSelect.vue';
 import AppButton from '@/components/ui/AppButton.vue';
 
-const { options, isLoading, getDiscountOptions } = useDiscountOptions();
+const { options, discounts, isLoading, getDiscountOptions } = useDiscountOptions();
 
 const isOpened = defineModel<boolean>();
 
@@ -21,6 +21,8 @@ const emit = defineEmits<{
 const discountId = ref(props.currentDiscountId);
 
 const isFullLoading = computed(() => isLoading.value || props.isEditInProgress);
+
+const choosenDiscount = computed(() => discounts.value.find((discount) => discount.id === discountId.value));
 
 const onEdit = () => emit('edit', discountId.value);
 
@@ -42,6 +44,7 @@ onMounted(() => {
       :options="options"
       :disabled="isFullLoading"
     />
+    <div v-if="choosenDiscount">Discount Percent: {{ choosenDiscount.percentage }}%</div>
     <div class="flex gap-2 justify-end mt-16">
       <AppButton
         :disabled="isFullLoading"
