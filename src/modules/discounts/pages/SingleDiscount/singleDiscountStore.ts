@@ -6,6 +6,7 @@ import { api } from '@/api/apiInstance';
 
 export const useSingleDiscountStore = defineStore('singleDiscount', () => {
   const { isLoading: isDiscountLoading, call: getDiscountApi } = useApiMethod(api.getSingleDiscount);
+  const { isLoading: isDiscountDeleteInProgress, call: deleteDiscountApi } = useApiMethod(api.deleteDiscount);
 
   const discountId = ref('');
   const discount = ref<DiscountReturnDto | null>(null);
@@ -14,10 +15,15 @@ export const useSingleDiscountStore = defineStore('singleDiscount', () => {
     discount.value = await getDiscountApi(discountId.value);
   };
 
+  const deleteDiscount = async () => {
+    await deleteDiscountApi(discountId.value);
+    discount.value = null;
+  };
+
   const init = async (id: string) => {
     discountId.value = id;
     await getDiscount();
   };
 
-  return { discount, isDiscountLoading, init };
+  return { discount, isDiscountLoading, isDiscountDeleteInProgress, init, deleteDiscount };
 });
