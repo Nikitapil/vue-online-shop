@@ -3,10 +3,12 @@ import { ref } from 'vue';
 import type { DiscountReturnDto } from '@/api/swagger/data-contracts';
 import { useApiMethod } from '@/api/useApiMethod';
 import { api } from '@/api/apiInstance';
+import type { IDiscountParams } from '@/modules/discounts/types';
 
 export const useSingleDiscountStore = defineStore('singleDiscount', () => {
   const { isLoading: isDiscountLoading, call: getDiscountApi } = useApiMethod(api.getSingleDiscount);
   const { isLoading: isDiscountDeleteInProgress, call: deleteDiscountApi } = useApiMethod(api.deleteDiscount);
+  const { isLoading: isEditDiscountInProgress, call: editDiscountApi } = useApiMethod(api.editDiscount);
 
   const discountId = ref('');
   const discount = ref<DiscountReturnDto | null>(null);
@@ -20,10 +22,22 @@ export const useSingleDiscountStore = defineStore('singleDiscount', () => {
     discount.value = null;
   };
 
+  const editDiscount = async (data: IDiscountParams) => {
+    discount.value = await editDiscountApi({ id: discountId.value, ...data });
+  };
+
   const init = async (id: string) => {
     discountId.value = id;
     await getDiscount();
   };
 
-  return { discount, isDiscountLoading, isDiscountDeleteInProgress, init, deleteDiscount };
+  return {
+    discount,
+    isDiscountLoading,
+    isDiscountDeleteInProgress,
+    isEditDiscountInProgress,
+    init,
+    deleteDiscount,
+    editDiscount
+  };
 });

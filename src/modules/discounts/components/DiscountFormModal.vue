@@ -4,8 +4,8 @@ import { onMounted, ref } from 'vue';
 import Modal from '@/components/ui/Modal.vue';
 import AppInput from '@/components/ui/AppInput/AppInput.vue';
 import AppButton from '@/components/ui/AppButton.vue';
-import type { CreateDiscountDto } from '@/api/swagger/data-contracts';
 import { useForm } from 'vee-validate';
+import type { IDiscountParams } from '@/modules/discounts/types';
 
 const isOpened = defineModel<boolean>();
 
@@ -14,11 +14,11 @@ const { validate } = useForm();
 const props = defineProps<{
   title: string;
   isLoading: boolean;
-  initialValues?: { name: string; percentage: number };
+  initialValues?: IDiscountParams;
 }>();
 
 const emit = defineEmits<{
-  submit: [CreateDiscountDto];
+  submit: [IDiscountParams];
 }>();
 
 const name = ref('');

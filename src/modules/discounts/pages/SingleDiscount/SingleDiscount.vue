@@ -1,18 +1,31 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useSingleDiscountStore } from '@/modules/discounts/pages/SingleDiscount/singleDiscountStore';
 import EmptyStateCentered from '@/components/ui/EmptyStateCentered.vue';
 import RoundedLoader from '@/components/ui/loaders/RoundedLoader.vue';
 import ProductList from '@/widgets/ProductList/components/ProductList.vue';
 import AppButton from '@/components/ui/AppButton.vue';
 import ConfirmModal from '@/components/ui/ConfirmModal.vue';
+import DiscountFormModal from '@/modules/discounts/components/DiscountFormModal.vue';
+import type { IDiscountParams } from '@/modules/discounts/types';
 
 const route = useRoute();
 
 const store = useSingleDiscountStore();
 
 const isDeleteModalOpened = ref(false);
+const isEditModalOpened = ref(false);
+
+const editDiscount = async (params: IDiscountParams) => {
+  await store.editDiscount(params);
+  isEditModalOpened.value = false;
+};
+
+const discountInitialEditData = computed(() => ({
+  name: store.discount?.name || '',
+  percentage: store.discount?.percentage || 0
+}));
 
 onMounted(() => {
   store.init(route.params.id as string);
@@ -36,6 +49,13 @@ onMounted(() => {
       >
         Delete
       </AppButton>
+      <AppButton
+        v-if="store.discount.canEdit"
+        appearance="primary"
+        @click="isEditModalOpened = true"
+      >
+        Edit
+      </AppButton>
     </div>
     <p class="mb-2">Discount percent: {{ store.discount.percentage }}</p>
     <ProductList
@@ -47,6 +67,13 @@ onMounted(() => {
       title="Do you want to delete this discount"
       :is-loading="store.isDiscountDeleteInProgress"
       @confirm="store.deleteDiscount"
+    />
+    <DiscountFormModal
+      v-model="isEditModalOpened"
+      title="Edit discount"
+      :is-loading="store.isEditDiscountInProgress"
+      :initial-values="discountInitialEditData"
+      @submit="editDiscount"
     />
   </div>
 </template>

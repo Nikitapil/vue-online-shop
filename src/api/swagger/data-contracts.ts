@@ -392,7 +392,7 @@ export interface DiscountReturnDto {
   /** discount name */
   name: string;
   /** discount name */
-  percentage: string;
+  percentage: number;
   /** products */
   products: ProductReturnDto[];
   /** products count */
