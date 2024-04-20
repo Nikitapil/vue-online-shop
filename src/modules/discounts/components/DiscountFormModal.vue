@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 
 import Modal from '@/components/ui/Modal.vue';
 import AppInput from '@/components/ui/AppInput/AppInput.vue';
@@ -12,11 +12,13 @@ const isOpened = defineModel<boolean>();
 const { validate } = useForm();
 
 const props = defineProps<{
+  title: string;
   isLoading: boolean;
+  initialValues?: { name: string; percentage: number };
 }>();
 
 const emit = defineEmits<{
-  create: [CreateDiscountDto];
+  submit: [CreateDiscountDto];
 }>();
 
 const name = ref('');
@@ -25,9 +27,16 @@ const percentage = ref('');
 const onSubmit = async () => {
   const { valid } = await validate();
   if (valid) {
-    emit('create', { name: name.value, percentage: +percentage.value });
+    emit('submit', { name: name.value, percentage: +percentage.value });
   }
 };
+
+onMounted(() => {
+  if (props.initialValues) {
+    name.value = props.initialValues.name;
+    percentage.value = props.initialValues.percentage.toString();
+  }
+});
 </script>
 
 <template>
@@ -35,7 +44,7 @@ const onSubmit = async () => {
     v-model="isOpened"
     size="md"
   >
-    <h2 class="text-center text-xl font-semibold">Create Discount</h2>
+    <h2 class="text-center text-xl font-semibold">{{ props.title }}</h2>
     <form @submit.prevent="onSubmit">
       <AppInput
         id="discount-name"

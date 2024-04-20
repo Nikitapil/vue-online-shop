@@ -399,6 +399,8 @@ export interface DiscountReturnDto {
   productsCount: number;
   /** can delete discount */
   canDelete: boolean;
+  /** Can edit discount flag */
+  canEdit: boolean;
 }
 
 export interface EditDiscountDto {

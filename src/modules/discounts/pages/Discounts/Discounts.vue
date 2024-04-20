@@ -6,7 +6,7 @@ import DiscountCard from '@/modules/discounts/components/DiscountCard.vue';
 import { onMounted, ref } from 'vue';
 import AppButton from '@/components/ui/AppButton.vue';
 import { useAuthStore } from '@/modules/auth/authStore';
-import CreateDiscountModal from '@/modules/discounts/components/CreateDiscountModal.vue';
+import DiscountFormModal from '@/modules/discounts/components/DiscountFormModal.vue';
 import type { CreateDiscountDto } from '@/api/swagger/data-contracts';
 
 const store = useDiscountsStore();
@@ -50,9 +50,10 @@ const createDiscount = async (data: CreateDiscountDto) => {
       />
     </div>
   </div>
-  <CreateDiscountModal
+  <DiscountFormModal
     v-model="isCreateModalShowed"
+    title="Create discount"
     :is-loading="store.isDiscountCreateInProgress"
-    @create="createDiscount"
+    @submit="createDiscount"
   />
 </template>
