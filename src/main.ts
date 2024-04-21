@@ -9,6 +9,7 @@ import { validation } from '@/plugins/validation';
 import Vue3Toastify, { type ToastContainerOptions } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 import { DirectivePlugin } from '@/directives/directive-plugin';
+import { i18n } from '@/plugins/i18n';
 
 const pinia = createPinia();
 const app = createApp(App);
@@ -16,6 +17,7 @@ const app = createApp(App);
 app.use(pinia);
 app.use(autoAnimatePlugin);
 app.use(router);
+app.use(i18n);
 app.use(validation);
 app.use(Vue3Toastify, {
   autoClose: 3000

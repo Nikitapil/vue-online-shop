@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getTokenFromStorage, setTokenToStorage } from '@/helpers/token-helpers';
+import { getTokenFromStorage, setTokenToStorage } from '@/helpers/localStorage-helpers';
 
 const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,

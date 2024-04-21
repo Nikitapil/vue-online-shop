@@ -9,9 +9,9 @@ import {
   type UpdateUserDataDto
 } from '@/api/swagger/data-contracts';
 import { api } from '@/api/apiInstance';
-import { removeTokenFromStorage, setTokenToStorage } from '@/helpers/token-helpers';
+import { removeTokenFromStorage, setTokenToStorage } from '@/helpers/localStorage-helpers';
 import { toast } from 'vue3-toastify';
-import type { ChangePasswordDto } from '../../api/swagger/data-contracts';
+import type { ChangePasswordDto } from '@/api/swagger/data-contracts';
 
 export const useAuthStore = defineStore('authStore', () => {
   const user = ref<UserReturnDto | null>(null);

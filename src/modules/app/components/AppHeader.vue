@@ -39,7 +39,7 @@ const openAuthModal = (type: 'login' | 'register') => {
 
       <div>
         <h2 class="text-xl font-bold uppercase">Shopper</h2>
-        <p class="text-slate-500">Best shop app</p>
+        <p class="text-slate-500">{{ $t('best_shop_app') }}</p>
       </div>
     </RouterLink>
 
