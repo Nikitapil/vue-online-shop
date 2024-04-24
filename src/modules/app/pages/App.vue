@@ -3,6 +3,7 @@ import { onMounted } from 'vue';
 import AppHeader from '@/modules/app/components/AppHeader.vue';
 import { useAuthStore } from '@/modules/auth/authStore';
 import { useAppStore } from '../appStore';
+import LanguageSwitcher from '@/modules/app/components/LanguageSwitcher.vue';
 
 const authStore = useAuthStore();
 const appStore = useAppStore();
@@ -20,6 +21,10 @@ onMounted(async () => {
       :is-auth-loading="authStore.isAuthLoading"
       :is-admin="authStore.isAdmin"
     />
+
+    <div class="flex justify-end py-1 px-2 border">
+      <LanguageSwitcher />
+    </div>
 
     <div class="px-8 py-5">
       <router-view />
