@@ -27,5 +27,6 @@ const finalPrice = computed(() => props.price * store.currentCurrencyExchangeRat
     :tag="props.tag"
     :value="finalPrice"
     :format="options"
+    scope="global"
   />
 </template>

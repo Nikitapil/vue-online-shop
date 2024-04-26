@@ -11,7 +11,9 @@ export const useAppStore = defineStore('app', () => {
   const { isLoading: isFinanceSettingsLoading, call: getFinanceSettingsApi } = useApiMethod(api.getFinanceSettings);
   const { isLoading: isSetTaxInProgress, call: setTaxValue } = useApiMethod(api.setTaxValue);
 
-  const currentCurrency = ref<string>(getCurrencyFromLocalStorage() || 'USD');
+  // Todo make configurable and return from backend
+  const baseCurrency = 'USD';
+  const currentCurrency = ref<string>(getCurrencyFromLocalStorage() || baseCurrency);
 
   const currentCurrencyExchangeRate = computed(() => financeSettings.value?.exchangeRates[currentCurrency.value] || 1);
 
@@ -34,6 +36,7 @@ export const useAppStore = defineStore('app', () => {
     isSetTaxInProgress,
     currentCurrency,
     currentCurrencyExchangeRate,
+    baseCurrency,
     getFinanceSettings,
     setTax,
     setCurrentCurrency
