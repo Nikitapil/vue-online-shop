@@ -10,6 +10,7 @@ import AuthProtected from '@/modules/auth/components/AuthProtected.vue';
 import { computed, onMounted, ref } from 'vue';
 import { getAvailableStatusOptions } from '../../helpers/utils';
 import { OrderStatusEnum } from '@/api/swagger/data-contracts';
+import Price from '@/modules/app/components/Price.vue';
 
 const store = useSingleOrderStore();
 
@@ -103,7 +104,11 @@ onMounted(async () => {
       />
 
       <p class="ml-auto w-fit text-xl">
-        <span class="font-bold">Total sum:</span> <span v-price="store.order.price"></span>
+        <span class="font-bold">Total sum:</span>
+        <Price
+          tag="span"
+          :price="store.order.price"
+        />
       </p>
     </section>
     <CancelOrderModal

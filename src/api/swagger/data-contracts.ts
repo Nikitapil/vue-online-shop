@@ -372,11 +372,22 @@ export interface GetProductsReviewsReturnDto {
 export interface FinanceSettingsReturnDto {
   /** Tax setting */
   tax: number;
+  /** App available currencies */
+  availableCurrencies: string[];
+  /** exchange rates */
+  exchangeRates: Record<string, number>;
+  /** All currencies that available to use */
+  allCurrencies?: string[];
 }
 
 export interface SetTaxDto {
   /** tax value */
   tax: number;
+}
+
+export interface SetAvailableCurrenciesDto {
+  /** tax value */
+  availableCurrencies: string[];
 }
 
 export interface CreateDiscountDto {

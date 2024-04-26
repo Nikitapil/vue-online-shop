@@ -4,6 +4,7 @@ import AppHeader from '@/modules/app/components/AppHeader.vue';
 import { useAuthStore } from '@/modules/auth/authStore';
 import { useAppStore } from '../appStore';
 import LanguageSwitcher from '@/modules/app/components/LanguageSwitcher.vue';
+import CurrencySwitcher from '@/modules/app/components/CurrencySwitcher.vue';
 
 const authStore = useAuthStore();
 const appStore = useAppStore();
@@ -23,6 +24,7 @@ onMounted(async () => {
     />
 
     <div class="flex justify-end py-1 px-2 border">
+      <CurrencySwitcher class="mr-3" />
       <LanguageSwitcher />
     </div>
 

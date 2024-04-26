@@ -38,6 +38,7 @@ import type {
   ProductReviewReturnDto,
   RegisterDto,
   RemoveFromCartDto,
+  SetAvailableCurrenciesDto,
   SetTaxDto,
   SuccessMessageDto,
   ToggleFavoriteReturnDto,
@@ -546,6 +547,36 @@ export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       method: 'PUT',
       body: data,
       type: ContentType.Json,
+      format: 'json',
+      ...params
+    });
+  /**
+   * No description
+   *
+   * @name SetAvailableCurrencies
+   * @summary Set available currencies
+   * @request PUT:/api/finance/settings/currencies
+   */
+  setAvailableCurrencies = (data: SetAvailableCurrenciesDto, params: RequestParams = {}) =>
+    this.request<FinanceSettingsReturnDto, any>({
+      path: `/api/finance/settings/currencies`,
+      method: 'PUT',
+      body: data,
+      type: ContentType.Json,
+      format: 'json',
+      ...params
+    });
+  /**
+   * No description
+   *
+   * @name UpdateExchangeRates
+   * @summary Update exchange rates
+   * @request PATCH:/api/finance/settings/rates
+   */
+  updateExchangeRates = (params: RequestParams = {}) =>
+    this.request<FinanceSettingsReturnDto, any>({
+      path: `/api/finance/settings/rates`,
+      method: 'PATCH',
       format: 'json',
       ...params
     });

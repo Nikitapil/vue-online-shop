@@ -10,6 +10,7 @@ import AppSelect from '@/components/ui/AppSelect/AppSelect.vue';
 import Pagination from '@/components/ui/Pagination.vue';
 import { ERoutesName } from '@/router';
 import { orderStatusOptions } from '../../constants';
+import Price from '@/modules/app/components/Price.vue';
 
 const store = useOrdersStore();
 
@@ -119,7 +120,7 @@ onMounted(() => {
         </template>
 
         <template #priceContent="{ content }">
-          <div v-price="content.price"></div>
+          <Price :price="content.price" />
         </template>
 
         <template #statusContent="{ content }">

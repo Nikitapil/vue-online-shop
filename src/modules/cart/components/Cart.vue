@@ -10,6 +10,7 @@ import CreateOrderModal from './CreateOrderModal.vue';
 import AppButton from '@/components/ui/AppButton.vue';
 import type { CreateOrderDto } from '@/api/swagger/data-contracts';
 import { toast } from 'vue3-toastify';
+import Price from '@/modules/app/components/Price.vue';
 
 const store = useCartStore();
 
@@ -17,7 +18,7 @@ const isOpened = ref(false);
 const isCreateOrderModalOpened = ref(false);
 
 const cartPrice = computed(() => store.cart?.price || 0);
-const tax = computed(() => store.cart?.taxSum);
+const tax = computed(() => store.cart?.taxSum || 0);
 const products = computed(() => store.cart?.productInCart || []);
 const isCartButtonsDisabled = computed(
   () => store.isChangeInCartCountInProgress || store.isCartLoading || store.isCreateOrderInProgress
@@ -51,7 +52,10 @@ onMounted(() => {
         class="w-5 h-5"
         icon="ion:cart-outline"
       />
-      <b v-price="cartPrice"></b>
+      <Price
+        tag="b"
+        :price="cartPrice"
+      />
     </button>
 
     <Drawer
@@ -86,14 +90,19 @@ onMounted(() => {
           <div class="flex gap-2">
             <span>Summary: </span>
             <div class="flex-1 border-b border-dashed"></div>
-            <b v-price="cartPrice"></b>
+            <Price
+              tag="b"
+              :price="cartPrice"
+            />
           </div>
 
           <div class="flex gap-2">
-            <!-- TODO add tax setting from backend -->
             <span>Tax 5%: </span>
             <div class="flex-1 border-b border-dashed"></div>
-            <b v-price="tax"></b>
+            <Price
+              tag="b"
+              :price="tax"
+            />
           </div>
         </div>
         <AppButton
