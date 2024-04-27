@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { computed, ref } from 'vue';
+import { computed, ref, watchEffect } from 'vue';
 import type { FinanceSettingsReturnDto } from '@/api/swagger/data-contracts';
 import { useApiMethod } from '@/api/useApiMethod';
 import { api } from '@/api/apiInstance';
@@ -10,6 +10,12 @@ export const useAppStore = defineStore('app', () => {
 
   const { isLoading: isFinanceSettingsLoading, call: getFinanceSettingsApi } = useApiMethod(api.getFinanceSettings);
   const { isLoading: isSetTaxInProgress, call: setTaxValue } = useApiMethod(api.setTaxValue);
+  const { isLoading: isSetAvailableCurrenciesInProgress, call: setAvailableCurrenciesApi } = useApiMethod(
+    api.setAvailableCurrencies
+  );
+  const { isLoading: isUpdateExchangeRatesInProgress, call: updateExchangeratesApi } = useApiMethod(
+    api.updateExchangeRates
+  );
 
   // Todo make configurable and return from backend
   const baseCurrency = 'USD';
@@ -21,7 +27,6 @@ export const useAppStore = defineStore('app', () => {
     setCurrencyToLocalStorage(currency);
     currentCurrency.value = currency;
   };
-
   const getFinanceSettings = async () => {
     financeSettings.value = await getFinanceSettingsApi();
   };
@@ -30,6 +35,23 @@ export const useAppStore = defineStore('app', () => {
     financeSettings.value = await setTaxValue({ tax });
   };
 
+  const setAvailableCurrencies = async (availableCurrencies: string[]) => {
+    financeSettings.value = await setAvailableCurrenciesApi({ availableCurrencies });
+  };
+
+  const updateExchangeRates = async () => {
+    financeSettings.value = await updateExchangeratesApi();
+  };
+
+  watchEffect(() => {
+    if (
+      financeSettings.value?.availableCurrencies &&
+      !financeSettings.value.availableCurrencies.includes(currentCurrency.value)
+    ) {
+      currentCurrency.value = baseCurrency;
+    }
+  });
+
   return {
     financeSettings,
     isFinanceSettingsLoading,
@@ -37,8 +59,12 @@ export const useAppStore = defineStore('app', () => {
     currentCurrency,
     currentCurrencyExchangeRate,
     baseCurrency,
+    isSetAvailableCurrenciesInProgress,
+    isUpdateExchangeRatesInProgress,
     getFinanceSettings,
     setTax,
-    setCurrentCurrency
+    setCurrentCurrency,
+    setAvailableCurrencies,
+    updateExchangeRates
   };
 });

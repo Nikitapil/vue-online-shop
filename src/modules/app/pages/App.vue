@@ -16,7 +16,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="w-4/5 m-auto bg-white rounded-xl shadow-xl my-10">
+  <div class="w-4/5 m-auto bg-white rounded-xl shadow-xl my-10 flex-1">
     <AppHeader
       :is-authenticated="authStore.isAuthenticated"
       :is-auth-loading="authStore.isAuthLoading"

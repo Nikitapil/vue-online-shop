@@ -10,12 +10,18 @@ const props = withDefaults(
     options: IMultiSelectOption[];
     placeholder?: string;
     label?: string;
+    disabled?: boolean;
   }>(),
   {
     placeholder: '',
-    label: ''
+    label: '',
+    disabled: false
   }
 );
+
+const emit = defineEmits<{
+  close: [];
+}>();
 
 const isOpened = ref(false);
 
@@ -28,10 +34,22 @@ const internalOptions = computed<IMultiSelectInternalOption[]>(() =>
     .sort((option) => (option.checked ? -1 : 1))
 );
 
-const closeSelect = () => (isOpened.value = false);
+const openSelect = () => {
+  if (!props.disabled) {
+    isOpened.value = true;
+  }
+};
+const closeSelect = () => {
+  if (isOpened.value) {
+    isOpened.value = false;
+    emit('close');
+  }
+};
+
+const toggleSelect = () => (isOpened.value ? closeSelect() : openSelect());
 
 const clickHandler = (option: IMultiSelectInternalOption) => {
-  if (option.disabled) {
+  if (option.disabled || props.disabled) {
     return;
   }
   if (option.checked) {
@@ -57,8 +75,8 @@ const clickHandler = (option: IMultiSelectInternalOption) => {
     >
       <div
         class="flex justify-between w-full items-center gap-5 py-2 px-4 cursor-pointer absolute top-0"
-        :class="{ 'border-b border-b-black': isOpened }"
-        @click="isOpened = !isOpened"
+        :class="{ 'border-b border-b-black': isOpened, 'bg-slate-100 cursor-not-allowed': props.disabled }"
+        @click="toggleSelect"
       >
         <p>{{ text }}</p>
         <Icon
