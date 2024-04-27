@@ -20,7 +20,20 @@
     height: 15px;
     background-color:#000;
     position: absolute;
-    top: -7px;
+    top: -6px;
     left: 50%;
     transform: translateX(-50%) rotate(45deg);
+    z-index: -10;
+}
+
+.tooltip.right {
+    top: 0;
+    left: calc(100% + 7px);
+    transform: none;
+}
+
+.tooltip.right::before {
+    top: 50%;
+    left: -6px;
+    transform: translateY(-50%) rotate(45deg);
 }

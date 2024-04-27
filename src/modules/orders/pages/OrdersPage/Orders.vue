@@ -103,7 +103,7 @@ onMounted(() => {
       >
         <template #idContent="{ content }">
           <div
-            v-tooltip="content.id"
+            v-tooltip.right="content.id"
             class="max-w-[100px]"
           >
             <RouterLink

@@ -5,6 +5,10 @@ export const tooltip: Directive<HTMLElement, string> = (el, bindings) => {
   tooltip.className = 'tooltip';
   tooltip.textContent = bindings.value;
 
+  if (bindings.modifiers.right) {
+    tooltip.classList.add('right');
+  }
+
   el.style.position = 'relative';
 
   el.appendChild(tooltip);
