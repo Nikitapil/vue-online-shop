@@ -238,6 +238,8 @@ export interface CartReturnDto {
   productInCart: ProductInCartReturnDto[];
   /** Sum of tax */
   taxSum: number;
+  /** Delivery cost */
+  deliveryCost: number;
 }
 
 export interface RemoveFromCartDto {
@@ -372,6 +374,10 @@ export interface GetProductsReviewsReturnDto {
 export interface FinanceSettingsReturnDto {
   /** Tax setting */
   tax: number;
+  /** Delivery cost */
+  deliveryCost: number;
+  /** Order price with free delivery */
+  orderPriceWithFreeDelivery: number;
   /** App available currencies */
   availableCurrencies: string[];
   /** exchange rates */
@@ -383,6 +389,16 @@ export interface FinanceSettingsReturnDto {
 export interface SetTaxDto {
   /** tax value */
   tax: number;
+}
+
+export interface SetDeliveryCostDto {
+  /** delivery price */
+  deliveryCost: number;
+}
+
+export interface OrderPriceWithFreeDeliveryDto {
+  /** delivery price */
+  orderPriceWithFreeDelivery: number;
 }
 
 export interface SetAvailableCurrenciesDto {

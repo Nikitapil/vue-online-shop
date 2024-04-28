@@ -33,12 +33,14 @@ import type {
   GetProductsReviewsReturnDto,
   GetReviewsParams,
   LoginDto,
+  OrderPriceWithFreeDeliveryDto,
   OrderReturnDto,
   ProductReturnDto,
   ProductReviewReturnDto,
   RegisterDto,
   RemoveFromCartDto,
   SetAvailableCurrenciesDto,
+  SetDeliveryCostDto,
   SetTaxDto,
   SuccessMessageDto,
   ToggleFavoriteReturnDto,
@@ -544,6 +546,38 @@ export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType
   setTaxValue = (data: SetTaxDto, params: RequestParams = {}) =>
     this.request<FinanceSettingsReturnDto, any>({
       path: `/api/finance/settings/tax`,
+      method: 'PUT',
+      body: data,
+      type: ContentType.Json,
+      format: 'json',
+      ...params
+    });
+  /**
+   * No description
+   *
+   * @name SetDeliveryCost
+   * @summary Set new delivery cost value
+   * @request PUT:/api/finance/settings/delivery_cost
+   */
+  setDeliveryCost = (data: SetDeliveryCostDto, params: RequestParams = {}) =>
+    this.request<FinanceSettingsReturnDto, any>({
+      path: `/api/finance/settings/delivery_cost`,
+      method: 'PUT',
+      body: data,
+      type: ContentType.Json,
+      format: 'json',
+      ...params
+    });
+  /**
+   * No description
+   *
+   * @name SetOrderPriceWithFreeDeliveryCost
+   * @summary Set order price with free delivery cost
+   * @request PUT:/api/finance/settings/order_free_delivery_cost
+   */
+  setOrderPriceWithFreeDeliveryCost = (data: OrderPriceWithFreeDeliveryDto, params: RequestParams = {}) =>
+    this.request<FinanceSettingsReturnDto, any>({
+      path: `/api/finance/settings/order_free_delivery_cost`,
       method: 'PUT',
       body: data,
       type: ContentType.Json,

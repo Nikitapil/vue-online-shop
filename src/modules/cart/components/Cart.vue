@@ -11,6 +11,7 @@ import AppButton from '@/components/ui/AppButton.vue';
 import type { CreateOrderDto } from '@/api/swagger/data-contracts';
 import { toast } from 'vue3-toastify';
 import Price from '@/modules/app/components/Price.vue';
+import CartPriceItem from '@/modules/cart/components/CartPriceItem.vue';
 
 const store = useCartStore();
 
@@ -18,6 +19,7 @@ const isOpened = ref(false);
 const isCreateOrderModalOpened = ref(false);
 
 const cartPrice = computed(() => store.cart?.price || 0);
+const deliveryCost = computed(() => store.cart?.deliveryCost || 0);
 const tax = computed(() => store.cart?.taxSum || 0);
 const products = computed(() => store.cart?.productInCart || []);
 const isCartButtonsDisabled = computed(
@@ -87,23 +89,20 @@ onMounted(() => {
         </div>
 
         <div class="flex flex-col gap-4 my-7">
-          <div class="flex gap-2">
-            <span>Summary: </span>
-            <div class="flex-1 border-b border-dashed"></div>
-            <Price
-              tag="b"
-              :price="cartPrice"
-            />
-          </div>
+          <CartPriceItem
+            :price="deliveryCost"
+            label="Delivery cost"
+          />
 
-          <div class="flex gap-2">
-            <span>Tax 5%: </span>
-            <div class="flex-1 border-b border-dashed"></div>
-            <Price
-              tag="b"
-              :price="tax"
-            />
-          </div>
+          <CartPriceItem
+            :price="tax"
+            label="Tax"
+          />
+
+          <CartPriceItem
+            :price="cartPrice"
+            label="Total sum"
+          />
         </div>
         <AppButton
           class="mb-2"
