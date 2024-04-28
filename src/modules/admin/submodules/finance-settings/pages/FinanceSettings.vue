@@ -11,10 +11,14 @@ import { Icon } from '@iconify/vue';
 const appStore = useAppStore();
 
 const isTaxEditMode = ref(false);
+const isDeliveryCostEditMode = ref(false);
+const isOrderPriceWithFreeDeliveryEditMode = ref(false);
 
 const availableCurrencies = ref([appStore.baseCurrency]);
 
 const tax = computed(() => appStore.financeSettings?.tax?.toString());
+const deliveryCost = computed(() => appStore.financeSettings?.deliveryCost?.toString());
+const orderPriceWithFreeDelivery = computed(() => appStore.financeSettings?.orderPriceWithFreeDelivery?.toString());
 
 const currenciesOptions = computed(() =>
   (appStore.financeSettings?.allCurrencies || []).map((currency) => {
@@ -29,6 +33,16 @@ const currenciesOptions = computed(() =>
 const setTax = async (newTaxValue: string) => {
   await appStore.setTax(+newTaxValue);
   isTaxEditMode.value = false;
+};
+
+const setDeliveryCost = async (newDeliveryCost: string) => {
+  await appStore.setDeliveryCost(+newDeliveryCost);
+  isDeliveryCostEditMode.value = false;
+};
+
+const setOrderPriceWithFreeDelivery = async (newOrderPriceWithFreeDelivery: string) => {
+  await appStore.setOrderPriceWithFreeDeliveryCost(+newOrderPriceWithFreeDelivery);
+  isOrderPriceWithFreeDeliveryEditMode.value = false;
 };
 
 const setAvailableCurrencies = () => {
@@ -63,6 +77,36 @@ watchEffect(() => {
         @submit="setTax"
       />
       <hr class="mt-1" />
+
+      <EditableText
+        v-if="deliveryCost"
+        id="deliveryCost"
+        v-model="isDeliveryCostEditMode"
+        class="mt-2"
+        name="deliveryCost"
+        rules="required"
+        mask="numberMask"
+        label="Delivery cost, $"
+        :initial-value="deliveryCost"
+        :is-loading="appStore.isSetDeliveryCostInProgress"
+        @submit="setDeliveryCost"
+      />
+
+      <EditableText
+        v-if="orderPriceWithFreeDelivery"
+        id="orderPriceWithFreeDelivery"
+        v-model="isOrderPriceWithFreeDeliveryEditMode"
+        class="mt-2"
+        name="orderPriceWithFreeDelivery"
+        rules="required"
+        mask="numberMask"
+        label="Order price with free delivery cost, $"
+        :initial-value="orderPriceWithFreeDelivery"
+        :is-loading="appStore.isSetOrderPriceWithFreeDeliveryCostInProgress"
+        @submit="setOrderPriceWithFreeDelivery"
+      />
+      <hr class="mt-1" />
+
       <MultiSelect
         v-model="availableCurrencies"
         class="max-w-xs mt-3"

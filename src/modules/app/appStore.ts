@@ -10,6 +10,9 @@ export const useAppStore = defineStore('app', () => {
 
   const { isLoading: isFinanceSettingsLoading, call: getFinanceSettingsApi } = useApiMethod(api.getFinanceSettings);
   const { isLoading: isSetTaxInProgress, call: setTaxValue } = useApiMethod(api.setTaxValue);
+  const { isLoading: isSetDeliveryCostInProgress, call: setDeliveryCostApi } = useApiMethod(api.setDeliveryCost);
+  const { isLoading: isSetOrderPriceWithFreeDeliveryCostInProgress, call: setOrderPriceWithFreeDeliveryCostApi } =
+    useApiMethod(api.setOrderPriceWithFreeDeliveryCost);
   const { isLoading: isSetAvailableCurrenciesInProgress, call: setAvailableCurrenciesApi } = useApiMethod(
     api.setAvailableCurrencies
   );
@@ -33,6 +36,14 @@ export const useAppStore = defineStore('app', () => {
 
   const setTax = async (tax: number) => {
     financeSettings.value = await setTaxValue({ tax });
+  };
+
+  const setDeliveryCost = async (deliveryCost: number) => {
+    financeSettings.value = await setDeliveryCostApi({ deliveryCost });
+  };
+
+  const setOrderPriceWithFreeDeliveryCost = async (orderPriceWithFreeDelivery: number) => {
+    financeSettings.value = await setOrderPriceWithFreeDeliveryCostApi({ orderPriceWithFreeDelivery });
   };
 
   const setAvailableCurrencies = async (availableCurrencies: string[]) => {
@@ -61,10 +72,14 @@ export const useAppStore = defineStore('app', () => {
     baseCurrency,
     isSetAvailableCurrenciesInProgress,
     isUpdateExchangeRatesInProgress,
+    isSetDeliveryCostInProgress,
+    isSetOrderPriceWithFreeDeliveryCostInProgress,
     getFinanceSettings,
     setTax,
     setCurrentCurrency,
     setAvailableCurrencies,
-    updateExchangeRates
+    updateExchangeRates,
+    setDeliveryCost,
+    setOrderPriceWithFreeDeliveryCost
   };
 });
