@@ -28,8 +28,7 @@ const emit = defineEmits<{
 }>();
 
 const { errorMessage, validate } = useField<string>(props.name, props.rules, {
-  //@ts-ignore todo check that type
-  syncVModel: value,
+  syncVModel: true,
   validateOnValueUpdate: false
 });
 

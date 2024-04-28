@@ -38,7 +38,6 @@ const onSubmit = async () => {
 </script>
 
 <template>
-  <!-- TODO loaders -->
   <Modal
     v-model="isOpened"
     size="md"

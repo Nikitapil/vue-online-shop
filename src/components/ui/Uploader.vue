@@ -23,8 +23,7 @@ const props = withDefaults(
 const fileInput = ref<HTMLInputElement>();
 
 const { errorMessage } = useField<string>(props.name, props.rules, {
-  //@ts-ignore todo check that type
-  syncVModel: value
+  syncVModel: true
 });
 
 const imageUrl = computed(() => (value.value ? URL.createObjectURL(value.value) : ''));

@@ -28,8 +28,7 @@ const props = withDefaults(
 );
 
 const { errorMessage, handleBlur } = useField<string>(props.name, props.rules, {
-  //@ts-ignore todo check that type
-  syncVModel: value,
+  syncVModel: true,
   validateOnValueUpdate: false
 });
 
