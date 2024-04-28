@@ -50,7 +50,6 @@ defineEmits<{
 </template>
 
 <style scoped>
-/* TODO add this as snippet */
 .star {
   cursor: pointer;
 }

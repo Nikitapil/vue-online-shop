@@ -20,7 +20,6 @@ export const useAppStore = defineStore('app', () => {
     api.updateExchangeRates
   );
 
-  // Todo make configurable and return from backend
   const baseCurrency = 'USD';
   const currentCurrency = ref<string>(getCurrencyFromLocalStorage() || baseCurrency);
 
