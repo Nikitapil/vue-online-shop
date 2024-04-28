@@ -13,6 +13,10 @@ import { toast } from 'vue3-toastify';
 import Price from '@/modules/app/components/Price.vue';
 import CartPriceItem from '@/modules/cart/components/CartPriceItem.vue';
 import { useAppStore } from '@/modules/app/appStore';
+import { useRouter } from 'vue-router';
+import { ERoutesName } from '@/router';
+
+const router = useRouter();
 
 const store = useCartStore();
 const appStore = useAppStore();
@@ -29,11 +33,12 @@ const isCartButtonsDisabled = computed(
 );
 
 const onCreateOrder = async (orderData: CreateOrderDto) => {
-  const isCreated = await store.createOrder(orderData);
-  if (isCreated) {
+  const id = await store.createOrder(orderData);
+  if (id) {
     isCreateOrderModalOpened.value = false;
-    // TODO order link
+    isOpened.value = false;
     toast.success('Order created');
+    await router.push({ name: ERoutesName.SINGLE_ORDER, params: { id } });
   }
 };
 
@@ -105,7 +110,7 @@ onMounted(() => {
             v-if="appStore.financeSettings"
             class="text-xs text-slate-400 flex gap-2"
           >
-            Free delivery at <Price :price="appStore.financeSettings.orderPriceWithFreeDelivery"/>
+            Free delivery at <Price :price="appStore.financeSettings.orderPriceWithFreeDelivery" />
           </p>
 
           <CartPriceItem

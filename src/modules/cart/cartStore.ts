@@ -48,12 +48,12 @@ export const useCartStore = defineStore('cart', () => {
   const createOrder = async (orderData: CreateOrderDto) => {
     try {
       isCreateOrderInProgress.value = true;
-      const { cart: cartResponse } = await api.createOrder(orderData);
+      const { cart: cartResponse, order } = await api.createOrder(orderData);
       cart.value = cartResponse;
-      return true;
+      return order.id;
     } catch (e: any) {
       toast.error(e?.response?.data?.message || 'Error');
-      return false;
+      return null;
     } finally {
       isCreateOrderInProgress.value = false;
     }
