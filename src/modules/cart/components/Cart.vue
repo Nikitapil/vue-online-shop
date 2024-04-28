@@ -12,8 +12,10 @@ import type { CreateOrderDto } from '@/api/swagger/data-contracts';
 import { toast } from 'vue3-toastify';
 import Price from '@/modules/app/components/Price.vue';
 import CartPriceItem from '@/modules/cart/components/CartPriceItem.vue';
+import { useAppStore } from '@/modules/app/appStore';
 
 const store = useCartStore();
+const appStore = useAppStore();
 
 const isOpened = ref(false);
 const isCreateOrderModalOpened = ref(false);
@@ -98,6 +100,13 @@ onMounted(() => {
             :price="tax"
             label="Tax"
           />
+
+          <p
+            v-if="appStore.financeSettings"
+            class="text-xs text-slate-400 flex gap-2"
+          >
+            Free delivery at <Price :price="appStore.financeSettings.orderPriceWithFreeDelivery"/>
+          </p>
 
           <CartPriceItem
             :price="cartPrice"
