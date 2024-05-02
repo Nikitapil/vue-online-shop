@@ -396,7 +396,7 @@ export interface SetDeliveryCostDto {
   deliveryCost: number;
 }
 
-export interface OrderPriceWithFreeDeliveryDto {
+export interface SetOrderPriceWithFreeDeliveryDto {
   /** delivery price */
   orderPriceWithFreeDelivery: number;
 }
@@ -418,7 +418,7 @@ export interface DiscountReturnDto {
   id: string;
   /** discount name */
   name: string;
-  /** discount name */
+  /** discount percentage */
   percentage: number;
   /** products */
   products: ProductReturnDto[];
@@ -431,11 +431,11 @@ export interface DiscountReturnDto {
 }
 
 export interface EditDiscountDto {
-  /** discount name */
+  /** discount id */
   id: string;
   /** discount name */
   name: string;
-  /** discount name */
+  /** discount percentage */
   percentage: number;
 }
 

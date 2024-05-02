@@ -33,7 +33,6 @@ import type {
   GetProductsReviewsReturnDto,
   GetReviewsParams,
   LoginDto,
-  OrderPriceWithFreeDeliveryDto,
   OrderReturnDto,
   ProductReturnDto,
   ProductReviewReturnDto,
@@ -41,6 +40,7 @@ import type {
   RemoveFromCartDto,
   SetAvailableCurrenciesDto,
   SetDeliveryCostDto,
+  SetOrderPriceWithFreeDeliveryDto,
   SetTaxDto,
   SuccessMessageDto,
   ToggleFavoriteReturnDto,
@@ -575,7 +575,7 @@ export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * @summary Set order price with free delivery cost
    * @request PUT:/api/finance/settings/order_free_delivery_cost
    */
-  setOrderPriceWithFreeDeliveryCost = (data: OrderPriceWithFreeDeliveryDto, params: RequestParams = {}) =>
+  setOrderPriceWithFreeDeliveryCost = (data: SetOrderPriceWithFreeDeliveryDto, params: RequestParams = {}) =>
     this.request<FinanceSettingsReturnDto, any>({
       path: `/api/finance/settings/order_free_delivery_cost`,
       method: 'PUT',
@@ -664,7 +664,7 @@ export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * No description
    *
    * @name GetSingleDiscount
-   * @summary Get discount
+   * @summary Get single discount
    * @request GET:/api/discounts/{id}
    */
   getSingleDiscount = (id: string, params: RequestParams = {}) =>
