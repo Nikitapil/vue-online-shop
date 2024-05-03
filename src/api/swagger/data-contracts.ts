@@ -392,17 +392,17 @@ export interface SetTaxDto {
 }
 
 export interface SetDeliveryCostDto {
-  /** delivery price */
+  /** delivery cost */
   deliveryCost: number;
 }
 
 export interface SetOrderPriceWithFreeDeliveryDto {
-  /** delivery price */
+  /** order price with free delivery */
   orderPriceWithFreeDelivery: number;
 }
 
 export interface SetAvailableCurrenciesDto {
-  /** tax value */
+  /** Available currencies array */
   availableCurrencies: string[];
 }
 
