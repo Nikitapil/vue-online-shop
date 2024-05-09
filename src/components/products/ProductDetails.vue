@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { ProductReturnDto } from '@/api/swagger/data-contracts';
+
 import StarIcon from '../ui/icons/StarIcon.vue';
 import ProductPrice from '@/components/products/ProductPrice.vue';
 
@@ -16,6 +17,7 @@ defineProps<{
     >
       {{ product.name }}
     </h2>
+
     <div class="flex flex-wrap gap-3 items-start mt-3">
       <div class="w-80">
         <img
@@ -39,9 +41,11 @@ defineProps<{
         >
           {{ product.description }}
         </p>
-        <div class="text-rxl">
+
+        <div class="text-xl">
           <ProductPrice :product="product" />
         </div>
+
         <div
           v-if="product.rating"
           class="flex items-center"
