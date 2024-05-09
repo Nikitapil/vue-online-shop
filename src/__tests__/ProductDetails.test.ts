@@ -1,0 +1,3 @@
+describe('ProductDetails tests', () => {
+  test('', () => {})
+});

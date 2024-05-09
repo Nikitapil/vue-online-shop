@@ -1,3 +1,4 @@
+/// <reference types="vitest" />
 import { fileURLToPath, URL } from 'node:url';
 import { resolve, dirname } from 'node:path';
 
@@ -16,6 +17,14 @@ export default defineConfig({
   ],
   server: {
     port: 3000
+  },
+  test: {
+    globals: true,
+    environment: 'happy-dom',
+    coverage: {
+      include: ['src/**/*'],
+      exclude: ['src/api']
+    }
   },
   resolve: {
     alias: {
