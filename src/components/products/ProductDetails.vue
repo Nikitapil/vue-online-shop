@@ -30,7 +30,7 @@ defineProps<{
           v-else
           class="h-20 flex justify-center items-center"
         >
-          No Image
+          {{ $t('no_image') }}
         </p>
       </div>
 
@@ -50,7 +50,7 @@ defineProps<{
           v-if="product.rating"
           class="flex items-center"
         >
-          Rating: {{ product.rating }}
+          {{ $t('rating') }}: {{ product.rating }}
           <StarIcon />
         </div>
       </div>
