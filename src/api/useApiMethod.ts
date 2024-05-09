@@ -1,4 +1,5 @@
 import { ref } from 'vue';
+
 import { toast } from 'vue3-toastify';
 
 export const useApiMethod = <T extends (...args: any) => any>(apiMethod: T) => {

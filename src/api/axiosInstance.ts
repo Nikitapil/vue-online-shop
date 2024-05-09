@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 import { getTokenFromStorage, setTokenToStorage } from '@/helpers/localStorage-helpers';
 
 const axiosInstance = axios.create({
