@@ -31,6 +31,7 @@ const pagesCount = computed(() => Math.ceil(props.itemsCount / props.limit));
       :key="page"
       :appearance="page === currentPage ? 'secondary' : 'transparent'"
       :disabled="disabled"
+      data-testid="pagination-button"
       @click="$emit('setPage', page)"
     >
       {{ page }}

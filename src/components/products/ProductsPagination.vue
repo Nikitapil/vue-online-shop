@@ -52,6 +52,7 @@ const onChangeLimit = () => {
     <div
       v-if="isShowLimitSelect"
       class="flex items-center gap-2 ml-auto"
+      data-testid="limitSelect"
     >
       <span class="min-w-fit hidden sm:inline">{{ $t('products_per_page') }}</span>
       <AppSelect
