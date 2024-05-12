@@ -6,7 +6,12 @@ import EmptyStateCentered from '../ui/EmptyStateCentered.vue';
 
 <template>
   <EmptyStateCentered class="flex-col gap-2">
-    <h2 class="text-2xl font-bold">{{ $t('product_not_found') }}</h2>
+    <h2
+      class="text-2xl font-bold"
+      data-testid="not-found-text"
+    >
+      {{ $t('product_not_found') }}
+    </h2>
     <Icon
       icon="nonicons:not-found-16"
       color="gray"
