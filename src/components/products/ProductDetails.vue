@@ -14,6 +14,7 @@ defineProps<{
     <h2
       v-if="product.name"
       class="text-center font-bold text-3xl"
+      data-testid="product-name"
     >
       {{ product.name }}
     </h2>
@@ -23,12 +24,14 @@ defineProps<{
         <img
           v-if="product.imageUrl"
           class="max-w-full"
+          data-testid="product-img"
           :src="product.imageUrl"
           :alt="product.description"
         />
         <p
           v-else
           class="h-20 flex justify-center items-center"
+          data-testid="product-img-fallback"
         >
           {{ $t('no_image') }}
         </p>
@@ -38,6 +41,7 @@ defineProps<{
         <p
           v-if="product.description"
           class="text-lg font-medium"
+          data-testid="product-description"
         >
           {{ product.description }}
         </p>
@@ -49,6 +53,7 @@ defineProps<{
         <div
           v-if="product.rating"
           class="flex items-center"
+          data-testid="product-rating"
         >
           {{ $t('rating') }}: {{ product.rating }}
           <StarIcon />
