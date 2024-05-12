@@ -2,5 +2,6 @@
   "best_shop_app": "Лучшее приложение для покупок",
   "no_image": "Изображение отсутствует",
   "rating": "Рейтинг",
-  "product_not_found": "Товар не найден"
+  "product_not_found": "Товар не найден",
+  "products_per_page": "Товаров на странице"
 }

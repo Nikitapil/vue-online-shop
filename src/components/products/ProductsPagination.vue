@@ -1,14 +1,16 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import AppSelect from '../ui/AppSelect/AppSelect.vue';
+
 import type { ISelectOptions } from '../ui/AppSelect/types';
-import Pagination from '../ui/Pagination.vue';
 import { EPaginationLimits } from '@/domain/components';
 
+import AppSelect from '../ui/AppSelect/AppSelect.vue';
+import Pagination from '../ui/Pagination.vue';
+
 const limitOptions: ISelectOptions<EPaginationLimits>[] = [
-  { value: EPaginationLimits.TEN, name: '10' },
-  { value: EPaginationLimits.TWENTY, name: '20' },
-  { value: EPaginationLimits.FIFTY, name: '50' }
+  { value: EPaginationLimits.TEN, name: EPaginationLimits.TEN },
+  { value: EPaginationLimits.TWENTY, name: EPaginationLimits.TWENTY },
+  { value: EPaginationLimits.FIFTY, name: EPaginationLimits.FIFTY }
 ];
 
 const limitValue = defineModel<EPaginationLimits>('limitValue', { required: true });
@@ -24,6 +26,7 @@ const emit = defineEmits<{
 }>();
 
 const limit = computed(() => +limitValue.value);
+const isShowLimitSelect = computed(() => props.totalCount > 10);
 
 const onChangePage = (p: number) => {
   currentPage.value = p;
@@ -47,14 +50,14 @@ const onChangeLimit = () => {
     />
 
     <div
-      v-if="props.totalCount > 10"
+      v-if="isShowLimitSelect"
       class="flex items-center gap-2 ml-auto"
     >
-      <span class="min-w-fit hidden sm:inline">Products per page</span>
+      <span class="min-w-fit hidden sm:inline">{{ $t('products_per_page') }}</span>
       <AppSelect
         v-model="limitValue"
         :options="limitOptions"
-        :disabled="isLoading"
+        :disabled="props.isLoading"
         name="limit"
         @change="onChangeLimit"
       />
