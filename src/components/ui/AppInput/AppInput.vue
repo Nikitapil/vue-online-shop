@@ -1,6 +1,8 @@
 <script lang="ts" setup>
-import { type RuleExpression, useField } from 'vee-validate';
 import { computed, type MaybeRef } from 'vue';
+
+import { type RuleExpression, useField } from 'vee-validate';
+
 import { vMaska } from 'maska';
 import { masks, type TMasks } from '@/components/ui/AppInput/masks';
 
@@ -44,6 +46,7 @@ const maskOptions = computed(() => masks[props.mask]);
     >
       {{ label }}
     </label>
+
     <input
       :id="id"
       v-model="value"
@@ -56,6 +59,7 @@ const maskOptions = computed(() => masks[props.mask]);
       :disabled="disabled"
       @blur="handleBlur($event, true)"
     />
+
     <p
       v-if="errorMessage"
       class="text-sm text-red-500"
