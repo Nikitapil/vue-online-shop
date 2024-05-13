@@ -42,6 +42,7 @@ const maskOptions = computed(() => masks[props.mask]);
     <label
       v-if="label"
       class="text-sm font-medium"
+      data-testid="input-label"
       :for="id"
     >
       {{ label }}
@@ -53,6 +54,7 @@ const maskOptions = computed(() => masks[props.mask]);
       v-maska:[maskOptions]
       :name="name"
       class="input"
+      data-testid="app-input"
       :class="{ 'border-red-500': !!errorMessage }"
       :type="type"
       :placeholder="placeholder"
@@ -63,6 +65,7 @@ const maskOptions = computed(() => masks[props.mask]);
     <p
       v-if="errorMessage"
       class="text-sm text-red-500"
+      data-testid="input-error"
     >
       {{ errorMessage }}
     </p>
