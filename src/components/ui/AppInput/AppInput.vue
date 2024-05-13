@@ -40,31 +40,31 @@ const maskOptions = computed(() => masks[props.mask]);
 <template>
   <div class="w-full">
     <label
-      v-if="label"
-      class="text-sm font-medium"
+      v-if="props.label"
+      class="label"
       data-testid="input-label"
-      :for="id"
+      :for="props.id"
     >
-      {{ label }}
+      {{ props.label }}
     </label>
 
     <input
-      :id="id"
+      :id="props.id"
       v-model="value"
       v-maska:[maskOptions]
-      :name="name"
+      :name="props.name"
       class="input"
       data-testid="app-input"
       :class="{ 'border-red-500': !!errorMessage }"
-      :type="type"
-      :placeholder="placeholder"
-      :disabled="disabled"
+      :type="props.type"
+      :placeholder="props.placeholder"
+      :disabled="props.disabled"
       @blur="handleBlur($event, true)"
     />
 
     <p
       v-if="errorMessage"
-      class="text-sm text-red-500"
+      class="error"
       data-testid="input-error"
     >
       {{ errorMessage }}

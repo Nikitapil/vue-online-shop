@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { useField, type RuleExpression } from 'vee-validate';
 import type { MaybeRef } from 'vue';
+
+import { useField, type RuleExpression } from 'vee-validate';
 
 const value = defineModel<string>();
 
@@ -31,7 +32,7 @@ const { errorMessage, handleBlur } = useField<string>(props.name, props.rules, {
   <div class="w-full">
     <label
       v-if="props.label"
-      class="text-sm font-medium"
+      class="label"
       :for="id"
     >
       {{ props.label }}
@@ -50,7 +51,7 @@ const { errorMessage, handleBlur } = useField<string>(props.name, props.rules, {
 
     <p
       v-if="errorMessage"
-      class="text-sm text-red-500"
+      class="error"
     >
       {{ errorMessage }}
     </p>
