@@ -35,6 +35,7 @@ const { errorMessage, handleBlur } = useField<string>(props.name, props.rules, {
     <label
       v-if="props.label"
       class="label"
+      data-testid="area-label"
       :for="id"
     >
       {{ props.label }}
@@ -46,6 +47,7 @@ const { errorMessage, handleBlur } = useField<string>(props.name, props.rules, {
       class="input resize-none"
       :class="{ 'border-red-500': !!errorMessage }"
       rows="4"
+      data-testid="area-input"
       :placeholder="props.placeholder"
       :disabled="props.disabled"
       @blur="handleBlur($event, true)"
