@@ -1,16 +1,18 @@
 <script setup lang="ts">
-import type { ISelectOptions } from '@/components/ui/AppSelect/types';
-import { type RuleExpression, useField } from 'vee-validate';
 import type { MaybeRef } from 'vue';
+import type { ISelectOptions } from '@/components/ui/AppSelect/types';
+
+import { type RuleExpression, useField } from 'vee-validate';
+import ErrorMessageText from '@/components/ui/ErrorMessageText.vue';
 
 const value = defineModel<string>({ default: '' });
 
 const props = withDefaults(
   defineProps<{
     options: ISelectOptions[];
+    name: string;
     placeholder?: string;
     disabled?: boolean;
-    name: string;
     rules?: MaybeRef<RuleExpression<any>>;
     full?: boolean;
   }>(),
@@ -57,6 +59,7 @@ const onChange = async () => {
     >
       {{ placeholder }}
     </option>
+
     <option
       v-for="option in options"
       :key="option.value"
@@ -65,10 +68,9 @@ const onChange = async () => {
       {{ option.name }}
     </option>
   </select>
-  <p
+
+  <ErrorMessageText
     v-if="errorMessage"
-    class="text-sm text-red-500"
-  >
-    {{ errorMessage }}
-  </p>
+    :error-message="errorMessage"
+  />
 </template>
