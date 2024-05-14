@@ -5,7 +5,3 @@
 .label {
     @apply text-sm font-medium
 }
-
-.error {
-    @apply text-sm text-red-500
-}

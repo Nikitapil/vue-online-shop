@@ -114,7 +114,7 @@ describe('AppInput tests', () => {
 
     await flushPromises();
 
-    const error = wrapper.find('[data-testid="input-error"]');
+    const error = wrapper.find('[data-testid="error-message"]');
 
     expect(error.exists()).toBe(true);
     expect(error.text()).toBe('Test-input is required');

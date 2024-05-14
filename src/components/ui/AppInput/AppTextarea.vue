@@ -3,6 +3,8 @@ import type { MaybeRef } from 'vue';
 
 import { useField, type RuleExpression } from 'vee-validate';
 
+import ErrorMessageText from '@/components/ui/ErrorMessageText.vue';
+
 const value = defineModel<string>();
 
 const props = withDefaults(
@@ -49,12 +51,10 @@ const { errorMessage, handleBlur } = useField<string>(props.name, props.rules, {
       @blur="handleBlur($event, true)"
     ></textarea>
 
-    <p
+    <ErrorMessageText
       v-if="errorMessage"
-      class="error"
-    >
-      {{ errorMessage }}
-    </p>
+      :error-message="errorMessage"
+    />
   </div>
 </template>
 

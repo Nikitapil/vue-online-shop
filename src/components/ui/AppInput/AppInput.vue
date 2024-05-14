@@ -6,6 +6,8 @@ import { type RuleExpression, useField } from 'vee-validate';
 import { vMaska } from 'maska';
 import { masks, type TMasks } from '@/components/ui/AppInput/masks';
 
+import ErrorMessageText from '@/components/ui/ErrorMessageText.vue';
+
 const value = defineModel<string>();
 
 const props = withDefaults(
@@ -62,13 +64,10 @@ const maskOptions = computed(() => masks[props.mask]);
       @blur="handleBlur($event, true)"
     />
 
-    <p
+    <ErrorMessageText
       v-if="errorMessage"
-      class="error"
-      data-testid="input-error"
-    >
-      {{ errorMessage }}
-    </p>
+      :error-message="errorMessage"
+    />
   </div>
 </template>
 
