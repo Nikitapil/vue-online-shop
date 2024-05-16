@@ -1,7 +1,7 @@
 import { flushPromises, mount } from '@vue/test-utils';
 import AppTable from '../components/ui/AppTable/AppTable.vue';
 
-describe('AppTable', () => {
+describe('AppTable tests', () => {
   const columns = [{ key: 'firstColumn' }, { key: 'secondColumn' }, { key: 'thirdColumn' }];
 
   test('should render correct number of columns', () => {
