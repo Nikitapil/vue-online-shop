@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import AppButton from '@/components/ui/AppButton.vue';
-import type { ContentSwitcherOption } from '@/components/ui/ContentSwitcher/types';
 import { computed } from 'vue';
+
+import type { ContentSwitcherOption } from '@/components/ui/ContentSwitcher/types';
+
+import AppButton from '@/components/ui/AppButton.vue';
 
 const props = defineProps<{
   currentValue: string;

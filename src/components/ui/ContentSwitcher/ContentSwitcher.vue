@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { ContentSwitcherOption } from '@/components/ui/ContentSwitcher/types';
+
 import ContentSwitcherButton from '@/components/ui/ContentSwitcher/ContentSwitcherButton.vue';
 
 const value = defineModel<string>({ required: true });
@@ -12,6 +13,7 @@ const onChange = (newValue: string) => {
   if (newValue === value.value) {
     return;
   }
+
   value.value = newValue;
 };
 </script>
