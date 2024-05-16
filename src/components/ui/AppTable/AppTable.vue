@@ -40,22 +40,23 @@ const onSort = (column: IColumn) => {
         </th>
       </tr>
     </thead>
+
     <tbody>
       <tr
-        v-for="data in dataSource"
+        v-for="data in props.dataSource"
         :key="data.key"
       >
         <td
-          v-for="dataCol in columns"
+          v-for="dataCol in props.columns"
           :key="data.key + dataCol.key"
           class="border border-l-0 first-of-type:border p-2"
         >
           <slot
             :name="dataCol.contentSlotName"
             :content="data"
-            :columnKey="dataCol.key as keyof typeof data"
+            :columnKey="dataCol.key as keyof D"
           >
-            {{ data[dataCol.key as keyof typeof data] || '' }}
+            {{ data[dataCol.key as keyof D] || '' }}
           </slot>
         </td>
       </tr>
