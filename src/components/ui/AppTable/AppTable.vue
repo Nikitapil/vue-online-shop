@@ -29,6 +29,7 @@ const onSort = (column: IColumn) => {
           :key="column.key"
           class="border border-l-0 first-of-type:border first-of-type:rounded-tl-md last-of-type:rounded-tr-md transition-all duration-300"
           :class="{ 'hover:bg-blue-100 cursor-pointer': column.sortable, 'bg-blue-200': column.key === sort }"
+          data-testid="table-column"
           @click="onSort(column)"
         >
           <slot
@@ -45,6 +46,7 @@ const onSort = (column: IColumn) => {
       <tr
         v-for="data in props.dataSource"
         :key="data.key"
+        data-testid="table-row"
       >
         <td
           v-for="dataCol in props.columns"
