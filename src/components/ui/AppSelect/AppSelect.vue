@@ -56,6 +56,7 @@ const onChange = async () => {
       v-if="placeholder && !value"
       value=""
       disabled
+      data-testid="app-select-placeholder"
     >
       {{ placeholder }}
     </option>

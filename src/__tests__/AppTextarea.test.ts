@@ -1,8 +1,9 @@
-import { flushPromises, mount } from "@vue/test-utils";
-import AppTextarea from '../components/ui/AppInput/AppTextarea.vue';
-import { validation } from "../plugins/validation";
+import { flushPromises, mount } from '@vue/test-utils';
+import { validation } from '../plugins/validation';
 
-describe('AppTextarea', () => {
+import AppTextarea from '../components/ui/AppInput/AppTextarea.vue';
+
+describe('AppTextarea tests', () => {
   test('Should not render label if no prop', () => {
     const wrapper = mount(AppTextarea, {
       props: {
