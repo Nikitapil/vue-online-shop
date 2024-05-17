@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
+
 import { Icon } from '@iconify/vue';
+
 import type { IMultiSelectInternalOption, IMultiSelectOption } from '@/components/ui/MultiSelect/types';
 
 const value = defineModel<string[]>();
@@ -68,6 +70,7 @@ const clickHandler = (option: IMultiSelectInternalOption) => {
     >
       {{ label }}
     </p>
+
     <div
       v-click-outside="closeSelect"
       tabindex="0"
@@ -84,6 +87,7 @@ const clickHandler = (option: IMultiSelectInternalOption) => {
           :icon="icon"
         />
       </div>
+
       <div
         v-if="isOpened"
         class="max-h-52 overflow-auto"
