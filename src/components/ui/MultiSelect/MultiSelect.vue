@@ -27,7 +27,7 @@ const emit = defineEmits<{
 
 const isOpened = ref(false);
 
-const text = computed(() => props.placeholder || `Selected ${value.value?.length} options`);
+const text = computed(() => props.placeholder || `Selected ${value.value?.length || 0} options`);
 const icon = computed(() => (isOpened.value ? 'simple-line-icons:arrow-up' : 'simple-line-icons:arrow-down'));
 
 const internalOptions = computed<IMultiSelectInternalOption[]>(() =>
@@ -67,6 +67,7 @@ const clickHandler = (option: IMultiSelectInternalOption) => {
     <p
       v-if="label"
       class="font-medium"
+      data-testid="multiselect-label"
     >
       {{ label }}
     </p>
@@ -79,6 +80,7 @@ const clickHandler = (option: IMultiSelectInternalOption) => {
       <div
         class="flex justify-between w-full items-center gap-5 py-2 px-4 cursor-pointer absolute top-0"
         :class="{ 'border-b border-b-black': isOpened, 'bg-slate-100 cursor-not-allowed': props.disabled }"
+        data-testid="multi-select-trigger"
         @click="toggleSelect"
       >
         <p>{{ text }}</p>
@@ -91,12 +93,14 @@ const clickHandler = (option: IMultiSelectInternalOption) => {
       <div
         v-if="isOpened"
         class="max-h-52 overflow-auto"
+        data-testid="multi-select-options"
       >
         <div
           v-for="option in internalOptions"
           :key="option.value"
           class="py-2 px-4 flex items-center gap-3 accent-slate-300 hover:bg-slate-200 cursor-pointer"
           :class="{ 'cursor-not-allowed hover:bg-slate-100 bg-slate-100': option.disabled }"
+          data-testid="multi-select-option"
           @click="clickHandler(option)"
         >
           <input
