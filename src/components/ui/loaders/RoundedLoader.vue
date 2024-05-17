@@ -13,6 +13,7 @@ withDefaults(
   <div
     class="loader"
     :class="[size]"
+    data-testid="rounded-loader"
   ></div>
 </template>
 
