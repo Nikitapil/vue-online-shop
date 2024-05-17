@@ -86,6 +86,7 @@ const clickHandler = (option: IMultiSelectInternalOption) => {
         <p>{{ text }}</p>
         <Icon
           class="w-4 h-4"
+          data-testid="multi-select-icon"
           :icon="icon"
         />
       </div>
@@ -106,6 +107,7 @@ const clickHandler = (option: IMultiSelectInternalOption) => {
           <input
             class="w-4 h-4 p-5"
             type="checkbox"
+            data-testid="multi-select-option-checkbox"
             :disabled="option.disabled"
             :checked="option.checked"
           />

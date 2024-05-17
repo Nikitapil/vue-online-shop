@@ -1,5 +1,7 @@
-import { mount } from '@vue/test-utils';
+import { flushPromises, mount } from '@vue/test-utils';
 import MultiSelect from '../components/ui/MultiSelect/MultiSelect.vue';
+import { Icon } from '@iconify/vue';
+import { DirectivePlugin } from '../directives/directive-plugin';
 
 describe('MultiSelect tests', () => {
   const options = [
@@ -10,6 +12,9 @@ describe('MultiSelect tests', () => {
   ];
   test('should open and close select options by click', async () => {
     const wrapper = mount(MultiSelect, {
+      global: {
+        plugins: [DirectivePlugin]
+      },
       props: {
         options
       }
@@ -23,20 +28,29 @@ describe('MultiSelect tests', () => {
 
     const optionsBlock = wrapper.find('[data-testid="multi-select-options"]');
 
+    const icon = wrapper.findComponent(Icon);
+
     expect(optionsBlock.exists()).toBe(true);
     expect(updatedTrigger.classes()).toContain('border-b');
     expect(updatedTrigger.classes()).toContain('border-b-black');
+    expect((icon.vm as any)._loadingIcon.name).toBe('simple-line-icons:arrow-up');
 
     await trigger.trigger('click');
 
     const updatedOptionsBlock = wrapper.find('[data-testid="multi-select-options"]');
+    const updatedIcon = wrapper.findComponent(Icon);
 
     expect(updatedOptionsBlock.exists()).toBe(false);
+    expect((updatedIcon.vm as any)._loadingIcon.name).toBe('simple-line-icons:arrow-down');
+
     expect(wrapper.emitted('close')).toBeTruthy();
   });
 
   test('should render correct amount of options', async () => {
     const wrapper = mount(MultiSelect, {
+      global: {
+        plugins: [DirectivePlugin]
+      },
       props: {
         options
       }
@@ -54,6 +68,9 @@ describe('MultiSelect tests', () => {
   test('should have a placeholder', async () => {
     const placeholder = 'test placeholder';
     const wrapper = mount(MultiSelect, {
+      global: {
+        plugins: [DirectivePlugin]
+      },
       props: {
         options,
         placeholder
@@ -68,6 +85,9 @@ describe('MultiSelect tests', () => {
   test('should not have a label without provided prop', async () => {
     const placeholder = 'test placeholder';
     const wrapper = mount(MultiSelect, {
+      global: {
+        plugins: [DirectivePlugin]
+      },
       props: {
         options,
         placeholder
@@ -83,6 +103,9 @@ describe('MultiSelect tests', () => {
     const placeholder = 'test placeholder';
     const label = 'label';
     const wrapper = mount(MultiSelect, {
+      global: {
+        plugins: [DirectivePlugin]
+      },
       props: {
         options,
         placeholder,
@@ -100,6 +123,9 @@ describe('MultiSelect tests', () => {
     const placeholder = 'test placeholder';
     const label = 'label';
     const wrapper = mount(MultiSelect, {
+      global: {
+        plugins: [DirectivePlugin]
+      },
       props: {
         options,
         placeholder,
@@ -120,8 +146,11 @@ describe('MultiSelect tests', () => {
     expect(updatedTrigger.classes()).toContain('cursor-not-allowed');
   });
 
-  test('should have selected count text if no placeholder', async () => {
+  test('should have selected count text if no placeholder', () => {
     const wrapper = mount(MultiSelect, {
+      global: {
+        plugins: [DirectivePlugin]
+      },
       props: {
         options
       }
@@ -130,5 +159,128 @@ describe('MultiSelect tests', () => {
     const trigger = wrapper.find('[data-testid="multi-select-trigger"]');
 
     expect(trigger.text()).toBe('Selected 0 options');
+  });
+
+  test('expect option to be checked', async () => {
+    const wrapper = mount(MultiSelect, {
+      global: {
+        plugins: [DirectivePlugin]
+      },
+      props: {
+        options,
+        modelValue: ['1']
+      }
+    });
+
+    const trigger = wrapper.find('[data-testid="multi-select-trigger"]');
+
+    await trigger.trigger('click');
+
+    const checkedOptionCheckbox = wrapper.find<HTMLInputElement>('[data-testid="multi-select-option-checkbox"]');
+
+    expect(checkedOptionCheckbox.element.checked).toBe(true);
+  });
+
+  test('should not select disabled option', async () => {
+    const optionsWithDisabled = [{ value: '0', name: '0', disabled: true }, ...options];
+    const wrapper = mount(MultiSelect, {
+      global: {
+        plugins: [DirectivePlugin]
+      },
+      props: {
+        options: optionsWithDisabled,
+        modelValue: [],
+        'onUpdate:modelValue': (e: []) => wrapper.setProps({ modelValue: e })
+      }
+    });
+
+    const trigger = wrapper.find('[data-testid="multi-select-trigger"]');
+
+    await trigger.trigger('click');
+
+    const option = wrapper.find('[data-testid="multi-select-option"]');
+
+    await option.trigger('click');
+
+    const checkedOptionCheckbox = wrapper.find<HTMLInputElement>('[data-testid="multi-select-option-checkbox"]');
+
+    expect(checkedOptionCheckbox.element.checked).toBe(false);
+    expect(wrapper.props('modelValue')).toEqual([]);
+    expect(option.classes()).toContain('cursor-not-allowed');
+    expect(option.classes()).toContain('hover:bg-slate-100');
+    expect(option.classes()).toContain('bg-slate-100');
+  });
+
+  test('should select option', async () => {
+    const wrapper = mount(MultiSelect, {
+      global: {
+        plugins: [DirectivePlugin]
+      },
+      props: {
+        options,
+        modelValue: [],
+        'onUpdate:modelValue': (e: []) => wrapper.setProps({ modelValue: e })
+      }
+    });
+
+    const trigger = wrapper.find('[data-testid="multi-select-trigger"]');
+
+    await trigger.trigger('click');
+
+    const option = wrapper.find('[data-testid="multi-select-option"]');
+
+    await option.trigger('click');
+
+    const checkedOptionCheckbox = wrapper.find<HTMLInputElement>('[data-testid="multi-select-option-checkbox"]');
+
+    expect(checkedOptionCheckbox.element.checked).toBe(true);
+    expect(wrapper.props('modelValue')).toEqual(['1']);
+  });
+
+  test('should unselect option', async () => {
+    const wrapper = mount(MultiSelect, {
+      global: {
+        plugins: [DirectivePlugin]
+      },
+      props: {
+        options,
+        modelValue: ['1'],
+        'onUpdate:modelValue': (e: []) => wrapper.setProps({ modelValue: e })
+      }
+    });
+
+    const trigger = wrapper.find('[data-testid="multi-select-trigger"]');
+
+    await trigger.trigger('click');
+
+    const option = wrapper.find('[data-testid="multi-select-option"]');
+
+    await option.trigger('click');
+
+    const checkedOptionCheckbox = wrapper.find<HTMLInputElement>('[data-testid="multi-select-option-checkbox"]');
+
+    expect(checkedOptionCheckbox.element.checked).toBe(false);
+    expect(wrapper.props('modelValue')).toEqual([]);
+  });
+
+  test('should sort checked option', async () => {
+    const wrapper = mount(MultiSelect, {
+      global: {
+        plugins: [DirectivePlugin]
+      },
+      props: {
+        options,
+        modelValue: ['3'],
+        'onUpdate:modelValue': (e: []) => wrapper.setProps({ modelValue: e })
+      }
+    });
+
+    const trigger = wrapper.find('[data-testid="multi-select-trigger"]');
+
+    await trigger.trigger('click');
+
+    const option = wrapper.find('[data-testid="multi-select-option"]');
+
+    expect(option.text()).toBe('3');
   });
 });
