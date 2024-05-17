@@ -1,4 +1,4 @@
-import { flushPromises, mount } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import MultiSelect from '../components/ui/MultiSelect/MultiSelect.vue';
 import { Icon } from '@iconify/vue';
 import { DirectivePlugin } from '../directives/directive-plugin';
