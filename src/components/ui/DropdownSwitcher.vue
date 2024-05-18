@@ -27,21 +27,29 @@ const onSelect = (val: string) => {
     class="relative"
   >
     <div class="flex gap-1 items-center">
-      <p class="uppercase text-sm">{{ value }}</p>
+      <p
+        class="uppercase text-sm"
+        data-testid="dropdown-switcher-value"
+      >
+        {{ value }}
+      </p>
       <IconButton
         :icon="props.icon"
         @click="isOpened = !isOpened"
       />
     </div>
+
     <div
       v-if="isOpened"
       class="absolute w-full flex flex-col z-10 border border-black bg-slate-300 rounded-md overflow-hidden"
+      data-testid="dropdown-options-container"
     >
       <button
         v-for="opt in props.options"
         :key="opt"
         class="uppercase hover:bg-slate-400"
         :class="{ 'bg-slate-500 text-white': value === opt }"
+        data-testid="dropdown-switcher-option"
         @click="onSelect(opt)"
       >
         {{ opt }}

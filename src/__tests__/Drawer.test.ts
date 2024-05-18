@@ -66,6 +66,7 @@ describe('Drawer tests', () => {
 
     expect(overlay.exists()).toBe(false);
     expect(content.exists()).toBe(false);
+    expect(wrapper.props('modelValue')).toBe(false);
   });
 
   test('Should close by click on arrow', async () => {
@@ -87,5 +88,6 @@ describe('Drawer tests', () => {
 
     expect(overlay.exists()).toBe(false);
     expect(content.exists()).toBe(false);
+    expect(wrapper.props('modelValue')).toBe(false);
   });
 });
