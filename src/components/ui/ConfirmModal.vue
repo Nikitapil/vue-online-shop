@@ -26,7 +26,10 @@ const close = () => (isOpened.value = false);
     v-model="isOpened"
     size="md"
   >
-    <div class="flex flex-col items-center w-full gap-8 min-h-[10rem]">
+    <div
+      class="flex flex-col items-center w-full gap-8 min-h-[10rem]"
+      data-testid="confirm-modal"
+    >
       <h2 class="text-2xl font-bold flex-1">{{ title }}</h2>
 
       <div class="self-end flex gap-3">
