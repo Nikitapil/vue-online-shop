@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Modal from '@/components/ui/Modal.vue';
 import AppButton from '@/components/ui/AppButton.vue';
+
 const isOpened = defineModel<boolean>();
 
 withDefaults(
@@ -27,6 +28,7 @@ const close = () => (isOpened.value = false);
   >
     <div class="flex flex-col items-center w-full gap-8 min-h-[10rem]">
       <h2 class="text-2xl font-bold flex-1">{{ title }}</h2>
+
       <div class="self-end flex gap-3">
         <AppButton
           appearance="transparent"
@@ -35,6 +37,7 @@ const close = () => (isOpened.value = false);
         >
           Cancel
         </AppButton>
+
         <AppButton
           appearance="primary"
           :disabled="isLoading"
