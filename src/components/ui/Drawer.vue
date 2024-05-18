@@ -9,12 +9,14 @@ defineProps<{
 
 const close = () => (isOpen.value = false);
 </script>
+
 <template>
   <div
     v-if="isOpen"
     class="fixed top-0 left-0 h-full w-full bg-black z-10 opacity-50"
     @click="close"
   ></div>
+
   <Transition
     enter-from-class="translate-x-[150%] opacity-0"
     enter-active-class="transition duration-300"
@@ -32,6 +34,7 @@ const close = () => (isOpen.value = false);
         />
         <h2 class="text-2xl font-bold">{{ title }}</h2>
       </div>
+
       <slot />
     </div>
   </Transition>
