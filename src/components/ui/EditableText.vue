@@ -1,9 +1,12 @@
 <script setup lang="ts">
-import IconButton from './IconButton.vue';
 import { ref, type MaybeRef } from 'vue';
-import AppInput from './AppInput/AppInput.vue';
+
 import { useForm, type RuleExpression } from 'vee-validate';
+
 import type { TMasks } from '@/components/ui/AppInput/masks';
+
+import AppInput from './AppInput/AppInput.vue';
+import IconButton from './IconButton.vue';
 
 const isEditMode = defineModel<boolean>();
 
@@ -14,10 +17,10 @@ const props = withDefaults(
     id: string;
     name: string;
     initialValue: string;
+    isLoading?: boolean;
     label?: string;
     rules?: MaybeRef<RuleExpression<any>>;
     mask?: TMasks;
-    isLoading: boolean;
   }>(),
   {
     rules: '',
@@ -49,12 +52,14 @@ const onSubmit = async () => {
 
 <template>
   <div class="flex flex-wrap gap-2 items-center">
-    <h3
+    <label
       v-if="label"
       class="font-bold text-xl"
+      :for="id"
     >
       {{ label }}
-    </h3>
+    </label>
+
     <form
       v-if="isEditMode"
       class="flex gap-2"
@@ -68,25 +73,32 @@ const onSubmit = async () => {
         :disabled="props.isLoading"
         :mask="props.mask"
       />
+
       <IconButton
+        v-tooltip="$t('save')"
         icon="line-md:circle-to-confirm-circle-transition"
         type="submit"
         color="#1fe425"
         :disabled="props.isLoading"
       />
+
       <IconButton
+        v-tooltip="$t('cancel')"
         icon="carbon:close-outline"
         color="#e30b1a"
         :disabled="props.isLoading"
         @click="closeEditMode"
       />
     </form>
+
     <div
       v-else
       class="flex gap-2 text-xl"
     >
       <p>{{ value }}</p>
+
       <IconButton
+        v-tooltip="$t('edit')"
         icon="ic:outline-edit"
         :disabled="props.isLoading"
         @click="openEditMode"

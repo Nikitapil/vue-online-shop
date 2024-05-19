@@ -3,5 +3,8 @@
   "no_image": "No Image",
   "rating": "Rating",
   "product_not_found": "Product not found",
-  "products_per_page": "Products per page"
+  "products_per_page": "Products per page",
+  "save": "Save",
+  "cancel": "Cancel",
+  "edit": "Edit"
 }
