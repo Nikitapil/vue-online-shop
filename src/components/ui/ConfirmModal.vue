@@ -38,7 +38,7 @@ const close = () => (isOpened.value = false);
           :disabled="isLoading"
           @click="close"
         >
-          Cancel
+          {{ $t('cancel') }}
         </AppButton>
 
         <AppButton
@@ -46,7 +46,7 @@ const close = () => (isOpened.value = false);
           :disabled="isLoading"
           @click="$emit('confirm')"
         >
-          Confirm
+          {{ $t('confirm') }}
         </AppButton>
       </div>
     </div>
