@@ -55,6 +55,7 @@ const onSubmit = async () => {
     <label
       v-if="label"
       class="font-bold text-xl"
+      data-testid="editable-text-label"
       :for="id"
     >
       {{ label }}
@@ -63,6 +64,7 @@ const onSubmit = async () => {
     <form
       v-if="isEditMode"
       class="flex gap-2"
+      data-testid="editable-text-form"
       @submit.prevent="onSubmit"
     >
       <AppInput
@@ -79,6 +81,7 @@ const onSubmit = async () => {
         icon="line-md:circle-to-confirm-circle-transition"
         type="submit"
         color="#1fe425"
+        data-testid="save-button"
         :disabled="props.isLoading"
       />
 
@@ -86,6 +89,7 @@ const onSubmit = async () => {
         v-tooltip="$t('cancel')"
         icon="carbon:close-outline"
         color="#e30b1a"
+        data-testid="close-button"
         :disabled="props.isLoading"
         @click="closeEditMode"
       />
@@ -94,11 +98,13 @@ const onSubmit = async () => {
     <div
       v-else
       class="flex gap-2 text-xl"
+      data-testid="closed-mode"
     >
-      <p>{{ value }}</p>
+      <p data-testid="value-paragraph">{{ value }}</p>
 
       <IconButton
         v-tooltip="$t('edit')"
+        data-testid="open-edit-mode"
         icon="ic:outline-edit"
         :disabled="props.isLoading"
         @click="openEditMode"
