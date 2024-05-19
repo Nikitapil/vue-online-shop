@@ -1,10 +1,14 @@
 import { mount } from '@vue/test-utils';
 import ConfirmModal from '../components/ui/ConfirmModal.vue';
 import AppButton from '../components/ui/AppButton.vue';
+import { i18n } from '../plugins/i18n';
 
 describe('ConfirmModal tests', () => {
   test('should opened and close correctly when modelValue changed', async () => {
     const wrapper = mount(ConfirmModal, {
+      global: {
+        plugins: [i18n]
+      },
       props: {
         title: 'Test Modal',
         modelValue: false
@@ -31,6 +35,9 @@ describe('ConfirmModal tests', () => {
   test('should apply title correctly', async () => {
     const title = 'Test Modal';
     const wrapper = mount(ConfirmModal, {
+      global: {
+        plugins: [i18n]
+      },
       props: {
         title,
         modelValue: true
@@ -44,6 +51,9 @@ describe('ConfirmModal tests', () => {
   test('should disable btns by isLoading prop', async () => {
     const title = 'Test Modal';
     const wrapper = mount(ConfirmModal, {
+      global: {
+        plugins: [i18n]
+      },
       props: {
         title,
         modelValue: true,
@@ -70,6 +80,9 @@ describe('ConfirmModal tests', () => {
   test('should emit confirm event', async () => {
     const title = 'Test Modal';
     const wrapper = mount(ConfirmModal, {
+      global: {
+        plugins: [i18n]
+      },
       props: {
         title,
         modelValue: true
@@ -85,6 +98,9 @@ describe('ConfirmModal tests', () => {
   test('should close modal by cancel btn', async () => {
     const title = 'Test Modal';
     const wrapper = mount(ConfirmModal, {
+      global: {
+        plugins: [i18n]
+      },
       props: {
         title,
         modelValue: true,
