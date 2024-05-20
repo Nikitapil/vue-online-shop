@@ -1,11 +1,12 @@
 <script lang="ts" setup>
 import { Icon } from '@iconify/vue/dist/iconify.js';
+
 const value = defineModel<number>({ required: true });
 
 const props = withDefaults(
   defineProps<{
-    count?: number;
     name: string;
+    count?: number;
     disabled?: boolean;
   }>(),
   {
@@ -35,6 +36,7 @@ defineEmits<{
           color="#e4d828"
         />
       </label>
+
       <input
         :id="`${props.name}_${radio}`"
         v-model="value"
