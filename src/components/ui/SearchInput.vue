@@ -29,6 +29,7 @@ defineEmits<{
       v-model="value"
       class="border rounded-md py-2 pl-10 h-11 pr-4 outline-none focus:border-gray-400 disabled:bg-gray-100 disabled:cursor-not-allowed"
       type="text"
+      data-testid="search-input"
       :disabled="disabled"
       :placeholder="$t('search')"
       @input="$emit('input', value)"
