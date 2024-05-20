@@ -31,9 +31,11 @@ const onClose = () => {
     <div
       v-if="isOpen"
       class="fixed top-0 left-0 z-30 w-full min-h-screen h-full bg-black/80"
+      data-testid="modal-overlay"
       @click="onClose"
     ></div>
   </transition>
+
   <transition
     enter-from-class="translate-y-[-100%] opacity-0"
     enter-active-class="transition duration-300"
@@ -42,6 +44,7 @@ const onClose = () => {
   >
     <div
       v-if="isOpen"
+      data-testid="modal-content"
       class="fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] bg-white rounded-2xl min-h-[14rem] max-w-[80%] w-full z-40 overflow-hidden p-7"
       :class="size"
       @click.stop
@@ -55,6 +58,7 @@ const onClose = () => {
           @click="onClose"
         />
       </div>
+
       <slot />
     </div>
   </transition>
