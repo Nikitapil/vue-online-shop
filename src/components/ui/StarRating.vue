@@ -28,6 +28,7 @@ defineEmits<{
     >
       <label
         class="star"
+        data-testid="star-label"
         :for="`${props.name}_${radio}`"
       >
         <Icon
@@ -45,6 +46,7 @@ defineEmits<{
         :value="radio"
         type="radio"
         hidden
+        data-testid="star-input"
         @input="$emit('change', value)"
       />
     </template>
