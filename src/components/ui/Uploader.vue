@@ -1,8 +1,11 @@
 <script setup lang="ts">
-import AppButton from '@/components/ui/AppButton.vue';
 import { computed, type MaybeRef, ref } from 'vue';
+
 import { type RuleExpression, useField } from 'vee-validate';
+
+import AppButton from '@/components/ui/AppButton.vue';
 import IconButton from '@/components/ui/IconButton.vue';
+import ErrorMessageText from '@/components/ui/ErrorMessageText.vue';
 
 const value = defineModel<File | null>();
 
@@ -11,7 +14,7 @@ const props = withDefaults(
     id: string;
     label: string;
     name: string;
-    rules: MaybeRef<RuleExpression<any>>;
+    rules?: MaybeRef<RuleExpression<any>>;
     disabled?: boolean;
   }>(),
   {
@@ -46,6 +49,7 @@ const deleteImage = () => (value.value = null);
       >
         {{ label }}
       </AppButton>
+
       <IconButton
         v-if="value"
         icon="fa6-solid:xmark"
@@ -53,12 +57,12 @@ const deleteImage = () => (value.value = null);
         @click="deleteImage"
       />
     </div>
-    <p
+
+    <ErrorMessageText
       v-if="errorMessage"
-      class="text-sm text-red-500"
-    >
-      {{ errorMessage }}
-    </p>
+      :error-message="errorMessage"
+    />
+
     <input
       :id="id"
       ref="fileInput"
@@ -67,6 +71,7 @@ const deleteImage = () => (value.value = null);
       hidden
       @change="changeHandler"
     />
+
     <div
       v-if="imageUrl"
       class="max-w-xs mt-3"
