@@ -1,6 +1,7 @@
+import { computed } from 'vue';
+
 import type { ComputedRef, Ref } from 'vue';
 import type { ProductReturnDto } from '@/api/swagger/data-contracts';
-import { computed } from 'vue';
 
 export const useProduct = (product: Ref<ProductReturnDto | null>): ComputedRef<ProductReturnDto | null> => {
   return computed(() =>
