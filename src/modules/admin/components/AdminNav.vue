@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import LinkWithIcon from '@/components/ui/LinkWithIcon.vue';
 import { ERoutesName } from '@/router';
+
+import LinkWithIcon from '@/components/ui/LinkWithIcon.vue';
 </script>
 
 <template>

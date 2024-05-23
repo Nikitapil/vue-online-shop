@@ -10,7 +10,7 @@ import ProfilePage from '@/modules/profile/pages/ProfilePage.vue';
 import Admin from '@/modules/admin/pages/Admin.vue';
 import FinanceSettings from '@/modules/admin/submodules/finance-settings/pages/FinanceSettings.vue';
 import Discounts from '@/modules/discounts/pages/Discounts/Discounts.vue';
-import SingleDiscount from "@/modules/discounts/pages/SingleDiscount/SingleDiscount.vue";
+import SingleDiscount from '@/modules/discounts/pages/SingleDiscount/SingleDiscount.vue';
 
 export enum ERoutesName {
   HOME = 'home',
