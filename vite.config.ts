@@ -24,7 +24,8 @@ export default defineConfig({
     coverage: {
       include: ['src/**/*'],
       exclude: ['src/api']
-    }
+    },
+    css: true
   },
   resolve: {
     alias: {
