@@ -1,3 +1,4 @@
+import { vi } from 'vitest';
 import { mount } from '@vue/test-utils';
 import MultiSelect from '../components/ui/MultiSelect/MultiSelect.vue';
 import { Icon } from '@iconify/vue';
@@ -282,5 +283,39 @@ describe('MultiSelect tests', () => {
     const option = wrapper.find('[data-testid="multi-select-option"]');
 
     expect(option.text()).toBe('3');
+  });
+
+  test('should be closed by click-outside', async () => {
+    const spy = vi.spyOn(document.body, 'removeEventListener');
+    const wrapper = mount(MultiSelect, {
+      global: {
+        plugins: [DirectivePlugin]
+      },
+      props: {
+        options,
+        label: 'test label'
+      },
+      attachTo: 'body'
+    });
+
+    const trigger = wrapper.find('[data-testid="multi-select-trigger"]');
+
+    await trigger.trigger('click');
+
+    let optionsBlock = wrapper.find('[data-testid="multi-select-options"]');
+
+    expect(optionsBlock.exists()).toBe(true);
+
+    const label = wrapper.find('[data-testid="multiselect-label"]');
+
+    await label.trigger('click');
+
+    optionsBlock = wrapper.find('[data-testid="multi-select-options"]');
+
+    expect(optionsBlock.exists()).toBe(false);
+
+    wrapper.unmount();
+
+    expect(spy).toHaveBeenCalledTimes(1);
   });
 });

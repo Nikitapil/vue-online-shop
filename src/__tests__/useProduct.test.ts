@@ -1,6 +1,6 @@
 import { ref } from 'vue';
 import { useProduct } from '../composables/useProduct';
-import { product } from "./mocks/product-mocks";
+import { product } from './mocks/product-mocks';
 
 describe('useProduct test', () => {
   test('should return null if null value passed', () => {
