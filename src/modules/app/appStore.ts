@@ -1,8 +1,10 @@
-import { defineStore } from 'pinia';
 import { computed, ref, watchEffect } from 'vue';
-import type { FinanceSettingsReturnDto } from '@/api/swagger/data-contracts';
-import { useApiMethod } from '@/api/useApiMethod';
+import { defineStore } from 'pinia';
+
 import { api } from '@/api/apiInstance';
+import type { FinanceSettingsReturnDto } from '@/api/swagger/data-contracts';
+
+import { useApiMethod } from '@/api/useApiMethod';
 import { getCurrencyFromLocalStorage, setCurrencyToLocalStorage } from '@/helpers/localStorage-helpers';
 
 export const useAppStore = defineStore('app', () => {
@@ -16,7 +18,7 @@ export const useAppStore = defineStore('app', () => {
   const { isLoading: isSetAvailableCurrenciesInProgress, call: setAvailableCurrenciesApi } = useApiMethod(
     api.setAvailableCurrencies
   );
-  const { isLoading: isUpdateExchangeRatesInProgress, call: updateExchangeratesApi } = useApiMethod(
+  const { isLoading: isUpdateExchangeRatesInProgress, call: updateExchangeRatesApi } = useApiMethod(
     api.updateExchangeRates
   );
 
@@ -29,6 +31,7 @@ export const useAppStore = defineStore('app', () => {
     setCurrencyToLocalStorage(currency);
     currentCurrency.value = currency;
   };
+
   const getFinanceSettings = async () => {
     financeSettings.value = await getFinanceSettingsApi();
   };
@@ -50,7 +53,7 @@ export const useAppStore = defineStore('app', () => {
   };
 
   const updateExchangeRates = async () => {
-    financeSettings.value = await updateExchangeratesApi();
+    financeSettings.value = await updateExchangeRatesApi();
   };
 
   watchEffect(() => {
