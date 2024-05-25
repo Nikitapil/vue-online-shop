@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import { useAppStore } from '@/modules/app/appStore';
 import DropdownSwitcher from '@/components/ui/DropdownSwitcher.vue';
-import { ref } from 'vue';
 
 const store = useAppStore();
 
