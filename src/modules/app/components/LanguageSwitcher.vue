@@ -1,8 +1,11 @@
 <script setup lang="ts">
+import { ref } from 'vue';
+
 import { useI18n } from 'vue-i18n';
 import { setLocaleToLocalStorage } from '@/helpers/localStorage-helpers';
+
 import { EAvailableTextLocales } from '@/domain/i18n.domain';
-import { ref } from 'vue';
+
 import DropdownSwitcher from '@/components/ui/DropdownSwitcher.vue';
 
 const { locale, availableLocales } = useI18n<string, EAvailableTextLocales>();
