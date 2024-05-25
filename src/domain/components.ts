@@ -3,3 +3,8 @@ export enum EPaginationLimits {
   TWENTY = '20',
   FIFTY = '50'
 }
+
+export enum EAuthModalTypes {
+  REGISTER = 'register',
+  LOGIN = 'login'
+}

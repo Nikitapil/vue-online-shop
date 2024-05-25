@@ -17,5 +17,7 @@
   "available_currencies": "Доступные валюты",
   "update_exchange_rates": "Обновить курсы валют",
   "selected_options": "Выбраны {count} варианта",
-  "exchange_rates_update_tooltip": "Обновляется автоматически каждые 24 часа"
+  "exchange_rates_update_tooltip": "Обновляется автоматически каждые 24 часа",
+  "logout": "Выход",
+  "sign_up": "Зарегистрироваться"
 }

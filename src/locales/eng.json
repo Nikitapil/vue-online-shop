@@ -17,5 +17,8 @@
   "available_currencies": "Available currencies",
   "update_exchange_rates": "Update exchange currencies",
   "selected_options": "Selected {count} options",
-  "exchange_rates_update_tooltip": "Updated automatically every 24 hours"
+  "exchange_rates_update_tooltip": "Updated automatically every 24 hours",
+  "logout": "Log out",
+  "log_in": "Log in",
+  "sign_up": "Sign up"
 }

@@ -1,13 +1,16 @@
 <script setup lang="ts">
-import Cart from '../../cart/components/Cart.vue';
-import AppButton from '@/components/ui/AppButton.vue';
 import { ref } from 'vue';
-import AuthModal from '@/modules/auth/components/AuthModal.vue';
-import HorizontalLoader from '@/components/ui/loaders/HorizontalLoader.vue';
-import LogoutModal from '@/modules/auth/components/LogoutModal.vue';
-import IconButton from '@/components/ui/IconButton.vue';
-import { Icon } from '@iconify/vue';
+
 import { ERoutesName } from '@/router';
+import { EAuthModalTypes } from '@/domain/components';
+
+import { Icon } from '@iconify/vue';
+import IconButton from '@/components/ui/IconButton.vue';
+import LogoutModal from '@/modules/auth/components/LogoutModal.vue';
+import HorizontalLoader from '@/components/ui/loaders/HorizontalLoader.vue';
+import AuthModal from '@/modules/auth/components/AuthModal.vue';
+import AppButton from '@/components/ui/AppButton.vue';
+import Cart from '../../cart/components/Cart.vue';
 import LinkWithIcon from '@/components/ui/LinkWithIcon.vue';
 
 const props = defineProps<{
@@ -18,9 +21,9 @@ const props = defineProps<{
 
 const isAuthModalOpen = ref(false);
 const isLogoutModalOpen = ref(false);
-const authModalType = ref<'register' | 'login'>('login');
+const authModalType = ref<EAuthModalTypes>(EAuthModalTypes.LOGIN);
 
-const openAuthModal = (type: 'login' | 'register') => {
+const openAuthModal = (type: EAuthModalTypes) => {
   authModalType.value = type;
   isAuthModalOpen.value = true;
 };
@@ -29,7 +32,7 @@ const openAuthModal = (type: 'login' | 'register') => {
 <template>
   <header class="flex flex-wrap gap-3 justify-between items-center border-b border-b-slate-300 px-8 py-6">
     <RouterLink
-      to="/"
+      :to="{ name: ERoutesName.HOME }"
       class="flex items-center gap-4"
     >
       <Icon
@@ -98,6 +101,7 @@ const openAuthModal = (type: 'login' | 'register') => {
 
         <li class="h-7">
           <IconButton
+            v-tooltip="$t('logout')"
             icon="ion:log-out-outline"
             color="red"
             @click="isLogoutModalOpen = true"
@@ -105,24 +109,26 @@ const openAuthModal = (type: 'login' | 'register') => {
         </li>
       </ul>
     </nav>
+
     <div
       v-else
       class="flex gap-3"
     >
       <AppButton
         class="bg-gray-400"
-        @click="openAuthModal('login')"
+        @click="openAuthModal(EAuthModalTypes.LOGIN)"
       >
-        Log in
+        {{ $t('log_in') }}
       </AppButton>
       <AppButton
         class="bg-gray-400"
         appearance="secondary"
-        @click="openAuthModal('register')"
+        @click="openAuthModal(EAuthModalTypes.REGISTER)"
       >
-        Sign up
+        {{ $t('sign_up') }}
       </AppButton>
     </div>
+
     <AuthModal
       v-model="isAuthModalOpen"
       :initial-type="authModalType"
