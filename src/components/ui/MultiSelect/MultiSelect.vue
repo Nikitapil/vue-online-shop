@@ -30,7 +30,7 @@ const emit = defineEmits<{
 
 const isOpened = ref(false);
 
-const text = computed(() => props.placeholder || t('selected_options', { count: value.value?.length }));
+const text = computed(() => props.placeholder || t('selected_options', { count: value.value?.length || 0 }));
 const icon = computed(() => (isOpened.value ? 'simple-line-icons:arrow-up' : 'simple-line-icons:arrow-down'));
 
 const internalOptions = computed<IMultiSelectInternalOption[]>(() =>

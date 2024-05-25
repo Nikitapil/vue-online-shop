@@ -3,6 +3,7 @@ import { mount } from '@vue/test-utils';
 import MultiSelect from '../components/ui/MultiSelect/MultiSelect.vue';
 import { Icon } from '@iconify/vue';
 import { DirectivePlugin } from '../directives/directive-plugin';
+import { i18n } from "../plugins/i18n";
 
 describe('MultiSelect tests', () => {
   const options = [
@@ -14,7 +15,7 @@ describe('MultiSelect tests', () => {
   test('should open and close select options by click', async () => {
     const wrapper = mount(MultiSelect, {
       global: {
-        plugins: [DirectivePlugin]
+        plugins: [DirectivePlugin, i18n]
       },
       props: {
         options
@@ -50,7 +51,7 @@ describe('MultiSelect tests', () => {
   test('should render correct amount of options', async () => {
     const wrapper = mount(MultiSelect, {
       global: {
-        plugins: [DirectivePlugin]
+        plugins: [DirectivePlugin, i18n]
       },
       props: {
         options
@@ -70,7 +71,7 @@ describe('MultiSelect tests', () => {
     const placeholder = 'test placeholder';
     const wrapper = mount(MultiSelect, {
       global: {
-        plugins: [DirectivePlugin]
+        plugins: [DirectivePlugin, i18n]
       },
       props: {
         options,
@@ -87,7 +88,7 @@ describe('MultiSelect tests', () => {
     const placeholder = 'test placeholder';
     const wrapper = mount(MultiSelect, {
       global: {
-        plugins: [DirectivePlugin]
+        plugins: [DirectivePlugin, i18n]
       },
       props: {
         options,
@@ -105,7 +106,7 @@ describe('MultiSelect tests', () => {
     const label = 'label';
     const wrapper = mount(MultiSelect, {
       global: {
-        plugins: [DirectivePlugin]
+        plugins: [DirectivePlugin, i18n]
       },
       props: {
         options,
@@ -125,7 +126,7 @@ describe('MultiSelect tests', () => {
     const label = 'label';
     const wrapper = mount(MultiSelect, {
       global: {
-        plugins: [DirectivePlugin]
+        plugins: [DirectivePlugin, i18n]
       },
       props: {
         options,
@@ -150,7 +151,7 @@ describe('MultiSelect tests', () => {
   test('should have selected count text if no placeholder', () => {
     const wrapper = mount(MultiSelect, {
       global: {
-        plugins: [DirectivePlugin]
+        plugins: [DirectivePlugin, i18n]
       },
       props: {
         options
@@ -165,7 +166,7 @@ describe('MultiSelect tests', () => {
   test('expect option to be checked', async () => {
     const wrapper = mount(MultiSelect, {
       global: {
-        plugins: [DirectivePlugin]
+        plugins: [DirectivePlugin, i18n]
       },
       props: {
         options,
@@ -186,7 +187,7 @@ describe('MultiSelect tests', () => {
     const optionsWithDisabled = [{ value: '0', name: '0', disabled: true }, ...options];
     const wrapper = mount(MultiSelect, {
       global: {
-        plugins: [DirectivePlugin]
+        plugins: [DirectivePlugin, i18n]
       },
       props: {
         options: optionsWithDisabled,
@@ -215,7 +216,7 @@ describe('MultiSelect tests', () => {
   test('should select option', async () => {
     const wrapper = mount(MultiSelect, {
       global: {
-        plugins: [DirectivePlugin]
+        plugins: [DirectivePlugin, i18n]
       },
       props: {
         options,
@@ -241,7 +242,7 @@ describe('MultiSelect tests', () => {
   test('should unselect option', async () => {
     const wrapper = mount(MultiSelect, {
       global: {
-        plugins: [DirectivePlugin]
+        plugins: [DirectivePlugin, i18n]
       },
       props: {
         options,
@@ -267,7 +268,7 @@ describe('MultiSelect tests', () => {
   test('should sort checked option', async () => {
     const wrapper = mount(MultiSelect, {
       global: {
-        plugins: [DirectivePlugin]
+        plugins: [DirectivePlugin, i18n]
       },
       props: {
         options,
@@ -289,7 +290,7 @@ describe('MultiSelect tests', () => {
     const spy = vi.spyOn(document.body, 'removeEventListener');
     const wrapper = mount(MultiSelect, {
       global: {
-        plugins: [DirectivePlugin]
+        plugins: [DirectivePlugin, i18n]
       },
       props: {
         options,
