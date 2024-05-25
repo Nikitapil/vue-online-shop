@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
-import AppHeader from '@/modules/app/components/AppHeader.vue';
+
 import { useAuthStore } from '@/modules/auth/authStore';
 import { useAppStore } from '../appStore';
+
+import AppHeader from '@/modules/app/components/AppHeader.vue';
 import LanguageSwitcher from '@/modules/app/components/LanguageSwitcher.vue';
 import CurrencySwitcher from '@/modules/app/components/CurrencySwitcher.vue';
 
