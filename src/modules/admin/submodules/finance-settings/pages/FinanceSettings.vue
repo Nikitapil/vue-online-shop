@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { useAppStore } from '@/modules/app/appStore';
-import EditableText from '@/components/ui/EditableText.vue';
 import { computed, ref, watchEffect } from 'vue';
+
+import { useAppStore } from '@/modules/app/appStore';
+
+import EditableText from '@/components/ui/EditableText.vue';
 import MultiSelect from '@/components/ui/MultiSelect/MultiSelect.vue';
 import EmptyStateCentered from '@/components/ui/EmptyStateCentered.vue';
 import RoundedLoader from '@/components/ui/loaders/RoundedLoader.vue';
@@ -56,12 +58,13 @@ watchEffect(() => {
 
 <template>
   <div>
-    <h2 class="text-center text-xl mb-3">Finance Settings</h2>
+    <h2 class="text-center text-xl mb-3">{{ $t('finance_settings') }}</h2>
+
     <EmptyStateCentered v-if="appStore.isFinanceSettingsLoading">
       <RoundedLoader />
     </EmptyStateCentered>
 
-    <EmptyStateCentered v-else-if="!appStore.financeSettings"> Something went wrong </EmptyStateCentered>
+    <EmptyStateCentered v-else-if="!appStore.financeSettings"> {{ $t('something_went_wrong') }} </EmptyStateCentered>
 
     <template v-else>
       <EditableText
@@ -71,11 +74,12 @@ watchEffect(() => {
         name="tax"
         rules="required"
         mask="numberMask"
-        label="Tax value %"
+        :label="`${$t('tax_value')}, %`"
         :initial-value="tax"
         :is-loading="appStore.isSetTaxInProgress"
         @submit="setTax"
       />
+
       <hr class="mt-1" />
 
       <EditableText
@@ -86,7 +90,7 @@ watchEffect(() => {
         name="deliveryCost"
         rules="required"
         mask="numberMask"
-        label="Delivery cost, $"
+        :label="`${$t('delivery_cost')}, $`"
         :initial-value="deliveryCost"
         :is-loading="appStore.isSetDeliveryCostInProgress"
         @submit="setDeliveryCost"
@@ -100,30 +104,33 @@ watchEffect(() => {
         name="orderPriceWithFreeDelivery"
         rules="required"
         mask="numberMask"
-        label="Order price with free delivery cost, $"
+        :label="`${$t('order_price_with_delivery_cost')}, $`"
         :initial-value="orderPriceWithFreeDelivery"
         :is-loading="appStore.isSetOrderPriceWithFreeDeliveryCostInProgress"
         @submit="setOrderPriceWithFreeDelivery"
       />
+
       <hr class="mt-1" />
 
       <MultiSelect
         v-model="availableCurrencies"
         class="max-w-xs mt-3"
-        label="Available currencies:"
+        :label="`${$t('available_currencies')}:`"
         :options="currenciesOptions"
         :disabled="appStore.isSetAvailableCurrenciesInProgress"
         @close="setAvailableCurrencies"
       />
+
       <div class="flex gap-3 items-center mt-3">
         <AppButton
           appearance="primary"
           :disabled="appStore.isUpdateExchangeRatesInProgress"
           @click="appStore.updateExchangeRates"
         >
-          Update exchange rates
+          {{ $t('update_exchange_rates') }}
         </AppButton>
-        <div v-tooltip="'Updated automatically every 24 hours'">
+
+        <div v-tooltip="$t('exchange_rates_update_tooltip')">
           <Icon
             class="w-6 h-6 cursor-pointer"
             icon="ph:question-light"

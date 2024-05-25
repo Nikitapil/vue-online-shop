@@ -4,6 +4,9 @@ import { computed, ref } from 'vue';
 import { Icon } from '@iconify/vue';
 
 import type { IMultiSelectInternalOption, IMultiSelectOption } from '@/components/ui/MultiSelect/types';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 const value = defineModel<string[]>();
 
@@ -27,7 +30,7 @@ const emit = defineEmits<{
 
 const isOpened = ref(false);
 
-const text = computed(() => props.placeholder || `Selected ${value.value?.length || 0} options`);
+const text = computed(() => props.placeholder || t('selected_options', { count: value.value?.length }));
 const icon = computed(() => (isOpened.value ? 'simple-line-icons:arrow-up' : 'simple-line-icons:arrow-down'));
 
 const internalOptions = computed<IMultiSelectInternalOption[]>(() =>

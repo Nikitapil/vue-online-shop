@@ -9,5 +9,13 @@
   "edit": "Редактировать",
   "confirm": "Подтвердить",
   "search": "Поиск",
-  "finance_settings": "Финансовые настройки"
+  "finance_settings": "Финансовые настройки",
+  "something_went_wrong": "Что-то пошло не так",
+  "tax_value": "Ставка НДС",
+  "delivery_cost": "Стоимость доставки",
+  "order_price_with_delivery_cost": "Сумма заказа с бесплатной доставкой",
+  "available_currencies": "Доступные валюты",
+  "update_exchange_rates": "Обновить курсы валют",
+  "selected_options": "Выбраны {count} варианта",
+  "exchange_rates_update_tooltip": "Обновляется автоматически каждые 24 часа"
 }

@@ -9,5 +9,13 @@
   "edit": "Edit",
   "confirm": "Confirm",
   "search": "Search",
-  "finance_settings": "Finance Settings"
+  "finance_settings": "Finance Settings",
+  "something_went_wrong": "Something went wrong",
+  "tax_value": "Tax value",
+  "delivery_cost": "Delivery cost",
+  "order_price_with_delivery_cost": "Order price with free delivery cost",
+  "available_currencies": "Available currencies",
+  "update_exchange_rates": "Update exchange currencies",
+  "selected_options": "Selected {count} options",
+  "exchange_rates_update_tooltip": "Updated automatically every 24 hours"
 }
