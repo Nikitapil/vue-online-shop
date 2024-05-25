@@ -10,7 +10,7 @@ import LogoutModal from '@/modules/auth/components/LogoutModal.vue';
 import HorizontalLoader from '@/components/ui/loaders/HorizontalLoader.vue';
 import AuthModal from '@/modules/auth/components/AuthModal.vue';
 import AppButton from '@/components/ui/AppButton.vue';
-import Cart from '../../cart/components/Cart.vue';
+import Cart from '@/modules/cart/components/Cart.vue';
 import LinkWithIcon from '@/components/ui/LinkWithIcon.vue';
 
 const props = defineProps<{
@@ -49,13 +49,17 @@ const openAuthModal = (type: EAuthModalTypes) => {
     <div
       v-if="isAuthLoading"
       class="pr-10"
+      data-testid="auth-loading"
     >
       <HorizontalLoader />
     </div>
 
     <nav v-else-if="isAuthenticated">
       <ul class="flex gap-3 flex-wrap xl:gap-5 items-center">
-        <li v-if="props.isAdmin">
+        <li
+          v-if="props.isAdmin"
+          data-testid="admin-link"
+        >
           <LinkWithIcon
             icon="mdi:settings-outline"
             label="Admin"
@@ -104,6 +108,7 @@ const openAuthModal = (type: EAuthModalTypes) => {
             v-tooltip="$t('logout')"
             icon="ion:log-out-outline"
             color="red"
+            data-testid="logout-button"
             @click="isLogoutModalOpen = true"
           />
         </li>
@@ -113,9 +118,11 @@ const openAuthModal = (type: EAuthModalTypes) => {
     <div
       v-else
       class="flex gap-3"
+      data-testid="auth-block"
     >
       <AppButton
         class="bg-gray-400"
+        data-testid="login-button"
         @click="openAuthModal(EAuthModalTypes.LOGIN)"
       >
         {{ $t('log_in') }}
@@ -123,6 +130,7 @@ const openAuthModal = (type: EAuthModalTypes) => {
       <AppButton
         class="bg-gray-400"
         appearance="secondary"
+        data-testid="register-button"
         @click="openAuthModal(EAuthModalTypes.REGISTER)"
       >
         {{ $t('sign_up') }}
