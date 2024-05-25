@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { useAppStore } from '@/modules/app/appStore';
 import { computed } from 'vue';
+
+import { useAppStore } from '@/modules/app/appStore';
 
 const props = withDefaults(
   defineProps<{
