@@ -19,5 +19,19 @@
   "selected_options": "Выбраны {count} варианта",
   "exchange_rates_update_tooltip": "Обновляется автоматически каждые 24 часа",
   "logout": "Выход",
-  "sign_up": "Зарегистрироваться"
+  "log_in": "Войти",
+  "sign_up": "Зарегистрироваться",
+  "already_registered_text": "Уже есть аккаунт? Войти.",
+  "not_registered_text": "Еще не зарегистрированы? Зарегистрироваться.",
+  "passwords_should_be_equal": "Пароли должны совпадать",
+  "your_email": "Ваш email",
+  "password": "Пароль",
+  "your_password": "Ваш пароль",
+  "repeat_password": "Повторите пароль",
+  "name": "Имя",
+  "your_name": "Ваше имя",
+  "address": "Адрес",
+  "your_address": "Ваш адрес",
+  "phone": "Телефон",
+  "your_phone": "Ваш телефон"
 }

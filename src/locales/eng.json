@@ -20,5 +20,18 @@
   "exchange_rates_update_tooltip": "Updated automatically every 24 hours",
   "logout": "Log out",
   "log_in": "Log in",
-  "sign_up": "Sign up"
+  "sign_up": "Sign up",
+  "already_registered_text": "Already have an account? Log in.",
+  "not_registered_text": "Not registered yet? Sign up.",
+  "passwords_should_be_equal": "Passwords should be equal",
+  "your_email": "Your email",
+  "password": "Password",
+  "your_password": "Your password",
+  "repeat_password": "Repeat password",
+  "name": "Name",
+  "your_name": "Your name",
+  "address": "Address",
+  "your_address": "Your address",
+  "phone": "Phone",
+  "your_phone": "Your phone"
 }
