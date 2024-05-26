@@ -163,6 +163,7 @@ const swapForm = () => (type.value = isRegisterType.value ? EAuthModalTypes.LOGI
     <div class="self-end">
       <AppButton
         appearance="transparent"
+        data-testid="swap-button"
         :disabled="authStore.isAuthLoading"
         @click="swapForm"
       >
