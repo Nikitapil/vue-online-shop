@@ -1,9 +1,12 @@
 <script setup lang="ts">
+import { computed } from 'vue';
+
 import { useAuthStore } from '@/modules/auth/authStore';
+
+import { UserReturnDtoRolesEnum } from '@/api/swagger/data-contracts';
+
 import RoundedLoader from '@/components/ui/loaders/RoundedLoader.vue';
 import AuthForm from '@/modules/auth/components/AuthForm.vue';
-import { computed } from 'vue';
-import { UserReturnDtoRolesEnum } from '@/api/swagger/data-contracts';
 
 const props = withDefaults(
   defineProps<{
@@ -32,14 +35,17 @@ const isUserRoleAdmitted = computed(() => {
   >
     <RoundedLoader />
   </div>
+
   <div v-else-if="!authStore.isAuthenticated">
     <AuthForm />
   </div>
+
   <div
     v-else-if="!isUserRoleAdmitted"
-    class="text-2xl font-bold min-h-[310px] flex justify-center items-center"
+    class="text-2xl font-bold min-h-[310px] flex justify-center items-center tracking-wider"
   >
-    This page is not allowed
+    {{ $t('page_is_not_allowed') }}
   </div>
+
   <slot v-else />
 </template>

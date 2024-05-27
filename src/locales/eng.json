@@ -33,5 +33,6 @@
   "address": "Address",
   "your_address": "Your address",
   "phone": "Phone",
-  "your_phone": "Your phone"
+  "your_phone": "Your phone",
+  "page_is_not_allowed": "This page is not allowed"
 }
