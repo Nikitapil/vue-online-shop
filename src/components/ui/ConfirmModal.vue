@@ -43,6 +43,7 @@ const close = () => (isOpened.value = false);
 
         <AppButton
           appearance="primary"
+          data-testid="confirm-button"
           :disabled="isLoading"
           @click="$emit('confirm')"
         >
