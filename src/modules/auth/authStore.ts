@@ -1,5 +1,6 @@
-import { defineStore } from 'pinia';
 import { computed, ref } from 'vue';
+import { defineStore } from 'pinia';
+
 import {
   UserReturnDtoRolesEnum,
   type AuthResponseDto,
@@ -8,16 +9,19 @@ import {
   type UserReturnDto,
   type UpdateUserDataDto
 } from '@/api/swagger/data-contracts';
+import type { ChangePasswordDto } from '@/api/swagger/data-contracts';
+
 import { api } from '@/api/apiInstance';
+
 import { removeTokenFromStorage, setTokenToStorage } from '@/helpers/localStorage-helpers';
 import { toast } from 'vue3-toastify';
-import type { ChangePasswordDto } from '@/api/swagger/data-contracts';
 
 export const useAuthStore = defineStore('authStore', () => {
   const user = ref<UserReturnDto | null>(null);
   const isAuthLoading = ref(false);
 
   const isAuthenticated = computed(() => !!user.value);
+  const isAdmin = computed(() => !!user.value?.roles?.includes(UserReturnDtoRolesEnum.ADMIN));
 
   const authUnifiedMethod = async (method: () => Promise<AuthResponseDto>, errorHandler = console.error) => {
     try {
@@ -43,8 +47,6 @@ export const useAuthStore = defineStore('authStore', () => {
   const login = async (data: LoginDto) => {
     await authUnifiedMethod(() => api.login(data), toast.error);
   };
-
-  const isAdmin = computed(() => !!user.value?.roles?.includes(UserReturnDtoRolesEnum.ADMIN));
 
   const logout = async () => {
     try {
