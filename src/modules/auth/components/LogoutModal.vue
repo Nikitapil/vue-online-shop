@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import ConfirmModal from '@/components/ui/ConfirmModal.vue';
 import { useAuthStore } from '@/modules/auth/authStore';
+
+import ConfirmModal from '@/components/ui/ConfirmModal.vue';
+
 const isOpen = defineModel<boolean>();
 
 const authStore = useAuthStore();
@@ -14,7 +16,7 @@ const logout = async () => {
 <template>
   <confirm-modal
     v-model="isOpen"
-    title="Do you want to log out?"
+    :title="$t('logout_question')"
     @confirm="logout"
   />
 </template>

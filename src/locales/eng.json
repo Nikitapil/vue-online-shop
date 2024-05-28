@@ -34,5 +34,6 @@
   "your_address": "Your address",
   "phone": "Phone",
   "your_phone": "Your phone",
-  "page_is_not_allowed": "This page is not allowed"
+  "page_is_not_allowed": "This page is not allowed",
+  "logout_question": "Do you want to log out?"
 }
