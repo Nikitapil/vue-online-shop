@@ -40,5 +40,6 @@
   "settings": "Settings",
   "orders": "Orders",
   "discounts": "Discounts",
-  "profile": "Profile"
+  "profile": "Profile",
+  "need_login": "Need login first"
 }
