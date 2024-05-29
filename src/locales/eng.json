@@ -36,5 +36,9 @@
   "your_phone": "Your phone",
   "page_is_not_allowed": "This page is not allowed",
   "logout_question": "Do you want to log out?",
-  "bookmarks": "Bookmarks"
+  "bookmarks": "Bookmarks",
+  "settings": "Settings",
+  "orders": "Orders",
+  "discounts": "Discounts",
+  "profile": "Profile"
 }

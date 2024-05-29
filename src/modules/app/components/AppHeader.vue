@@ -62,7 +62,7 @@ const openAuthModal = (type: EAuthModalTypes) => {
         >
           <LinkWithIcon
             icon="mdi:settings-outline"
-            label="Admin"
+            :label="$t('settings')"
             :to="{ name: ERoutesName.FINANCE_SETTINGS }"
           />
         </li>
@@ -74,7 +74,7 @@ const openAuthModal = (type: EAuthModalTypes) => {
         <li>
           <LinkWithIcon
             icon="mdi:heart-outline"
-            label="Bookmarks"
+            :label="$t('bookmarks')"
             :to="{ name: ERoutesName.BOOKMARKS }"
           />
         </li>
@@ -82,7 +82,7 @@ const openAuthModal = (type: EAuthModalTypes) => {
         <li>
           <LinkWithIcon
             icon="lets-icons:order"
-            label="Orders"
+            :label="$t('orders')"
             :to="{ name: ERoutesName.ORDERS }"
           />
         </li>
@@ -90,7 +90,7 @@ const openAuthModal = (type: EAuthModalTypes) => {
         <li>
           <LinkWithIcon
             icon="iconamoon:discount"
-            label="Discounts"
+            :label="$t('discounts')"
             :to="{ name: ERoutesName.DISCOUNTS }"
           />
         </li>
@@ -98,7 +98,7 @@ const openAuthModal = (type: EAuthModalTypes) => {
         <li>
           <LinkWithIcon
             icon="iconamoon:profile-circle"
-            label="Profile"
+            :label="$t('profile')"
             :to="{ name: ERoutesName.PROFILE }"
           />
         </li>
