@@ -19,7 +19,7 @@ export enum ERoutesName {
   EDIT_PRODUCT = 'edit-product',
   PRODUCT = 'product',
   ORDERS = 'orders',
-  SINGLE_ORDER = 'single.order',
+  SINGLE_ORDER = 'single-order',
   PROFILE = 'profile',
   ADMIN = 'admin',
   FINANCE_SETTINGS = 'finance-settings',

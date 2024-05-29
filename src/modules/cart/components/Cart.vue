@@ -1,20 +1,26 @@
 <script setup lang="ts">
-import { Icon } from '@iconify/vue';
 import { ref, onMounted, computed } from 'vue';
-import Drawer from '@/components/ui/Drawer.vue';
+import { useRouter } from 'vue-router';
+import { toast } from 'vue3-toastify';
+
+import { useI18n } from 'vue-i18n';
+import { useAppStore } from '@/modules/app/appStore';
 import { useCartStore } from '../cartStore';
+
+import type { CreateOrderDto } from '@/api/swagger/data-contracts';
+import { ERoutesName } from '@/router';
+
+import { Icon } from '@iconify/vue';
+import CartItem from './CartItem.vue';
 import RoundedLoaderVue from '@/components/ui/loaders/RoundedLoader.vue';
 import EmptyStateCentered from '@/components/ui/EmptyStateCentered.vue';
-import CartItem from './CartItem.vue';
 import CreateOrderModal from './CreateOrderModal.vue';
 import AppButton from '@/components/ui/AppButton.vue';
-import type { CreateOrderDto } from '@/api/swagger/data-contracts';
-import { toast } from 'vue3-toastify';
 import Price from '@/modules/app/components/Price.vue';
 import CartPriceItem from '@/modules/cart/components/CartPriceItem.vue';
-import { useAppStore } from '@/modules/app/appStore';
-import { useRouter } from 'vue-router';
-import { ERoutesName } from '@/router';
+import Drawer from '@/components/ui/Drawer.vue';
+
+const { t } = useI18n();
 
 const router = useRouter();
 
@@ -37,7 +43,7 @@ const onCreateOrder = async (orderData: CreateOrderDto) => {
   if (id) {
     isCreateOrderModalOpened.value = false;
     isOpened.value = false;
-    toast.success('Order created');
+    toast.success(t('order_created'));
     await router.push({ name: ERoutesName.SINGLE_ORDER, params: { id } });
   }
 };
@@ -52,6 +58,7 @@ onMounted(() => {
     v-if="store.isCartLoading"
     size="sm"
   />
+
   <div v-else>
     <button
       class="flex gap-1 items-center text-slate-500 cursor-pointer hover:text-black transition-all duration-300"
@@ -61,6 +68,7 @@ onMounted(() => {
         class="w-5 h-5"
         icon="ion:cart-outline"
       />
+
       <Price
         tag="b"
         :price="cartPrice"
@@ -69,7 +77,7 @@ onMounted(() => {
 
     <Drawer
       v-model="isOpened"
-      title="Cart"
+      :title="$t('cart')"
     >
       <EmptyStateCentered v-if="!products.length">
         <div class="h-full flex flex-col justify-center items-center">
@@ -78,12 +86,12 @@ onMounted(() => {
             icon="raphael:package"
             color="#dda61f"
           />
-          <h2 class="mt-4 text-2xl font-medium">Cart is empty</h2>
-          <p class="text-slate-500 mt-2">Add at least one product to make an order</p>
+          <h2 class="mt-4 text-2xl font-medium">{{ $t('cart_is_empty') }}</h2>
+          <p class="text-slate-500 text-center mt-2 px-0.5">{{ $t('add_product_to_make_order') }}</p>
         </div>
       </EmptyStateCentered>
 
-      <template v-else-if="products.length">
+      <template v-else>
         <div class="flex-1 max-h-full overflow-auto">
           <CartItem
             v-for="product in products"
@@ -98,43 +106,46 @@ onMounted(() => {
         <div class="flex flex-col gap-4 my-7">
           <CartPriceItem
             :price="deliveryCost"
-            label="Delivery cost"
-          />
-
-          <CartPriceItem
-            :price="tax"
-            label="Tax"
+            :label="$t('delivery_cost')"
           />
 
           <p
             v-if="appStore.financeSettings"
             class="text-xs text-slate-400 flex gap-2"
           >
-            Free delivery at <Price :price="appStore.financeSettings.orderPriceWithFreeDelivery" />
+            {{ $t('free_delivery_at') }} <Price :price="appStore.financeSettings.orderPriceWithFreeDelivery" />
           </p>
 
           <CartPriceItem
+            :price="tax"
+            :label="$t('tax')"
+          />
+
+          <CartPriceItem
             :price="cartPrice"
-            label="Total sum"
+            :label="$t('total_sum')"
           />
         </div>
+
         <AppButton
           class="mb-2"
           appearance="danger"
           :disabled="isCartButtonsDisabled"
           @click="store.clearCart"
         >
-          Remove all from cart
+          {{ $t('remove_all_from_cart') }}
         </AppButton>
+
         <AppButton
           appearance="success"
           :disabled="isCartButtonsDisabled"
           @click="isCreateOrderModalOpened = true"
         >
-          Make an order
+          {{ $t('make_an_order') }}
         </AppButton>
       </template>
     </Drawer>
+
     <CreateOrderModal
       v-model="isCreateOrderModalOpened"
       :is-loading="store.isCreateOrderInProgress"

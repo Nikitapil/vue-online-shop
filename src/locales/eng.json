@@ -41,5 +41,14 @@
   "orders": "Orders",
   "discounts": "Discounts",
   "profile": "Profile",
-  "need_login": "Need login first"
+  "need_login": "Need login first",
+  "order_created": "Order created",
+  "cart": "Cart",
+  "cart_is_empty": "Cart is empty",
+  "add_product_to_make_order": "Add at least one product to make an order",
+  "tax": "Tax",
+  "free_delivery_at": "Free delivery at",
+  "total_sum": "Total sum",
+  "remove_all_from_cart": "Remove all from cart",
+  "make_an_order": "Make an order"
 }
