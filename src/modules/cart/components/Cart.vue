@@ -62,6 +62,7 @@ onMounted(() => {
   <div v-else>
     <button
       class="flex gap-1 items-center text-slate-500 cursor-pointer hover:text-black transition-all duration-300"
+      data-testid="open-cart-btn"
       @click="isOpened = true"
     >
       <Icon
@@ -138,6 +139,7 @@ onMounted(() => {
 
         <AppButton
           appearance="success"
+          data-testid="create-order-btn"
           :disabled="isCartButtonsDisabled"
           @click="isCreateOrderModalOpened = true"
         >

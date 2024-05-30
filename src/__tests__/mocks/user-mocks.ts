@@ -4,6 +4,6 @@ export const userMocks = {
   name: 'test-name',
   roles: ['USER'],
   cartId: '123',
-  address: null,
-  phone: null
+  address: 'address',
+  phone: '123456789'
 };
