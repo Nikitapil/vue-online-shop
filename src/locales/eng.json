@@ -58,5 +58,6 @@
   "enter_contact_phone": "Enter contact phone",
   "comment": "Comment",
   "enter_comment_for_order": "Enter comment for order",
-  "create": "Create"
+  "create": "Create",
+  "no_categories_yet": "No categories yet"
 }

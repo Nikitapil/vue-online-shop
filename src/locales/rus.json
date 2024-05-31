@@ -58,5 +58,6 @@
   "enter_contact_phone": "Введите контактный телефон",
   "comment": "Комментарий",
   "enter_comment_for_order": "Введите комментарий к заказу",
-  "create": "Создать"
+  "create": "Создать",
+  "no_categories_yet": "Категории еще не добавлены"
 }

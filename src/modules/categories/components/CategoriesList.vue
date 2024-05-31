@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import RoundedLoader from '@/components/ui/loaders/RoundedLoader.vue';
 import type { CategoryReturnDto } from '@/api/swagger/data-contracts';
-import IconButton from '@/components/ui/IconButton.vue';
 
-defineProps<{
+import RoundedLoader from '@/components/ui/loaders/RoundedLoader.vue';
+import IconButton from '@/components/ui/IconButton.vue';
+import EmptyStateCentered from '@/components/ui/EmptyStateCentered.vue';
+
+const props = defineProps<{
   isLoading: boolean;
   categories: CategoryReturnDto[];
 }>();
@@ -15,31 +17,35 @@ defineEmits<{
 </script>
 
 <template>
-  <div
-    v-if="isLoading"
+  <EmptyStateCentered
+    v-if="props.isLoading"
     class="flex justify-center"
   >
     <RoundedLoader />
-  </div>
+  </EmptyStateCentered>
+
   <p
-    v-else-if="!categories.length"
+    v-else-if="!props.categories.length"
     class="text-xl text-center"
   >
-    No categories yet.
+    {{ $t('no_categories_yet') }}.
   </p>
+
   <div v-else>
     <div
-      v-for="category in categories"
+      v-for="category in props.categories"
       :key="category.id"
       class="border-b flex justify-between"
     >
       <h3 class="font-bold text-lg">{{ category.name }}</h3>
+
       <div class="flex gap-2">
         <IconButton
           icon="bx:edit"
           color="#80a0c2"
           @click="$emit('edit', category)"
         />
+
         <IconButton
           icon="bx:trash"
           color="#b7171b"
