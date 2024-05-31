@@ -50,5 +50,13 @@
   "free_delivery_at": "Free delivery at",
   "total_sum": "Total sum",
   "remove_all_from_cart": "Remove all from cart",
-  "make_an_order": "Make an order"
+  "make_an_order": "Make an order",
+  "order_creation": "Order creation",
+  "delivery_address": "Delivery address",
+  "enter_delivery_address": "Enter delivery address",
+  "your_contact_phone": "Your contact phone",
+  "enter_contact_phone": "Enter contact phone",
+  "comment": "Comment",
+  "enter_comment_for_order": "Enter comment for order",
+  "create": "Create"
 }

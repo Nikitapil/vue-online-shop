@@ -50,5 +50,13 @@
   "free_delivery_at": "Бесплатная доставка от",
   "total_sum": "Итоговая стоимость",
   "remove_all_from_cart": "Очистить корзину",
-  "make_an_order": "Оформить заказ"
+  "make_an_order": "Оформить заказ",
+  "order_creation": "Создание заказа",
+  "delivery_address": "Адрес доставки",
+  "enter_delivery_address": "Введите адрес доставки",
+  "your_contact_phone": "Ваш контактный телефон",
+  "enter_contact_phone": "Введите контактный телефон",
+  "comment": "Комментарий",
+  "enter_comment_for_order": "Введите комментарий к заказу",
+  "create": "Создать"
 }
