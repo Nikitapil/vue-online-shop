@@ -27,8 +27,8 @@ export const useCategoriesStore = defineStore('cotegories', () => {
 
   const deleteCategory = async (id: string) => {
     try {
-      const response = await api.deleteCategory(id);
-      return response;
+      await api.deleteCategory(id);
+      await getCategories();
     } catch (e: any) {
       toast.error(e?.response?.data?.message || 'Error');
     }

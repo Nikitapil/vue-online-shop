@@ -59,5 +59,9 @@
   "comment": "Комментарий",
   "enter_comment_for_order": "Введите комментарий к заказу",
   "create": "Создать",
-  "no_categories_yet": "Категории еще не добавлены"
+  "no_categories_yet": "Категории еще не добавлены",
+  "manage_categories": "Управление категориями",
+  "create_new": "Создать",
+  "category_name": "Название категории",
+  "category_name_placeholder": "Название"
 }

@@ -1,12 +1,15 @@
 <script setup lang="ts">
+import { ref, watch } from 'vue';
+import { useForm } from 'vee-validate';
+
+import { useCategoriesStore } from '@/modules/categories/categoriesStore';
+
+import type { CategoryReturnDto } from '@/api/swagger/data-contracts';
+
 import Modal from '@/components/ui/Modal.vue';
 import AppButton from '@/components/ui/AppButton.vue';
 import AppInput from '@/components/ui/AppInput/AppInput.vue';
-import { ref, watch } from 'vue';
-import { useCategoriesStore } from '@/modules/categories/categoriesStore';
-import { useForm } from 'vee-validate';
 import CategoriesList from '@/modules/categories/components/CategoriesList.vue';
-import type { CategoryReturnDto } from '@/api/swagger/data-contracts';
 
 const isOpen = defineModel<boolean>();
 
@@ -33,23 +36,24 @@ const closeCategoryForm = () => {
 const onDeleteCategory = async (category: CategoryReturnDto) => {
   isLoading.value = true;
   await store.deleteCategory(category.id);
-  await store.getCategories();
   isLoading.value = false;
 };
 
 const onSaveCategory = async () => {
   const { valid } = await validate();
+
   if (valid) {
     isLoading.value = true;
+
     const category = chosenCategory.value
       ? await store.updateCategory({ id: chosenCategory.value.id, name: categoryName.value })
       : await store.createCategory(categoryName.value);
 
     if (category) {
       closeCategoryForm();
-      categoryName.value = '';
       await store.getCategories();
     }
+
     isLoading.value = false;
   }
 };
@@ -64,19 +68,26 @@ watch(isOpen, () => {
     isLoading.value = true;
     store.getCategories();
     isLoading.value = false;
+  } else if (!isOpen.value) {
+    closeCategoryForm();
   }
 });
 </script>
 
 <template>
-  <Modal v-model="isOpen">
+  <Modal
+    v-model="isOpen"
+    :prevent-close="isLoading"
+  >
     <div class="flex items-center justify-between">
-      <h1 class="text-2xl font-bold">Manage categories</h1>
+      <h1 class="text-2xl font-bold">{{ $t('manage_categories') }}</h1>
+
       <AppButton
+        v-if="!isCategoryFormOpened"
         :disabled="isLoading"
         @click="openCategoryForm"
       >
-        Create new
+        {{ $t('create_new') }}
       </AppButton>
     </div>
 
@@ -89,25 +100,26 @@ watch(isOpen, () => {
         id="category-name"
         v-model="categoryName"
         name="category-name"
-        placeholder="Name:"
-        label="Category name:"
+        :placeholder="$t('category_name_placeholder')"
+        :label="`${$t('category_name')}:`"
         rules="required"
         :disabled="isLoading"
       />
+
       <div class="flex gap-3">
         <AppButton
           appearance="danger"
           :disabled="isLoading"
           @click="closeCategoryForm"
         >
-          Cancel
+          {{ $t('cancel') }}
         </AppButton>
         <AppButton
           appearance="success"
           type="submit"
           :disabled="isLoading"
         >
-          Save
+          {{ $t('save') }}
         </AppButton>
       </div>
     </form>

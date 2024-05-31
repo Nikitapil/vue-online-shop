@@ -59,5 +59,9 @@
   "comment": "Comment",
   "enter_comment_for_order": "Enter comment for order",
   "create": "Create",
-  "no_categories_yet": "No categories yet"
+  "no_categories_yet": "No categories yet",
+  "manage_categories": "Manage categories",
+  "create_new": "Create new",
+  "category_name": "Category name",
+  "category_name_placeholder": "Name"
 }
