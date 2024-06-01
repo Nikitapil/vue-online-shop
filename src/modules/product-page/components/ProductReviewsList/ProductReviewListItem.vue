@@ -16,7 +16,7 @@ defineEmits<{
 
 const isDeleteModalOpened = ref(false);
 
-const date = computed(() => new Date(props.review.createdAt).toLocaleDateString());
+const date = computed(() => props.review.createdAt);
 </script>
 
 <template>

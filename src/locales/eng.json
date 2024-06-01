@@ -63,9 +63,11 @@
   "manage_categories": "Manage categories",
   "create_new": "Create new",
   "category_name": "Category name",
-  "category_name_placeholder": "Name",
+  "item_name_placeholder": "Name",
   "category": "Category",
   "reset": "Reset",
-  "discount_percent": "Discount percent",
-  "products_count": "Products count"
+  "discount_percent": "Discount percentage",
+  "products_count": "Products count",
+  "discount_name": "Discount name",
+  "percentage": "percentage"
 }

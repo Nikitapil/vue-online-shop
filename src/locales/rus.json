@@ -63,9 +63,11 @@
   "manage_categories": "Управление категориями",
   "create_new": "Создать",
   "category_name": "Название категории",
-  "category_name_placeholder": "Название",
+  "item_name_placeholder": "Название",
   "category": "Категория",
   "reset": "Очистить",
   "discount_percent": "Процент скидки",
-  "products_count": "Количество продуктов"
+  "products_count": "Количество продуктов",
+  "discount_name": "Название акции",
+  "percentage": "процент"
 }
