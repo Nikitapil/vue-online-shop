@@ -63,5 +63,7 @@
   "manage_categories": "Manage categories",
   "create_new": "Create new",
   "category_name": "Category name",
-  "category_name_placeholder": "Name"
+  "category_name_placeholder": "Name",
+  "category": "Category",
+  "reset": "Reset"
 }

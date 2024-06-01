@@ -3,9 +3,12 @@ import { api } from '@/api/apiInstance';
 import { toast } from 'vue3-toastify';
 import type { CategoryReturnDto, UpdateCategoryDto } from '@/api/swagger/data-contracts';
 import { ref } from 'vue';
+import { useApiMethod } from '@/api/useApiMethod';
 
 export const useCategoriesStore = defineStore('cotegories', () => {
   const categories = ref<CategoryReturnDto[]>([]);
+
+  const { call: getCategoriesApi, isLoading: isCategoriesLoading } = useApiMethod(api.getCategories);
 
   const createCategory = async (name: string) => {
     try {
@@ -35,12 +38,9 @@ export const useCategoriesStore = defineStore('cotegories', () => {
   };
 
   const getCategories = async () => {
-    try {
-      categories.value = await api.getCategories();
-    } catch (e: any) {
-      toast.error(e?.response?.data?.message || 'Error');
-    }
+    const response = await getCategoriesApi();
+    categories.value = response || [];
   };
 
-  return { categories, createCategory, updateCategory, deleteCategory, getCategories };
+  return { categories, isCategoriesLoading, createCategory, updateCategory, deleteCategory, getCategories };
 });

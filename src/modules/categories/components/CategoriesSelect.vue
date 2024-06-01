@@ -1,8 +1,16 @@
 <script setup lang="ts">
+import { computed, type MaybeRef, onMounted } from 'vue';
+
 import { useCategoriesStore } from '@/modules/categories/categoriesStore';
-import { computed, type MaybeRef, onMounted, ref } from 'vue';
-import AppSelect from '@/components/ui/AppSelect/AppSelect.vue';
+
 import type { RuleExpression } from 'vee-validate';
+
+import AppSelect from '@/components/ui/AppSelect/AppSelect.vue';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
+
+const value = defineModel<string>({ default: '' });
 
 const props = withDefaults(
   defineProps<{
@@ -25,34 +33,30 @@ defineEmits<{
 
 const store = useCategoriesStore();
 
-const value = defineModel<string>({ default: '' });
-
-const isLoading = ref(false);
-
-const isDisabled = computed(() => props.disabled || isLoading.value);
+const isDisabled = computed(() => props.disabled || store.isCategoriesLoading);
 
 const options = computed(() => {
   const opts = store.categories.map((category) => ({
     name: category.name,
     value: category.id
   }));
+
   if (props.emptyOptionEnabled) {
     return [
       {
-        name: 'Reset',
+        name: t('reset'),
         value: ''
       },
       ...opts
     ];
   }
+
   return opts;
 });
 
 onMounted(async () => {
   if (!store.categories.length) {
-    isLoading.value = true;
     await store.getCategories();
-    isLoading.value = false;
   }
 });
 </script>
@@ -64,7 +68,7 @@ onMounted(async () => {
     :disabled="isDisabled"
     :rules="rules"
     :full="full"
-    placeholder="Category"
+    :placeholder="$t('category')"
     name="Category"
     @change="$emit('change', value)"
   />
