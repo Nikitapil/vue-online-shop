@@ -9,12 +9,12 @@ import type { IDiscountParams } from '@/modules/discounts/types';
 import { api } from '@/api/apiInstance';
 
 export const useSingleDiscountStore = defineStore('singleDiscount', () => {
+  const discountId = ref('');
+  const discount = ref<DiscountReturnDto | null>(null);
+
   const { isLoading: isDiscountLoading, call: getDiscountApi } = useApiMethod(api.getSingleDiscount);
   const { isLoading: isDiscountDeleteInProgress, call: deleteDiscountApi } = useApiMethod(api.deleteDiscount);
   const { isLoading: isEditDiscountInProgress, call: editDiscountApi } = useApiMethod(api.editDiscount);
-
-  const discountId = ref('');
-  const discount = ref<DiscountReturnDto | null>(null);
 
   const getDiscount = async () => {
     discount.value = await getDiscountApi(discountId.value);
