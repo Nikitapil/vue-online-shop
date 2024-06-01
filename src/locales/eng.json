@@ -69,5 +69,7 @@
   "discount_percent": "Discount percentage",
   "products_count": "Products count",
   "discount_name": "Discount name",
-  "percentage": "percentage"
+  "percentage": "percentage",
+  "create_discount": "Создать акцию",
+  "no_discounts_yet": "На данный момент акций нет"
 }
