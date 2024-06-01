@@ -13,7 +13,9 @@ const props = defineProps<{
     class="border block rounded-xl p-2 hover:bg-black/5 transition-all duration-300"
   >
     <h3 class="font-semibold mb-1">{{ props.discount.name }}</h3>
-    <p>Discount percent: {{ props.discount.percentage }}%</p>
-    <p class="text-sm text-slate-600">Products count: {{ props.discount.productsCount }}</p>
+
+    <p>{{ $t('discount_percent') }}: {{ props.discount.percentage }}%</p>
+
+    <p class="text-sm text-slate-600">{{ $t('products_count') }}: {{ props.discount.productsCount }}</p>
   </RouterLink>
 </template>
