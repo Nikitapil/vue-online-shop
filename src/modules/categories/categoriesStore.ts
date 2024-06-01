@@ -1,45 +1,38 @@
-import { defineStore } from 'pinia';
-import { api } from '@/api/apiInstance';
-import { toast } from 'vue3-toastify';
-import type { CategoryReturnDto, UpdateCategoryDto } from '@/api/swagger/data-contracts';
 import { ref } from 'vue';
+import { defineStore } from 'pinia';
+
 import { useApiMethod } from '@/api/useApiMethod';
+
+import type { CategoryReturnDto, UpdateCategoryDto } from '@/api/swagger/data-contracts';
+
+import { api } from '@/api/apiInstance';
 
 export const useCategoriesStore = defineStore('cotegories', () => {
   const categories = ref<CategoryReturnDto[]>([]);
 
   const { call: getCategoriesApi, isLoading: isCategoriesLoading } = useApiMethod(api.getCategories);
+  const { call: createCategoryApi } = useApiMethod(api.createCategory);
+  const { call: updateCategoryApi } = useApiMethod(api.updateCategory);
+  const { call: deleteCategoryApi } = useApiMethod(api.deleteCategory);
 
   const createCategory = async (name: string) => {
-    try {
-      const category = await api.createCategory({ name });
-      return category;
-    } catch (e: any) {
-      toast.error(e?.response?.data?.message || 'Error');
-    }
+    const category = await createCategoryApi({ name });
+    return category;
   };
 
   const updateCategory = async (data: UpdateCategoryDto) => {
-    try {
-      const category = await api.updateCategory(data);
-      return category;
-    } catch (e: any) {
-      toast.error(e?.response?.data?.message || 'Error');
-    }
-  };
-
-  const deleteCategory = async (id: string) => {
-    try {
-      await api.deleteCategory(id);
-      await getCategories();
-    } catch (e: any) {
-      toast.error(e?.response?.data?.message || 'Error');
-    }
+    const category = await updateCategoryApi(data);
+    return category;
   };
 
   const getCategories = async () => {
     const response = await getCategoriesApi();
     categories.value = response || [];
+  };
+
+  const deleteCategory = async (id: string) => {
+    await deleteCategoryApi(id);
+    await getCategories();
   };
 
   return { categories, isCategoriesLoading, createCategory, updateCategory, deleteCategory, getCategories };
