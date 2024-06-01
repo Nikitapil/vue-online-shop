@@ -70,6 +70,10 @@
   "products_count": "Количество продуктов",
   "discount_name": "Название акции",
   "percentage": "процент",
-  "create_discount": "Create discount",
-  "no_discounts_yet": "No discounts at that moment"
+  "create_discount": "Создать акцию",
+  "no_discounts_yet": "На данный момент акций нет",
+  "discount_not_found": "Акция не найдена",
+  "delete": "Удалить",
+  "delete_discount_question": "Вы действительно хотите удалить эту акцию?",
+  "edit_discount": "Редактирование акции"
 }
