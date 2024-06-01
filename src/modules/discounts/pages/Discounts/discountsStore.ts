@@ -1,7 +1,10 @@
-import { defineStore } from 'pinia';
 import { ref } from 'vue';
-import type { CreateDiscountDto, DiscountReturnDto } from '@/api/swagger/data-contracts';
+import { defineStore } from 'pinia';
+
 import { useApiMethod } from '@/api/useApiMethod';
+
+import type { CreateDiscountDto, DiscountReturnDto } from '@/api/swagger/data-contracts';
+
 import { api } from '@/api/apiInstance';
 
 export const useDiscountsStore = defineStore('discounts', () => {
