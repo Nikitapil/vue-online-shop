@@ -1,16 +1,22 @@
 <script setup lang="ts">
+import { onMounted, ref } from 'vue';
+
+import { useOrdersStore } from './OrdersStore';
+
+import { ERoutesName } from '@/router';
+import { OrderEnum, OrderStatusEnum } from '@/api/swagger/data-contracts';
+import type { IColumn } from '@/components/ui/AppTable/types';
+import type { ISelectOptions } from '@/components/ui/AppSelect/types';
+
+import { orderStatusOptions } from '../../constants';
+
+import AppSelect from '@/components/ui/AppSelect/AppSelect.vue';
 import AppTable from '@/components/ui/AppTable/AppTable.vue';
 import AuthProtected from '@/modules/auth/components/AuthProtected.vue';
-import { onMounted, ref } from 'vue';
-import { useOrdersStore } from './OrdersStore';
-import type { IColumn } from '@/components/ui/AppTable/types';
-import { OrderEnum, OrderStatusEnum } from '@/api/swagger/data-contracts';
-import type { ISelectOptions } from '@/components/ui/AppSelect/types';
-import AppSelect from '@/components/ui/AppSelect/AppSelect.vue';
 import Pagination from '@/components/ui/Pagination.vue';
-import { ERoutesName } from '@/router';
-import { orderStatusOptions } from '../../constants';
 import Price from '@/modules/app/components/Price.vue';
+
+type TOrderStatus = OrderStatusEnum | 'all';
 
 const store = useOrdersStore();
 
@@ -44,7 +50,7 @@ const tableColumns: IColumn[] = [
   }
 ];
 
-const statusOptions: ISelectOptions<OrderStatusEnum | 'all'>[] = [
+const statusOptions: ISelectOptions<TOrderStatus>[] = [
   {
     name: 'All',
     value: 'all'
@@ -55,7 +61,7 @@ const statusOptions: ISelectOptions<OrderStatusEnum | 'all'>[] = [
 const order = ref<OrderEnum>(OrderEnum.CreatedAt);
 const page = ref(1);
 const limit = ref(10);
-const status = ref<OrderStatusEnum | 'all'>('all');
+const status = ref<TOrderStatus>('all');
 
 const loadOrders = () => {
   store.getOrders({
@@ -84,16 +90,18 @@ onMounted(() => {
 <template>
   <AuthProtected>
     <div class="mb-3 flex">
-      <h1 class="ml-auto mr-auto text-2xl font-semibold">Orders list</h1>
+      <h1 class="ml-auto mr-auto text-2xl font-semibold">{{ $t('orders_list') }}</h1>
+
       <AppSelect
         v-model="status"
         name="status"
-        placeholder="Select status"
+        :placeholder="$t('select_status')"
         :full="false"
         :options="statusOptions"
         @change="onChangeStatus"
       />
     </div>
+
     <div class="max-w-full overflow-auto">
       <AppTable
         v-model:sort="order"
@@ -128,6 +136,7 @@ onMounted(() => {
         </template>
       </AppTable>
     </div>
+
     <Pagination
       class="mt-2"
       :items-count="store.totalOrdersCount"

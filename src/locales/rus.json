@@ -80,5 +80,7 @@
   "create_product": "Создать товар",
   "confirm_order_canceling": "Подтверидите отмену заказа",
   "cancel_reason": "Причина отмены",
-  "count": "Количество"
+  "count": "Количество",
+  "orders_list": "Список заказов",
+  "select_status": "Выберете статус"
 }

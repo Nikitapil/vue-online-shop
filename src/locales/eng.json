@@ -80,5 +80,7 @@
   "create_product": "Create product",
   "confirm_order_canceling": "Confirm order canceling",
   "cancel_reason": "Cancel reason",
-  "count": "Count"
+  "count": "Count",
+  "orders_list": "Orders list",
+  "select_status": "Select status"
 }
