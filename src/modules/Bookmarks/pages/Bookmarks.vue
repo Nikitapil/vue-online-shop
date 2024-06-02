@@ -7,6 +7,7 @@ import { EPaginationLimits } from '@/domain/components';
 
 import ProductsPagination from '@/components/products/ProductsPagination.vue';
 import ProductList from '../../../widgets/ProductList/components/ProductList.vue';
+import AuthProtected from '@/modules/auth/components/AuthProtected.vue';
 
 const { loadFavoriteProducts, isLoading, products, totalProductsCount } = useProductList();
 
@@ -26,7 +27,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div>
+  <AuthProtected>
     <h2 class="text-3xl font-bold mb-5">{{ $t('bookmarks') }}</h2>
 
     <ProductList
@@ -41,5 +42,5 @@ onMounted(() => {
       :is-loading="isLoading"
       @paginate="fetchProducts"
     />
-  </div>
+  </AuthProtected>
 </template>
