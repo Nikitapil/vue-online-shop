@@ -6,7 +6,9 @@ import { useProductList } from '@/widgets/ProductList/useProductList';
 import { useDebounce } from '@/helpers/useDebounce';
 
 import type { ISelectOptions } from '@/components/ui/AppSelect/types';
+import type { PriceSortingEnum } from '@/api/swagger/data-contracts';
 import { ERoutesName } from '@/router';
+import { EPaginationLimits } from '@/domain/components';
 
 import CategoriesSelect from '../../categories/components/CategoriesSelect.vue';
 import ProductList from '../../../widgets/ProductList/components/ProductList.vue';
@@ -14,8 +16,6 @@ import AppButton from '@/components/ui/AppButton.vue';
 import AppSelect from '@/components/ui/AppSelect/AppSelect.vue';
 import SearchInput from '@/components/ui/SearchInput.vue';
 import ProductsPagination from '@/components/products/ProductsPagination.vue';
-import { EPaginationLimits } from '@/domain/components';
-import type { PriceSortingEnum } from '@/api/swagger/data-contracts';
 
 const authStore = useAuthStore();
 
@@ -27,7 +27,7 @@ const sortingOptions: ISelectOptions[] = [
 
 const page = ref(1);
 const limitValue = ref<EPaginationLimits>(EPaginationLimits.TEN);
-const categoryId = ref<string>('');
+const categoryId = ref('');
 const priceSorting = ref<PriceSortingEnum | ''>('');
 const search = ref('');
 
@@ -62,7 +62,7 @@ onMounted(async () => {
 
 <template>
   <div class="flex flex-wrap gap-2 justify-between items-center mb-10">
-    <h2 class="text-3xl font-bold">All products</h2>
+    <h2 class="text-3xl font-bold">{{ $t('all_products') }}</h2>
 
     <div class="gap-4 flex flex-wrap">
       <AppButton
@@ -71,7 +71,7 @@ onMounted(async () => {
         :disabled="isLoading"
         @click="$router.push({ name: ERoutesName.CREATE_PRODUCT })"
       >
-        Create Product
+        {{ $t('create_product') }}
       </AppButton>
 
       <CategoriesSelect

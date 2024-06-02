@@ -75,5 +75,7 @@
   "discount_not_found": "Акция не найдена",
   "delete": "Удалить",
   "delete_discount_question": "Вы действительно хотите удалить эту акцию?",
-  "edit_discount": "Редактирование акции"
+  "edit_discount": "Редактирование акции",
+  "all_products": "Все товары",
+  "create_product": "Создать товар"
 }
