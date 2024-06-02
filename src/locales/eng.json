@@ -79,5 +79,6 @@
   "all_products": "All products",
   "create_product": "Create product",
   "confirm_order_canceling": "Confirm order canceling",
-  "cancel_reason": "Cancel reason"
+  "cancel_reason": "Cancel reason",
+  "count": "Count"
 }

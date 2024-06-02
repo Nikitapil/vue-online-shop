@@ -79,5 +79,6 @@
   "all_products": "Все товары",
   "create_product": "Создать товар",
   "confirm_order_canceling": "Подтверидите отмену заказа",
-  "cancel_reason": "Причина отмены"
+  "cancel_reason": "Причина отмены",
+  "count": "Количество"
 }
