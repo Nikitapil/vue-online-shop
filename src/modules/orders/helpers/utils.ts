@@ -1,6 +1,7 @@
 import type { ISelectOptions } from '@/components/ui/AppSelect/types';
-import { OrderStatusEnum, type OrderReturnDto } from '../../../api/swagger/data-contracts';
+import { OrderStatusEnum, type OrderReturnDto } from '@/api/swagger/data-contracts';
 import { orderStatusOptionsByStatus } from '../constants';
+
 export const getStatusColor = (status: OrderStatusEnum) => {
   switch (status) {
     case OrderStatusEnum.CREATED:
