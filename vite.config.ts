@@ -25,6 +25,7 @@ export default defineConfig({
       include: ['src/**/*'],
       exclude: ['src/api']
     },
+    setupFiles: ['vitest.setup.ts'],
     css: true
   },
   resolve: {

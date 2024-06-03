@@ -1,16 +1,14 @@
+import { vi } from 'vitest';
 import { computed } from 'vue';
 import { mount } from '@vue/test-utils';
 import { createTestingPinia } from '@pinia/testing';
 import { toast } from 'vue3-toastify';
-import { validation } from '../plugins/validation';
 import * as useProductComposable from '../composables/useProduct';
 
 import { productInCartMock } from './mocks/product-in-cart-mock';
-import { i18n } from '../plugins/i18n';
 
 import CartItem from '../modules/cart/components/CartItem.vue';
 import IconButton from '../components/ui/IconButton.vue';
-import { vi } from 'vitest';
 
 describe('CartItem tests', () => {
   beforeEach(() => {
@@ -24,7 +22,7 @@ describe('CartItem tests', () => {
 
     const wrapper = mount(CartItem, {
       global: {
-        plugins: [pinia, i18n]
+        plugins: [pinia]
       },
       props: {
         productInCart: productInCartMock
@@ -43,7 +41,7 @@ describe('CartItem tests', () => {
 
     const wrapper = mount(CartItem, {
       global: {
-        plugins: [pinia, i18n]
+        plugins: [pinia]
       },
       props: {
         productInCart: productInCartMock,
@@ -63,7 +61,7 @@ describe('CartItem tests', () => {
 
     const wrapper = mount(CartItem, {
       global: {
-        plugins: [pinia, i18n, validation]
+        plugins: [pinia]
       },
       props: {
         productInCart: productInCartMock,
@@ -83,7 +81,7 @@ describe('CartItem tests', () => {
 
     const wrapper = mount(CartItem, {
       global: {
-        plugins: [pinia, i18n, validation]
+        plugins: [pinia]
       },
       props: {
         productInCart: productInCartMock,
@@ -103,7 +101,7 @@ describe('CartItem tests', () => {
 
     const wrapper = mount(CartItem, {
       global: {
-        plugins: [pinia, i18n, validation]
+        plugins: [pinia]
       },
       props: {
         productInCart: productInCartMock,
