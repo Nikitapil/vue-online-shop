@@ -2,12 +2,13 @@ import { flushPromises, mount } from '@vue/test-utils';
 import LanguageSwitcher from '../modules/app/components/LanguageSwitcher.vue';
 import { i18n } from '../plugins/i18n';
 import IconButton from '../components/ui/IconButton.vue';
+import { DirectivePlugin } from '../directives/directive-plugin';
 
 describe('LanguageSwitcher tests', () => {
   test('should be able to set languages', async () => {
     const wrapper = mount(LanguageSwitcher, {
       global: {
-        plugins: [i18n]
+        plugins: [i18n, DirectivePlugin]
       }
     });
 

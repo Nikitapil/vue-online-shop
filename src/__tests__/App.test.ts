@@ -1,6 +1,8 @@
 import { vi } from 'vitest';
 
 import { i18n } from '../plugins/i18n';
+import { router } from '../router';
+import { DirectivePlugin } from '../directives/directive-plugin';
 import { createTestingPinia } from '@pinia/testing';
 import { useAuthStore } from '../modules/auth/authStore';
 import { useAppStore } from '../modules/app/appStore';
@@ -22,7 +24,7 @@ describe('App tests', () => {
 
     mount(App, {
       global: {
-        plugins: [i18n, pinia]
+        plugins: [i18n, pinia, router, DirectivePlugin]
       }
     });
 
