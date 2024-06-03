@@ -3,7 +3,7 @@ import { mount } from '@vue/test-utils';
 import MultiSelect from '../components/ui/MultiSelect/MultiSelect.vue';
 import { Icon } from '@iconify/vue';
 import { DirectivePlugin } from '../directives/directive-plugin';
-import { i18n } from "../plugins/i18n";
+import { i18n } from '../plugins/i18n';
 
 describe('MultiSelect tests', () => {
   const options = [
@@ -12,11 +12,9 @@ describe('MultiSelect tests', () => {
     { value: '3', name: '3' },
     { value: '4', name: '4' }
   ];
+
   test('should open and close select options by click', async () => {
     const wrapper = mount(MultiSelect, {
-      global: {
-        plugins: [DirectivePlugin, i18n]
-      },
       props: {
         options
       }
@@ -50,9 +48,6 @@ describe('MultiSelect tests', () => {
 
   test('should render correct amount of options', async () => {
     const wrapper = mount(MultiSelect, {
-      global: {
-        plugins: [DirectivePlugin, i18n]
-      },
       props: {
         options
       }
@@ -70,9 +65,6 @@ describe('MultiSelect tests', () => {
   test('should have a placeholder', async () => {
     const placeholder = 'test placeholder';
     const wrapper = mount(MultiSelect, {
-      global: {
-        plugins: [DirectivePlugin, i18n]
-      },
       props: {
         options,
         placeholder
@@ -87,9 +79,6 @@ describe('MultiSelect tests', () => {
   test('should not have a label without provided prop', async () => {
     const placeholder = 'test placeholder';
     const wrapper = mount(MultiSelect, {
-      global: {
-        plugins: [DirectivePlugin, i18n]
-      },
       props: {
         options,
         placeholder
@@ -105,9 +94,6 @@ describe('MultiSelect tests', () => {
     const placeholder = 'test placeholder';
     const label = 'label';
     const wrapper = mount(MultiSelect, {
-      global: {
-        plugins: [DirectivePlugin, i18n]
-      },
       props: {
         options,
         placeholder,
@@ -125,9 +111,6 @@ describe('MultiSelect tests', () => {
     const placeholder = 'test placeholder';
     const label = 'label';
     const wrapper = mount(MultiSelect, {
-      global: {
-        plugins: [DirectivePlugin, i18n]
-      },
       props: {
         options,
         placeholder,
@@ -150,9 +133,6 @@ describe('MultiSelect tests', () => {
 
   test('should have selected count text if no placeholder', () => {
     const wrapper = mount(MultiSelect, {
-      global: {
-        plugins: [DirectivePlugin, i18n]
-      },
       props: {
         options
       }
@@ -165,9 +145,6 @@ describe('MultiSelect tests', () => {
 
   test('expect option to be checked', async () => {
     const wrapper = mount(MultiSelect, {
-      global: {
-        plugins: [DirectivePlugin, i18n]
-      },
       props: {
         options,
         modelValue: ['1']
@@ -186,9 +163,6 @@ describe('MultiSelect tests', () => {
   test('should not select disabled option', async () => {
     const optionsWithDisabled = [{ value: '0', name: '0', disabled: true }, ...options];
     const wrapper = mount(MultiSelect, {
-      global: {
-        plugins: [DirectivePlugin, i18n]
-      },
       props: {
         options: optionsWithDisabled,
         modelValue: [],
@@ -215,9 +189,6 @@ describe('MultiSelect tests', () => {
 
   test('should select option', async () => {
     const wrapper = mount(MultiSelect, {
-      global: {
-        plugins: [DirectivePlugin, i18n]
-      },
       props: {
         options,
         modelValue: [],
@@ -241,9 +212,6 @@ describe('MultiSelect tests', () => {
 
   test('should unselect option', async () => {
     const wrapper = mount(MultiSelect, {
-      global: {
-        plugins: [DirectivePlugin, i18n]
-      },
       props: {
         options,
         modelValue: ['1'],
@@ -267,9 +235,6 @@ describe('MultiSelect tests', () => {
 
   test('should sort checked option', async () => {
     const wrapper = mount(MultiSelect, {
-      global: {
-        plugins: [DirectivePlugin, i18n]
-      },
       props: {
         options,
         modelValue: ['3'],
@@ -289,9 +254,6 @@ describe('MultiSelect tests', () => {
   test('should be closed by click-outside', async () => {
     const spy = vi.spyOn(document.body, 'removeEventListener');
     const wrapper = mount(MultiSelect, {
-      global: {
-        plugins: [DirectivePlugin, i18n]
-      },
       props: {
         options,
         label: 'test label'

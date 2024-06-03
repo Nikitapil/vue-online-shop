@@ -1,7 +1,6 @@
 import type { ISelectOptions } from '../components/ui/AppSelect/types';
 import { flushPromises, mount } from '@vue/test-utils';
 import AppSelect from '../components/ui/AppSelect/AppSelect.vue';
-import { validation } from '../plugins/validation';
 
 describe('AppSelect tests', () => {
   const options: ISelectOptions[] = [
@@ -100,9 +99,6 @@ describe('AppSelect tests', () => {
   test('Should be validated', async () => {
     const optsProps = [{ value: '', name: '0' }, ...options];
     const wrapper = mount(AppSelect, {
-      global: {
-        plugins: [validation]
-      },
       props: {
         options: optsProps,
         name: 'test select',
@@ -153,9 +149,6 @@ describe('AppSelect tests', () => {
   test('Should not emit change event if no valid', async () => {
     const optsProps = [{ value: '', name: '0' }, ...options];
     const wrapper = mount(AppSelect, {
-      global: {
-        plugins: [validation]
-      },
       props: {
         options: optsProps,
         name: 'test select',
@@ -174,9 +167,6 @@ describe('AppSelect tests', () => {
   test('Should emit change event if valid', async () => {
     const optsProps = [{ value: '', name: '0' }, ...options];
     const wrapper = mount(AppSelect, {
-      global: {
-        plugins: [validation]
-      },
       props: {
         options: optsProps,
         name: 'test select',

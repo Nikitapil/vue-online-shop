@@ -1,7 +1,5 @@
 import { flushPromises, mount } from '@vue/test-utils';
 import { createTestingPinia } from '@pinia/testing';
-import { i18n } from '../plugins/i18n';
-import { validation } from '../plugins/validation';
 import { EAuthModalTypes } from '../domain/components';
 import AppHeader from '../modules/app/components/AppHeader.vue';
 import HorizontalLoader from '../components/ui/loaders/HorizontalLoader.vue';
@@ -13,7 +11,7 @@ describe('AppHeader tests', () => {
     const pinia = createTestingPinia();
     const wrapper = mount(AppHeader, {
       global: {
-        plugins: [i18n, pinia]
+        plugins: [pinia]
       },
       props: {
         isAuthenticated: false,
@@ -33,7 +31,7 @@ describe('AppHeader tests', () => {
     const pinia = createTestingPinia();
     const wrapper = mount(AppHeader, {
       global: {
-        plugins: [i18n, pinia]
+        plugins: [pinia]
       },
       props: {
         isAuthenticated: true,
@@ -51,7 +49,7 @@ describe('AppHeader tests', () => {
     const pinia = createTestingPinia();
     const wrapper = mount(AppHeader, {
       global: {
-        plugins: [i18n, pinia]
+        plugins: [pinia]
       },
       props: {
         isAuthenticated: true,
@@ -71,7 +69,7 @@ describe('AppHeader tests', () => {
     const pinia = createTestingPinia();
     const wrapper = mount(AppHeader, {
       global: {
-        plugins: [i18n, pinia]
+        plugins: [pinia]
       },
       props: {
         isAuthenticated: false,
@@ -91,7 +89,7 @@ describe('AppHeader tests', () => {
     const pinia = createTestingPinia();
     const wrapper = mount(AppHeader, {
       global: {
-        plugins: [i18n, pinia]
+        plugins: [pinia]
       },
       props: {
         isAuthenticated: true,
@@ -109,7 +107,7 @@ describe('AppHeader tests', () => {
     const pinia = createTestingPinia();
     const wrapper = mount(AppHeader, {
       global: {
-        plugins: [i18n, pinia]
+        plugins: [pinia]
       },
       props: {
         isAuthenticated: true,
@@ -127,7 +125,7 @@ describe('AppHeader tests', () => {
     const pinia = createTestingPinia();
     const wrapper = mount(AppHeader, {
       global: {
-        plugins: [i18n, pinia, validation]
+        plugins: [pinia]
       },
       props: {
         isAuthenticated: false,
@@ -152,7 +150,7 @@ describe('AppHeader tests', () => {
     const pinia = createTestingPinia();
     const wrapper = mount(AppHeader, {
       global: {
-        plugins: [i18n, pinia, validation]
+        plugins: [pinia]
       },
       props: {
         isAuthenticated: false,
@@ -177,7 +175,7 @@ describe('AppHeader tests', () => {
     const pinia = createTestingPinia();
     const wrapper = mount(AppHeader, {
       global: {
-        plugins: [i18n, pinia, validation]
+        plugins: [pinia]
       },
       props: {
         isAuthenticated: true,

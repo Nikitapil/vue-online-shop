@@ -1,7 +1,5 @@
 import { flushPromises, mount } from '@vue/test-utils';
 
-import { i18n } from '../plugins/i18n';
-
 import { EPaginationLimits } from '../domain/components';
 
 import ProductsPagination from '../components/products/ProductsPagination.vue';
@@ -9,9 +7,6 @@ import ProductsPagination from '../components/products/ProductsPagination.vue';
 describe('ProductsPagination', () => {
   const createWrapper = (totalCount: number) => {
     const wrapper = mount(ProductsPagination, {
-      global: {
-        plugins: [i18n]
-      },
       props: {
         limitValue: EPaginationLimits.TEN,
         page: 1,

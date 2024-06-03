@@ -1,14 +1,10 @@
 import { mount } from '@vue/test-utils';
 import ProductDetails from '../components/products/ProductDetails.vue';
-import { i18n } from '../plugins/i18n';
 import ProductPrice from '../components/products/ProductPrice.vue';
 
 describe('ProductDetails tests', () => {
   test('should not render product name', () => {
     const wrapper = mount(ProductDetails, {
-      global: {
-        plugins: [i18n]
-      },
       props: {
         product: {}
       }
@@ -21,9 +17,6 @@ describe('ProductDetails tests', () => {
   test('should render product name', () => {
     const productNameText = 'Test Product';
     const wrapper = mount(ProductDetails, {
-      global: {
-        plugins: [i18n]
-      },
       props: {
         product: {
           name: productNameText
@@ -39,9 +32,6 @@ describe('ProductDetails tests', () => {
   test('should not render product img', () => {
     const productNameText = 'Test Product';
     const wrapper = mount(ProductDetails, {
-      global: {
-        plugins: [i18n]
-      },
       props: {
         product: {
           name: productNameText
@@ -61,9 +51,6 @@ describe('ProductDetails tests', () => {
   test('should render product img', () => {
     const productNameText = 'Test Product';
     const wrapper = mount(ProductDetails, {
-      global: {
-        plugins: [i18n]
-      },
       props: {
         product: {
           name: productNameText,
@@ -83,9 +70,6 @@ describe('ProductDetails tests', () => {
   test('should not render product description', () => {
     const productNameText = 'Test Product';
     const wrapper = mount(ProductDetails, {
-      global: {
-        plugins: [i18n]
-      },
       props: {
         product: {
           name: productNameText
@@ -101,9 +85,6 @@ describe('ProductDetails tests', () => {
     const productNameText = 'Test Product';
     const productDescriptionText = 'Test Description';
     const wrapper = mount(ProductDetails, {
-      global: {
-        plugins: [i18n]
-      },
       props: {
         product: {
           name: productNameText,
@@ -121,9 +102,6 @@ describe('ProductDetails tests', () => {
     const productNameText = 'Test Product';
     const productDescriptionText = 'Test Description';
     const wrapper = mount(ProductDetails, {
-      global: {
-        plugins: [i18n]
-      },
       props: {
         product: {
           name: productNameText,
@@ -140,9 +118,6 @@ describe('ProductDetails tests', () => {
     const productNameText = 'Test Product';
     const productDescriptionText = 'Test Description';
     const wrapper = mount(ProductDetails, {
-      global: {
-        plugins: [i18n]
-      },
       props: {
         product: {
           name: productNameText,
@@ -160,9 +135,6 @@ describe('ProductDetails tests', () => {
     const productDescriptionText = 'Test Description';
     const productRatingValue = 4;
     const wrapper = mount(ProductDetails, {
-      global: {
-        plugins: [i18n]
-      },
       props: {
         product: {
           name: productNameText,

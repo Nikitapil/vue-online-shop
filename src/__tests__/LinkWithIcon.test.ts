@@ -1,14 +1,9 @@
 import { mount } from '@vue/test-utils';
-import { DirectivePlugin } from '../directives/directive-plugin';
-import { router } from '../router';
 import LinkWithIcon from '../components/ui/LinkWithIcon.vue';
 
 describe('LinkWithIcon tests', () => {
   test('should open tooltip on icon', async () => {
     const wrapper = mount(LinkWithIcon, {
-      global: {
-        plugins: [DirectivePlugin, router]
-      },
       props: {
         icon: 'mdi:settings-outline',
         label: 'test-label',
@@ -24,8 +19,6 @@ describe('LinkWithIcon tests', () => {
     let tooltip = wrapper.find('.tooltip');
 
     expect(tooltip.isVisible()).toBe(false);
-
-    tooltip = wrapper.find('.tooltip');
 
     await spanTooltip.trigger('mouseenter');
 

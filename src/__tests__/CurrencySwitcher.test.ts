@@ -13,7 +13,7 @@ describe('CurrencySwitcher', () => {
   test('should not show switcher if no financeSettings', () => {
     const wrapper = mount(CurrencySwitcher, {
       global: {
-        plugins: [pinia, DirectivePlugin]
+        plugins: [pinia]
       }
     });
 
@@ -25,7 +25,7 @@ describe('CurrencySwitcher', () => {
   test('should show switcher if financeSettings', async () => {
     const wrapper = mount(CurrencySwitcher, {
       global: {
-        plugins: [pinia, DirectivePlugin]
+        plugins: [pinia]
       }
     });
 
@@ -43,7 +43,7 @@ describe('CurrencySwitcher', () => {
   test('should have correct amount of options', async () => {
     const wrapper = mount(CurrencySwitcher, {
       global: {
-        plugins: [pinia, DirectivePlugin]
+        plugins: [pinia]
       }
     });
 
@@ -61,7 +61,7 @@ describe('CurrencySwitcher', () => {
   test('should change currentCurrency', async () => {
     const wrapper = mount(CurrencySwitcher, {
       global: {
-        plugins: [pinia, DirectivePlugin]
+        plugins: [pinia]
       }
     });
 

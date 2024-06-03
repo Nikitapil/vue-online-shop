@@ -1,5 +1,4 @@
 import { flushPromises, mount } from '@vue/test-utils';
-import { validation } from '../plugins/validation';
 
 import AppTextarea from '../components/ui/AppInput/AppTextarea.vue';
 
@@ -100,9 +99,6 @@ describe('AppTextarea tests', () => {
         rules: 'required',
         modelValue: '',
         'onUpdate:modelValue': (e: string) => wrapper.setProps({ modelValue: e })
-      },
-      global: {
-        plugins: [validation]
       }
     });
 

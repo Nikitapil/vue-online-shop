@@ -1,16 +1,12 @@
 import { mount } from '@vue/test-utils';
 import DropdownSwitcher from '../components/ui/DropdownSwitcher.vue';
 import IconButton from '../components/ui/IconButton.vue';
-import { DirectivePlugin } from '../directives/directive-plugin';
 
 describe('DropdownSwitcher test', () => {
   const options = ['1', '2', '3'];
 
   test('should not be opened if open props is false', () => {
     const wrapper = mount(DropdownSwitcher, {
-      global: {
-        plugins: [DirectivePlugin]
-      },
       props: {
         options,
         open: false,
@@ -25,9 +21,6 @@ describe('DropdownSwitcher test', () => {
 
   test('should be opened if open props is true', () => {
     const wrapper = mount(DropdownSwitcher, {
-      global: {
-        plugins: [DirectivePlugin]
-      },
       props: {
         options,
         open: true,
@@ -42,9 +35,6 @@ describe('DropdownSwitcher test', () => {
 
   test('should be opened if open props is true', () => {
     const wrapper = mount(DropdownSwitcher, {
-      global: {
-        plugins: [DirectivePlugin]
-      },
       props: {
         options,
         open: true,
@@ -59,9 +49,6 @@ describe('DropdownSwitcher test', () => {
 
   test('should render correct value', () => {
     const wrapper = mount(DropdownSwitcher, {
-      global: {
-        plugins: [DirectivePlugin]
-      },
       props: {
         options,
         open: true,
@@ -77,9 +64,6 @@ describe('DropdownSwitcher test', () => {
 
   test('should render correct amount of options', () => {
     const wrapper = mount(DropdownSwitcher, {
-      global: {
-        plugins: [DirectivePlugin]
-      },
       props: {
         options,
         open: true,
@@ -95,9 +79,6 @@ describe('DropdownSwitcher test', () => {
 
   test('should change value correctly and emit select-option event', async () => {
     const wrapper = mount(DropdownSwitcher, {
-      global: {
-        plugins: [DirectivePlugin]
-      },
       props: {
         options,
         open: true,
@@ -120,9 +101,6 @@ describe('DropdownSwitcher test', () => {
 
   test('should be opened and closed by IconClick', async () => {
     const wrapper = mount(DropdownSwitcher, {
-      global: {
-        plugins: [DirectivePlugin]
-      },
       props: {
         options,
         open: true,
@@ -153,9 +131,6 @@ describe('DropdownSwitcher test', () => {
 
   test('should be opened and closed by IconClick', async () => {
     const wrapper = mount(DropdownSwitcher, {
-      global: {
-        plugins: [DirectivePlugin]
-      },
       props: {
         options,
         open: true,

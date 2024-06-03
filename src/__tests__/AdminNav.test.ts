@@ -1,20 +1,13 @@
 import { mount } from '@vue/test-utils';
 
-import { ERoutesName, router } from '../router';
-
-import { i18n } from '../plugins/i18n';
-import { DirectivePlugin } from '../directives/directive-plugin';
+import { ERoutesName } from '../router';
 
 import LinkWithIcon from '../components/ui/LinkWithIcon.vue';
 import AdminNav from '../modules/admin/components/AdminNav.vue';
 
 describe('AdminNav.vue', () => {
   it('renders AdminNav with LinkWithIcon component', () => {
-    const wrapper = mount(AdminNav, {
-      global: {
-        plugins: [i18n, router, DirectivePlugin]
-      }
-    });
+    const wrapper = mount(AdminNav);
 
     const linkWithIconComponent = wrapper.findComponent(LinkWithIcon);
 

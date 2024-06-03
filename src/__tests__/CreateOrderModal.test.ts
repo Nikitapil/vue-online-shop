@@ -1,9 +1,7 @@
+import { vi } from 'vitest';
 import { flushPromises, mount } from '@vue/test-utils';
 import CreateOrderModal from '../modules/cart/components/CreateOrderModal.vue';
-import { i18n } from '../plugins/i18n';
-import { validation } from '../plugins/validation';
 import { createPinia, setActivePinia } from 'pinia';
-import { vi } from 'vitest';
 import Modal from '../components/ui/Modal.vue';
 import { useAuthStore } from '../modules/auth/authStore';
 import { userMocks } from './mocks/user-mocks';
@@ -22,9 +20,6 @@ describe('CreateOrderModal tests', () => {
 
   test('should be closed if modelValue is false', () => {
     const wrapper = mount(CreateOrderModal, {
-      global: {
-        plugins: [i18n, validation]
-      },
       props: {
         modelValue: false,
         isLoading: false
@@ -38,9 +33,6 @@ describe('CreateOrderModal tests', () => {
 
   test('should be opened if modelValue is true', () => {
     const wrapper = mount(CreateOrderModal, {
-      global: {
-        plugins: [i18n, validation]
-      },
       props: {
         modelValue: true,
         isLoading: false
@@ -55,7 +47,7 @@ describe('CreateOrderModal tests', () => {
   test('should disable inputs and buttons by loading prop', () => {
     const wrapper = mount(CreateOrderModal, {
       global: {
-        plugins: [i18n, validation, pinia]
+        plugins: [pinia]
       },
       props: {
         modelValue: true,
@@ -78,7 +70,7 @@ describe('CreateOrderModal tests', () => {
   test('should not emit create event if not valid', async () => {
     const wrapper = mount(CreateOrderModal, {
       global: {
-        plugins: [i18n, validation, pinia]
+        plugins: [pinia]
       },
       props: {
         modelValue: true,
@@ -101,7 +93,7 @@ describe('CreateOrderModal tests', () => {
     store.user = userMocks;
     const wrapper = mount(CreateOrderModal, {
       global: {
-        plugins: [i18n, validation, pinia]
+        plugins: [pinia]
       },
       props: {
         modelValue: true,

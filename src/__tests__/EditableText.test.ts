@@ -1,16 +1,10 @@
 import { flushPromises, mount } from '@vue/test-utils';
 import EditableText from '../components/ui/EditableText.vue';
-import { i18n } from '../plugins/i18n';
-import { validation } from '../plugins/validation';
 import AppInput from '../components/ui/AppInput/AppInput.vue';
-import { DirectivePlugin } from '../directives/directive-plugin';
 
 describe('EditableText tests', () => {
   test('should open edit mode correctly', async () => {
     const wrapper = mount(EditableText, {
-      global: {
-        plugins: [i18n, DirectivePlugin]
-      },
       props: {
         id: 'test id',
         name: 'Test Name',
@@ -35,9 +29,6 @@ describe('EditableText tests', () => {
 
   test('should validate correctly', async () => {
     const wrapper = mount(EditableText, {
-      global: {
-        plugins: [i18n, validation, DirectivePlugin]
-      },
       props: {
         id: 'test id',
         name: 'Test Name',
@@ -59,9 +50,6 @@ describe('EditableText tests', () => {
 
   test('should submit if valid correctly', async () => {
     const wrapper = mount(EditableText, {
-      global: {
-        plugins: [i18n, validation, DirectivePlugin]
-      },
       props: {
         id: 'test id',
         name: 'Test Name',
@@ -84,9 +72,6 @@ describe('EditableText tests', () => {
 
   test('label should fit input', () => {
     const wrapper = mount(EditableText, {
-      global: {
-        plugins: [i18n, validation, DirectivePlugin]
-      },
       props: {
         id: 'test id',
         name: 'Test Name',
@@ -106,9 +91,6 @@ describe('EditableText tests', () => {
   test('should be correct initialValue', async () => {
     const initialValue = '123';
     const wrapper = mount(EditableText, {
-      global: {
-        plugins: [i18n, validation, DirectivePlugin]
-      },
       props: {
         id: 'test id',
         name: 'Test Name',
@@ -135,9 +117,6 @@ describe('EditableText tests', () => {
   test('should disable all buttons', async () => {
     const initialValue = '123';
     const wrapper = mount(EditableText, {
-      global: {
-        plugins: [i18n, validation, DirectivePlugin]
-      },
       props: {
         id: 'test id',
         name: 'Test Name',
@@ -152,9 +131,6 @@ describe('EditableText tests', () => {
   test('should set initialValue and close on close', async () => {
     const initialValue = '123';
     const wrapper = mount(EditableText, {
-      global: {
-        plugins: [i18n, validation, DirectivePlugin]
-      },
       props: {
         id: 'test id',
         name: 'Test Name',

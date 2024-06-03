@@ -36,7 +36,7 @@ describe('should call refresh method correctly', () => {
 
   test('should work default error handler', async () => {
     const store = useAuthStore();
-    const spyConsoleError = vi.spyOn(console, 'error');
+    const spyConsoleError = vi.spyOn(console, 'error').mockImplementation(() => {});
     api.refreshAuth = async () => {
       throw new Error();
     };

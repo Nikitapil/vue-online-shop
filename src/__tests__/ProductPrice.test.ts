@@ -1,17 +1,12 @@
 import { mount } from '@vue/test-utils';
 import { createTestingPinia } from '@pinia/testing';
 
-import { i18n } from '../plugins/i18n';
-
 import ProductPrice from '../components/products/ProductPrice.vue';
 import Price from '../modules/app/components/Price.vue';
 
 describe('ProductPrice test', () => {
   test('should not render price components if no prices', () => {
     const wrapper = mount(ProductPrice, {
-      global: {
-        plugins: [i18n]
-      },
       props: {
         product: {}
       }
@@ -25,7 +20,7 @@ describe('ProductPrice test', () => {
   test('should not render discount block', () => {
     const wrapper = mount(ProductPrice, {
       global: {
-        plugins: [i18n, createTestingPinia()]
+        plugins: [createTestingPinia()]
       },
       props: {
         product: {
@@ -46,7 +41,7 @@ describe('ProductPrice test', () => {
     const percentage = 5;
     const wrapper = mount(ProductPrice, {
       global: {
-        plugins: [i18n, createTestingPinia()]
+        plugins: [createTestingPinia()]
       },
       props: {
         product: {
@@ -72,7 +67,7 @@ describe('ProductPrice test', () => {
     const percentage = 5;
     const wrapper = mount(ProductPrice, {
       global: {
-        plugins: [i18n, createTestingPinia()]
+        plugins: [createTestingPinia()]
       },
       props: {
         product: {

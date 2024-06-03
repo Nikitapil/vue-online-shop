@@ -2,7 +2,6 @@ import { vi } from 'vitest';
 import { createTestingPinia } from '@pinia/testing';
 import { flushPromises, mount } from '@vue/test-utils';
 import { i18n } from '../plugins/i18n';
-import { validation } from '../plugins/validation';
 import AuthForm from '../modules/auth/components/AuthForm.vue';
 import { EAuthModalTypes } from '../domain/components';
 import { useAuthStore } from '../modules/auth/authStore';
@@ -14,7 +13,7 @@ describe('AuthForm tests', () => {
   test('should validate passwords correctly', async () => {
     const wrapper = mount(AuthForm, {
       global: {
-        plugins: [i18n, pinia, validation]
+        plugins: [pinia]
       },
       props: {
         initialType: EAuthModalTypes.REGISTER
@@ -43,7 +42,7 @@ describe('AuthForm tests', () => {
     const registerSpy = vi.spyOn(store, 'register');
     const wrapper = mount(AuthForm, {
       global: {
-        plugins: [i18n, pinia, validation]
+        plugins: [pinia]
       },
       props: {
         initialType: EAuthModalTypes.REGISTER
@@ -73,7 +72,7 @@ describe('AuthForm tests', () => {
     const loginSpy = vi.spyOn(store, 'login');
     const wrapper = mount(AuthForm, {
       global: {
-        plugins: [i18n, pinia, validation]
+        plugins: [pinia]
       },
       props: {
         initialType: EAuthModalTypes.LOGIN
@@ -98,7 +97,7 @@ describe('AuthForm tests', () => {
     const store = useAuthStore(pinia);
     const wrapper = mount(AuthForm, {
       global: {
-        plugins: [i18n, pinia, validation]
+        plugins: [pinia]
       },
       props: {
         initialType: EAuthModalTypes.LOGIN
@@ -124,7 +123,7 @@ describe('AuthForm tests', () => {
   test('should swap from correctly', async () => {
     const wrapper = mount(AuthForm, {
       global: {
-        plugins: [i18n, pinia, validation]
+        plugins: [pinia]
       },
       props: {
         initialType: EAuthModalTypes.LOGIN

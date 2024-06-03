@@ -1,5 +1,5 @@
-import { createPinia, setActivePinia } from 'pinia';
 import { vi } from 'vitest';
+import { createPinia, setActivePinia } from 'pinia';
 import { api } from '../api/apiInstance';
 import { mockCart } from './mocks/cart-mocks';
 import { mockOrder } from './mocks/order-mocks';
@@ -42,7 +42,7 @@ describe('Cart tests', () => {
 
     const wrapper = mount(Cart, {
       global: {
-        plugins: [pinia, i18n, router, validation]
+        plugins: [pinia]
       }
     });
 
@@ -84,7 +84,7 @@ describe('Cart tests', () => {
 
     const wrapper = mount(Cart, {
       global: {
-        plugins: [pinia, i18n, router, validation]
+        plugins: [pinia]
       }
     });
 
@@ -122,7 +122,7 @@ describe('Cart tests', () => {
 
     const wrapper = mount(Cart, {
       global: {
-        plugins: [pinia, i18n, router, validation]
+        plugins: [pinia]
       }
     });
 

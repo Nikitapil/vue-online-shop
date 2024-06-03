@@ -1,9 +1,7 @@
 import { mount } from '@vue/test-utils';
 import { createTestingPinia } from '@pinia/testing';
-import { validation } from '../plugins/validation';
 
 import { EAuthModalTypes } from '../domain/components';
-import { i18n } from '../plugins/i18n';
 
 import AuthModal from '../modules/auth/components/AuthModal.vue';
 import AuthForm from '../modules/auth/components/AuthForm.vue';
@@ -24,7 +22,7 @@ describe('AuthModal tests', () => {
   test('should show correct AuthForm for login', () => {
     const wrapper = mount(AuthModal, {
       global: {
-        plugins: [i18n, createTestingPinia(), validation]
+        plugins: [createTestingPinia()]
       },
       props: {
         modelValue: true,
@@ -40,7 +38,7 @@ describe('AuthModal tests', () => {
   test('should show correct AuthForm for register', () => {
     const wrapper = mount(AuthModal, {
       global: {
-        plugins: [i18n, createTestingPinia(), validation]
+        plugins: [createTestingPinia()]
       },
       props: {
         modelValue: true,

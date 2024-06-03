@@ -1,6 +1,5 @@
 import { flushPromises, mount } from '@vue/test-utils';
 import AppInput from '../components/ui/AppInput/AppInput.vue';
-import { validation } from '../plugins/validation';
 
 describe('AppInput tests', () => {
   test('Should not render label if no prop', () => {
@@ -100,9 +99,6 @@ describe('AppInput tests', () => {
         rules: 'required',
         modelValue: '',
         'onUpdate:modelValue': (e: string) => wrapper.setProps({ modelValue: e })
-      },
-      global: {
-        plugins: [validation]
       }
     });
 

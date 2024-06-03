@@ -1,7 +1,6 @@
 import { flushPromises, mount } from '@vue/test-utils';
 import Uploader from '../components/ui/Uploader.vue';
 import IconButton from '../components/ui/IconButton.vue';
-import { validation } from '../plugins/validation';
 import AppButton from '../components/ui/AppButton.vue';
 
 describe('FileUploader', () => {
@@ -55,9 +54,6 @@ describe('FileUploader', () => {
 
   test('should render the error message after validation', async () => {
     const wrapper = mount(Uploader, {
-      global: {
-        plugins: [validation]
-      },
       props: {
         id: 'test-id',
         label: 'Test label',
