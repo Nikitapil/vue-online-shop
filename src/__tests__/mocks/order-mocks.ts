@@ -60,3 +60,8 @@ export const mockOrder = {
   canSetCreated: true,
   canSetClosed: true
 };
+
+export const getOrdersResponseMock = {
+  orders: [mockOrder],
+  totalCount: 1
+};
