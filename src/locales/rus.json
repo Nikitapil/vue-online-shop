@@ -90,5 +90,14 @@
   "order_comment": "Комментарий к заказу",
   "change_order_status": "Изменить статус заказа",
   "status": "Статус",
-  "order_status": "Статус заказа"
+  "order_status": "Статус заказа",
+  "product_form": "Форма товара",
+  "product_preview": "Предпросмотр товара",
+  "title": "Название",
+  "product_title": "Название товара",
+  "description": "Описание",
+  "product_description": "Описание товара",
+  "price": "Стоимость",
+  "product_price": "Стоимость товара",
+  "upload_product_image": "Загрузить изображение товара"
 }

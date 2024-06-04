@@ -90,5 +90,14 @@
   "order_comment": "Order comment",
   "change_order_status": "Change order status",
   "status": "Status",
-  "order_status": "Order status"
+  "order_status": "Order status",
+  "product_form": "Product form",
+  "product_preview": "Product preview",
+  "title": "Title",
+  "product_title": "Product title",
+  "description": "Description",
+  "product_description": "Product description",
+  "price": "Price",
+  "product_price": "Product price",
+  "upload_product_image": "Upload product image"
 }
