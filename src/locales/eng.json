@@ -82,5 +82,13 @@
   "cancel_reason": "Cancel reason",
   "count": "Count",
   "orders_list": "Orders list",
-  "select_status": "Select status"
+  "select_status": "Select status",
+  "order_not_found": "Order not found",
+  "order_id": "Order id",
+  "requisites": "Requisites",
+  "username": "Username",
+  "order_comment": "Order comment",
+  "change_order_status": "Change order status",
+  "status": "Status",
+  "order_status": "Order status"
 }

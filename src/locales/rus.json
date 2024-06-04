@@ -82,5 +82,13 @@
   "cancel_reason": "Причина отмены",
   "count": "Количество",
   "orders_list": "Список заказов",
-  "select_status": "Выберете статус"
+  "select_status": "Выберете статус",
+  "order_not_found": "Заказ не найден",
+  "order_id": "id Заказа",
+  "requisites": "Реквизиты",
+  "username": "Имя пользователя",
+  "order_comment": "Комментарий к заказу",
+  "change_order_status": "Изменить статус заказа",
+  "status": "Статус",
+  "order_status": "Статус заказа"
 }
