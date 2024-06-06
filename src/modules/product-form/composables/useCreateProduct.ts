@@ -1,21 +1,15 @@
-import { ref } from 'vue';
+import { useApiMethod } from '@/api/useApiMethod';
+
 import { api } from '@/api/apiInstance';
+
 import type { CreateProductBody } from '@/api/swagger/data-contracts';
-import { toast } from 'vue3-toastify';
 
 export const useCreateProduct = () => {
-  const isLoading = ref(false);
+  const { call: createProductApi, isLoading } = useApiMethod(api.createProduct);
 
   const createProduct = async (data: CreateProductBody) => {
-    isLoading.value = true;
-    try {
-      const product = await api.createProduct(data);
-      return product;
-    } catch (e: any) {
-      toast.error(e?.response?.data?.message || 'Error');
-    } finally {
-      isLoading.value = false;
-    }
+    const product = await createProductApi(data);
+    return product;
   };
 
   return {
