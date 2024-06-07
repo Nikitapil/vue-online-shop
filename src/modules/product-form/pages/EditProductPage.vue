@@ -1,17 +1,20 @@
 <script setup lang="ts">
-import AuthProtected from '@/modules/auth/components/AuthProtected.vue';
-import { useLoadProductData } from '../composables/useLoadProductData';
-import { useRoute, useRouter } from 'vue-router';
 import { computed, onMounted, ref } from 'vue';
-import type { IProductForm } from '../types';
+import { useRoute, useRouter } from 'vue-router';
+
+import { useLoadProductData } from '../composables/useLoadProductData';
+import { useEditProduct } from '../composables/useEditProduct';
 import { createFileFromString } from '@/helpers/files';
-import ProductForm from '../components/ProductForm.vue';
+
+import type { IProductForm } from '../types';
+import { type CreateProductBody, UserReturnDtoRolesEnum } from '@/api/swagger/data-contracts';
+import { ERoutesName } from '@/router';
+
 import RoundedLoader from '@/components/ui/loaders/RoundedLoader.vue';
 import EmptyStateCentered from '@/components/ui/EmptyStateCentered.vue';
 import ProductNotFound from '@/components/products/ProductNotFound.vue';
-import { useEditProduct } from '../composables/useEditProduct';
-import { type CreateProductBody, UserReturnDtoRolesEnum } from "@/api/swagger/data-contracts";
-import { ERoutesName } from '@/router';
+import ProductForm from '../components/ProductForm.vue';
+import AuthProtected from '@/modules/auth/components/AuthProtected.vue';
 
 const route = useRoute();
 const router = useRouter();
@@ -34,6 +37,7 @@ const initialValues = computed<IProductForm>(() => ({
 
 const onEditProduct = async (data: CreateProductBody) => {
   const updatedProduct = await editProduct({ ...data, id: productId.value });
+
   if (updatedProduct) {
     router.push({ name: ERoutesName.PRODUCT, params: { id: updatedProduct.id } });
   }
@@ -60,6 +64,7 @@ onMounted(async () => {
       :initial-values="initialValues"
       @save="onEditProduct"
     />
+
     <ProductNotFound v-else />
   </AuthProtected>
 </template>
