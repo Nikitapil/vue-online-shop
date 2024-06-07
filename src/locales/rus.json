@@ -99,5 +99,9 @@
   "product_description": "Описание товара",
   "price": "Стоимость",
   "product_price": "Стоимость товара",
-  "upload_product_image": "Загрузить изображение товара"
+  "upload_product_image": "Загрузить изображение товара",
+  "add_product_review": "Добавить отзыв о товаре",
+  "rating_is_required": "Рейтинг обязателен для заполнения",
+  "your_review": "Ваш отзыв",
+  "submit": "Отправить"
 }

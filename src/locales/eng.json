@@ -99,5 +99,9 @@
   "product_description": "Product description",
   "price": "Price",
   "product_price": "Product price",
-  "upload_product_image": "Upload product image"
+  "upload_product_image": "Upload product image",
+  "add_product_review": "Add product review",
+  "rating_is_required": "Rating is required",
+  "your_review": "Your review",
+  "submit": "Submit"
 }

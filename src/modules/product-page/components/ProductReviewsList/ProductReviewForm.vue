@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import { ref } from 'vue';
+
 import AppButton from '@/components/ui/AppButton.vue';
 import AppTextarea from '@/components/ui/AppInput/AppTextarea.vue';
 import StarRating from '@/components/ui/StarRating.vue';
-import { ref } from 'vue';
 
 const props = defineProps<{
   isLoading: boolean;
@@ -20,10 +21,12 @@ const resetRatingError = () => (isEmptyRatingError.value = false);
 
 const submitHandler = () => {
   resetRatingError();
+
   if (!rating.value) {
     isEmptyRatingError.value = true;
     return;
   }
+
   emit('addReview', { rating: rating.value, comment: comment.value });
 };
 </script>
@@ -33,7 +36,8 @@ const submitHandler = () => {
     @submit.prevent="submitHandler"
   >
     <div class="flex justify-between mb-1">
-      <h2 class="mb-2 font-bold">Add product review</h2>
+      <h2 class="mb-2 font-bold">{{ $t('add_product_review') }}</h2>
+
       <StarRating
         v-model="rating"
         name="product-rating"
@@ -41,26 +45,29 @@ const submitHandler = () => {
         @change="resetRatingError"
       />
     </div>
+
     <p
       v-if="isEmptyRatingError"
       class="text-red-500 font-bold text-right mb-2"
     >
-      Rating is required
+      {{ $t('rating_is_required') }}
     </p>
+
     <AppTextarea
       id="review-input"
       v-model="comment"
-      placeholder="Your review..."
+      :placeholder="$t('your_review')"
       name="review-text"
       :disabled="props.isLoading"
     />
+
     <AppButton
       class="self-end"
       appearance="primary"
       type="submit"
       :disabled="props.isLoading"
     >
-      Submit
+      {{ $t('submit') }}
     </AppButton>
   </form>
 </template>
