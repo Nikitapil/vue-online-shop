@@ -103,5 +103,6 @@
   "add_product_review": "Добавить отзыв о товаре",
   "rating_is_required": "Рейтинг обязателен для заполнения",
   "your_review": "Ваш отзыв",
-  "submit": "Отправить"
+  "submit": "Отправить",
+  "delete_review_question": "Вы хотите удалить отзыв?"
 }
