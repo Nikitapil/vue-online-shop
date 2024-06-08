@@ -1,12 +1,15 @@
 <script setup lang="ts">
+import { onMounted, ref } from 'vue';
+
+import { useProductReviewsListStore } from './useProductReviewsListStore';
+
+import { EPaginationLimits } from '@/domain/components';
+
 import ProductReviewListItem from './ProductReviewListItem.vue';
 import RoundedLoader from '../../../../components/ui/loaders/RoundedLoader.vue';
 import EmptyStateCentered from '../../../../components/ui/EmptyStateCentered.vue';
 import ProductReviewForm from './ProductReviewForm.vue';
 import ProductsPagination from '@/components/products/ProductsPagination.vue';
-import { onMounted, ref } from 'vue';
-import { EPaginationLimits } from '@/domain/components';
-import { useProductReviewsListStore } from './useProductReviewsListStore';
 
 const store = useProductReviewsListStore();
 
@@ -31,6 +34,7 @@ onMounted(() => {
   <EmptyStateCentered v-if="store.isReviewsLoading">
     <RoundedLoader />
   </EmptyStateCentered>
+
   <div v-else>
     <ProductReviewForm
       v-if="props.canAddReview && !store.isReviewAdded"
@@ -38,6 +42,7 @@ onMounted(() => {
       :is-loading="store.isAddReviewInProgress"
       @add-review="store.addProductReview"
     />
+
     <div
       v-if="store.reviews.length"
       class="p-3 bg-gray-100 rounded-md mb-2"
@@ -51,6 +56,7 @@ onMounted(() => {
         @delete="store.deleteProductReview(review.id)"
       />
     </div>
+
     <ProductsPagination
       v-model:limit-value="limitValue"
       v-model:page="page"
