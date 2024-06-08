@@ -1,7 +1,10 @@
-import { defineStore } from 'pinia';
-import { api } from '@/api/apiInstance';
-import { toast } from 'vue3-toastify';
 import { ref } from 'vue';
+import { defineStore } from 'pinia';
+
+import { useApiMethod } from '@/api/useApiMethod';
+
+import { api } from '@/api/apiInstance';
+
 import type { ProductReviewReturnDto } from '@/api/swagger/data-contracts';
 
 interface IAddReviewParams {
@@ -16,65 +19,51 @@ interface IGetProductReviewsParams {
 
 export const useProductReviewsListStore = defineStore('ProductReviews', () => {
   const productId = ref<string | null>(null);
-  const isReviewsLoading = ref(false);
-  const isAddReviewInProgress = ref(false);
-  const isDeleteReviewInProgress = ref(false);
   const reviews = ref<ProductReviewReturnDto[]>([]);
   const totalCount = ref(0);
   const isReviewAdded = ref(false);
+
+  const { call: getReviews, isLoading: isReviewsLoading } = useApiMethod(api.getReviews);
+  const { call: addReview, isLoading: isAddReviewInProgress } = useApiMethod(api.createReview);
+  const { call: deleteReview, isLoading: isDeleteReviewInProgress } = useApiMethod(api.deleteReview);
 
   const getProductReviews = async ({ page, limit }: IGetProductReviewsParams) => {
     if (productId.value === null) {
       return;
     }
-    try {
-      isReviewsLoading.value = true;
-      const { reviews: reviewsResponse, totalCount: totalCountResponse } = await api.getReviews({
-        productId: productId.value,
-        page,
-        limit
-      });
-      reviews.value = reviewsResponse;
-      totalCount.value = totalCountResponse;
-    } catch (e: any) {
-      toast.error(e?.response?.data?.message || 'Error');
-    } finally {
-      isReviewsLoading.value = false;
-    }
+
+    const response = await getReviews({
+      productId: productId.value,
+      page,
+      limit
+    });
+
+    reviews.value = response?.reviews || [];
+    totalCount.value = response?.totalCount || 0;
   };
 
   const addProductReview = async ({ comment, rating }: IAddReviewParams) => {
     if (productId.value === null) {
       return;
     }
-    try {
-      isAddReviewInProgress.value = true;
-      const review = await api.createReview({ productId: productId.value, text: comment, rating });
-      if (review) {
-        isReviewAdded.value = true;
-      }
-      await getProductReviews({ page: 1, limit: 10 });
-    } catch (e: any) {
-      toast.error(e?.response?.data?.message || 'Error');
-    } finally {
-      isAddReviewInProgress.value = false;
+    const review = await addReview({ productId: productId.value, text: comment, rating });
+
+    if (review) {
+      isReviewAdded.value = true;
     }
+
+    await getProductReviews({ page: 1, limit: 10 });
   };
 
   const deleteProductReview = async (id: string) => {
     if (productId.value === null) {
       return;
     }
-    try {
-      isDeleteReviewInProgress.value = true;
-      await api.deleteReview(id);
-      await getProductReviews({ page: 1, limit: 10 });
-      isReviewAdded.value = false;
-    } catch (e: any) {
-      toast.error(e?.response?.data?.message || 'Error');
-    } finally {
-      isDeleteReviewInProgress.value = false;
-    }
+
+    await deleteReview(id);
+    await getProductReviews({ page: 1, limit: 10 });
+
+    isReviewAdded.value = false;
   };
 
   const init = (productIdParam: string) => {
