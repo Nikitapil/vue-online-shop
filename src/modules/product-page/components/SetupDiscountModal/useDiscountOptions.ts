@@ -1,14 +1,17 @@
 import { computed, ref } from 'vue';
+
 import type { ISelectOptions } from '@/components/ui/AppSelect/types';
-import { useApiMethod } from '@/api/useApiMethod';
-import { api } from '@/api/apiInstance';
 import type { DiscountReturnDto } from '@/api/swagger/data-contracts';
+
+import { useApiMethod } from '@/api/useApiMethod';
+
+import { api } from '@/api/apiInstance';
 import { NO_DISCOUNTS } from '@/domain/discounts';
 
 export const useDiscountOptions = () => {
   const discounts = ref<DiscountReturnDto[]>([]);
 
-  const { isLoading, call } = useApiMethod(api.getDiscounts);
+  const { isLoading, call: getDiscounts } = useApiMethod(api.getDiscounts);
 
   const options = computed<ISelectOptions[]>(() => {
     return [
@@ -18,7 +21,8 @@ export const useDiscountOptions = () => {
   });
 
   const getDiscountOptions = async () => {
-    const discountsResponse = await call();
+    const discountsResponse = await getDiscounts();
+
     if (discountsResponse) {
       discounts.value = discountsResponse;
     }
