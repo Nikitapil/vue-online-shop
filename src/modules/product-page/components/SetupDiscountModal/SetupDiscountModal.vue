@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import Modal from '@/components/ui/Modal.vue';
-import { useDiscountOptions } from '@/modules/product-page/components/SetupDiscountModal/useDiscountOptions';
 import { computed, onMounted, ref } from 'vue';
+
+import { useDiscountOptions } from '@/modules/product-page/components/SetupDiscountModal/useDiscountOptions';
+
+import Modal from '@/components/ui/Modal.vue';
 import AppSelect from '@/components/ui/AppSelect/AppSelect.vue';
 import AppButton from '@/components/ui/AppButton.vue';
 
@@ -37,27 +39,31 @@ onMounted(() => {
     :prevent-close="isFullLoading"
     size="md"
   >
-    <h2 class="text-center font-bold mb-2">Setup product discount</h2>
+    <h2 class="text-center font-bold mb-2">{{ $t('setup_product_discount') }}</h2>
+
     <AppSelect
       v-model="discountId"
       name="discount_id"
       :options="options"
       :disabled="isFullLoading"
     />
-    <div v-if="choosenDiscount">Discount Percent: {{ choosenDiscount.percentage }}%</div>
+
+    <div v-if="choosenDiscount">{{ $t('discount_percent') }}: {{ choosenDiscount.percentage }}%</div>
+
     <div class="flex gap-2 justify-end mt-16">
       <AppButton
         :disabled="isFullLoading"
         @click="isOpened = false"
       >
-        Cancel
+        {{ $t('cancel') }}
       </AppButton>
+
       <AppButton
         :disabled="isFullLoading"
         appearance="primary"
         @click="onEdit"
       >
-        Edit
+        {{ $t('edit') }}
       </AppButton>
     </div>
   </Modal>

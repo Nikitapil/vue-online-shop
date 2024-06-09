@@ -104,5 +104,6 @@
   "rating_is_required": "Рейтинг обязателен для заполнения",
   "your_review": "Ваш отзыв",
   "submit": "Отправить",
-  "delete_review_question": "Вы хотите удалить отзыв?"
+  "delete_review_question": "Вы хотите удалить отзыв?",
+  "setup_product_discount": "Настройка акции товара"
 }
