@@ -1,49 +1,37 @@
-import { defineStore } from 'pinia';
 import { computed, ref } from 'vue';
-import type { EditProductDiscountDto, ProductReturnDto } from '@/api/swagger/data-contracts';
-import { api } from '@/api/apiInstance';
 import { useRoute } from 'vue-router';
-import { toast } from 'vue3-toastify';
+import { defineStore } from 'pinia';
+
 import { useApiMethod } from '@/api/useApiMethod';
+
+import type { ProductReturnDto } from '@/api/swagger/data-contracts';
+
 import { NO_DISCOUNTS } from '@/domain/discounts';
+import { api } from '@/api/apiInstance';
 
 export const useProductPageStore = defineStore('ProductPage', () => {
   const { isLoading: isEditProductDiscountInProgress, call: editProductDiscountApi } = useApiMethod(
     api.editProductDiscount
   );
+  const { isLoading: isProductLoading, call: getProduct } = useApiMethod(api.getProduct);
+  const { isLoading: isDeleteInProgress, call: deleteProductApi } = useApiMethod(api.deleteProduct);
 
   const product = ref<ProductReturnDto | null>(null);
-  const isProductLoading = ref(false);
-  const isDeleteInProgress = ref(false);
 
   const route = useRoute();
 
   const productIdFromRoute = computed(() => route.params.id as string);
 
   const loadProduct = async () => {
-    try {
-      isProductLoading.value = true;
-      product.value = await api.getProduct(productIdFromRoute.value);
-    } catch (e) {
-      product.value = null;
-    } finally {
-      isProductLoading.value = false;
-    }
+    product.value = await getProduct(productIdFromRoute.value);
   };
 
   const deleteProduct = async () => {
     if (!product.value) {
       return;
     }
-    try {
-      isDeleteInProgress.value = true;
-      await api.deleteProduct(product.value?.id);
-      product.value = null;
-    } catch (e: any) {
-      toast.error(e?.response?.data?.message || 'Error');
-    } finally {
-      isDeleteInProgress.value = false;
-    }
+    await deleteProductApi(product.value?.id);
+    product.value = null;
   };
 
   const editProductDiscount = async (discountIdFromForm: string) => {
