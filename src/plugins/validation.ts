@@ -6,14 +6,14 @@ import { i18n } from '@/plugins/i18n';
 export const validation = () => {
   defineRule('required', (value: string, params, ctx) => {
     if (!value || !value.length) {
-      return `${capitalize(ctx.name) || i18n.global.t('this_field')} ${i18n.global.t('is_required')}`;
+      return `${capitalize(ctx.name)} ${i18n.global.t('is_required')}`;
     }
     return true;
   });
 
   defineRule('requiredObj', (value: string, params, ctx) => {
     if (!value) {
-      return `${capitalize(ctx.name) || i18n.global.t('this_field')} ${i18n.global.t('is_required')}`;
+      return `${capitalize(ctx.name)} ${i18n.global.t('is_required')}`;
     }
     return true;
   });
@@ -34,7 +34,7 @@ export const validation = () => {
 
   defineRule('minLength', (value: string, [param]: [string], ctx) => {
     if (value.length < +param) {
-      return `${capitalize(ctx.name) || i18n.global.t('this_field')} ${i18n.global.t('min_length_is')} ${param}`;
+      return `${capitalize(ctx.name)} ${i18n.global.t('min_length_is')} ${param}`;
     }
     return true;
   });

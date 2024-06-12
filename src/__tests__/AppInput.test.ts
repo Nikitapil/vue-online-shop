@@ -116,6 +116,90 @@ describe('AppInput tests', () => {
     expect(error.text()).toBe('Test-input is required');
   });
 
+  test('should not validate email if no value', async () => {
+    const labelText = 'Test Label';
+    const wrapper = mount(AppInput, {
+      props: {
+        id: 'test-input',
+        name: 'test-input',
+        label: labelText,
+        rules: 'email',
+        modelValue: '',
+        'onUpdate:modelValue': (e: string) => wrapper.setProps({ modelValue: e })
+      }
+    });
+
+    const input = wrapper.find('[data-testid="app-input"]');
+
+    await input.trigger('focus');
+
+    await input.trigger('blur');
+
+    await flushPromises();
+
+    const error = wrapper.find('[data-testid="error-message"]');
+
+    expect(error.exists()).toBe(false);
+  });
+
+  test('should validate email correctly', async () => {
+    const labelText = 'Test Label';
+    const wrapper = mount(AppInput, {
+      props: {
+        id: 'test-input',
+        name: 'test-input',
+        label: labelText,
+        rules: 'email',
+        modelValue: '',
+        'onUpdate:modelValue': (e: string) => wrapper.setProps({ modelValue: e })
+      }
+    });
+
+    const input = wrapper.find('[data-testid="app-input"]');
+
+    await input.trigger('focus');
+
+    await input.setValue('123');
+
+    await input.trigger('blur');
+
+    await flushPromises();
+
+    const error = wrapper.find('[data-testid="error-message"]');
+
+    expect(error.exists()).toBe(true);
+    expect(error.text()).toBe('Invalid email value');
+  });
+
+  test('should validate min length', async () => {
+    const labelText = 'Test Label';
+    const wrapper = mount(AppInput, {
+      props: {
+        id: 'test-input',
+        name: 'test-input',
+        label: labelText,
+        rules: 'minLength:8',
+        modelValue: '',
+        'onUpdate:modelValue': (e: string) => wrapper.setProps({ modelValue: e })
+      }
+    });
+
+    const input = wrapper.find('[data-testid="app-input"]');
+
+    await input.trigger('focus');
+
+    await input.setValue('123');
+
+    await input.trigger('blur');
+
+    await flushPromises();
+
+    const error = wrapper.find('[data-testid="error-message"]');
+
+    expect(error.exists()).toBe(true);
+    expect(error.text()).toBe('Test-input min length is 8');
+  });
+
   test('should applyMask correct', async () => {
     const labelText = 'Test Label';
     const wrapper = mount(AppInput, {
