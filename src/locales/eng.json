@@ -114,5 +114,9 @@
   "change_password": "Change password",
   "current_password": "Current password",
   "new_password": "New password",
-  "repeat_new_password": "Repeat new password"
+  "repeat_new_password": "Repeat new password",
+  "this_field": "This field",
+  "is_required": "is required",
+  "invalid_email_value": "Invalid email value",
+  "min_length_is": "min length is"
 }

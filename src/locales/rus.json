@@ -114,5 +114,9 @@
   "change_password": "Изменить пароль",
   "current_password": "Текущий пароль",
   "new_password": "Новый пароль",
-  "repeat_new_password": "Повторите новый пароль"
+  "repeat_new_password": "Повторите новый пароль",
+  "this_field": "Данное поле",
+  "is_required": "обязательно",
+  "invalid_email_value": "Не валидный email",
+  "min_length_is": "минимальная длина"
 }
