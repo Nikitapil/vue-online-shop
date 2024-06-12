@@ -109,5 +109,10 @@
   "without_discount": "Без акции",
   "add_to_cart": "Добавить в корзину",
   "setup_discount": "Настроить акцию",
-  "delete_product_question": "Хотите удалить данный товар?"
+  "delete_product_question": "Хотите удалить данный товар?",
+  "repeated_password_should_be_equal": "Пароли должны совпадать",
+  "change_password": "Изменить пароль",
+  "current_password": "Текущий пароль",
+  "new_password": "Новый пароль",
+  "repeat_new_password": "Повторите новый пароль"
 }
