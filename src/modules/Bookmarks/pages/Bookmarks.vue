@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 
-import { useProductList } from '@/widgets/ProductList/useProductList';
+import { useProductList } from '@/modules/shared/ProductList/useProductList';
 
 import { EPaginationLimits } from '@/domain/components';
 
 import ProductsPagination from '@/components/products/ProductsPagination.vue';
-import ProductList from '../../../widgets/ProductList/components/ProductList.vue';
+import ProductList from '@/modules/shared/ProductList/components/ProductList.vue';
 import AuthProtected from '@/modules/auth/components/AuthProtected.vue';
 
 const { loadFavoriteProducts, isLoading, products, totalProductsCount } = useProductList();

@@ -15,7 +15,7 @@ import EmptyStateCentered from '@/components/ui/EmptyStateCentered.vue';
 import RoundedLoader from '@/components/ui/loaders/RoundedLoader.vue';
 import ProductDetails from '@/components/products/ProductDetails.vue';
 import ProductNotFound from '@/components/products/ProductNotFound.vue';
-import ToggleFavouritesButton from '@/widgets/ToggleFavouriteButton/ToggleFavouritesButton.vue';
+import ToggleFavouritesButton from '@/modules/shared/ToggleFavouriteButton/ToggleFavouritesButton.vue';
 import AddToCart from '@/modules/cart/components/AddToCart.vue';
 import AppButton from '@/components/ui/AppButton.vue';
 import SetupDiscountModal from '@/modules/product-page/components/SetupDiscountModal/SetupDiscountModal.vue';

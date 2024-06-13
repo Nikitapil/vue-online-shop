@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import RoundedLoader from '../../../components/ui/loaders/RoundedLoader.vue';
+import RoundedLoader from '../../../../components/ui/loaders/RoundedLoader.vue';
 import EmptyStateCentered from '@/components/ui/EmptyStateCentered.vue';
 import ProductListItem from './ProductListItem.vue';
 import type { ProductReturnDto } from '@/api/swagger/data-contracts';

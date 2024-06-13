@@ -8,7 +8,7 @@ import type { IDiscountParams } from '@/modules/discounts/types';
 
 import EmptyStateCentered from '@/components/ui/EmptyStateCentered.vue';
 import RoundedLoader from '@/components/ui/loaders/RoundedLoader.vue';
-import ProductList from '@/widgets/ProductList/components/ProductList.vue';
+import ProductList from '@/modules/shared/ProductList/components/ProductList.vue';
 import AppButton from '@/components/ui/AppButton.vue';
 import ConfirmModal from '@/components/ui/ConfirmModal.vue';
 import DiscountFormModal from '@/modules/discounts/components/DiscountFormModal.vue';

@@ -5,7 +5,7 @@ import StarIcon from '@/components/ui/icons/StarIcon.vue';
 import { useProduct } from '@/composables/useProduct';
 import AddToCart from '@/modules/cart/components/AddToCart.vue';
 import { ERoutesName } from '@/router';
-import ToggleFavouritesButton from '@/widgets/ToggleFavouriteButton/ToggleFavouritesButton.vue';
+import ToggleFavouritesButton from '@/modules/shared/ToggleFavouriteButton/ToggleFavouritesButton.vue';
 import { computed } from 'vue';
 import ProductPrice from '@/components/products/ProductPrice.vue';
 

@@ -2,7 +2,7 @@
 import { onMounted, ref } from 'vue';
 
 import { useAuthStore } from '@/modules/auth/authStore';
-import { useProductList } from '@/widgets/ProductList/useProductList';
+import { useProductList } from '@/modules/shared/ProductList/useProductList';
 import { useDebounce } from '@/helpers/useDebounce';
 
 import type { ISelectOptions } from '@/components/ui/AppSelect/types';
@@ -11,7 +11,7 @@ import { ERoutesName } from '@/router';
 import { EPaginationLimits } from '@/domain/components';
 
 import CategoriesSelect from '../../categories/components/CategoriesSelect.vue';
-import ProductList from '../../../widgets/ProductList/components/ProductList.vue';
+import ProductList from '@/modules/shared/ProductList/components/ProductList.vue';
 import AppButton from '@/components/ui/AppButton.vue';
 import AppSelect from '@/components/ui/AppSelect/AppSelect.vue';
 import SearchInput from '@/components/ui/SearchInput.vue';
