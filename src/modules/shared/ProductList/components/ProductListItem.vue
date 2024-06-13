@@ -1,12 +1,15 @@
 <script setup lang="ts">
-import type { ProductReturnDto } from '@/api/swagger/data-contracts';
-import IconButton from '@/components/ui/IconButton.vue';
-import StarIcon from '@/components/ui/icons/StarIcon.vue';
-import { useProduct } from '@/composables/useProduct';
-import AddToCart from '@/modules/cart/components/AddToCart.vue';
-import { ERoutesName } from '@/router';
-import ToggleFavouritesButton from '@/modules/shared/ToggleFavouriteButton/ToggleFavouritesButton.vue';
 import { computed } from 'vue';
+
+import type { ProductReturnDto } from '@/api/swagger/data-contracts';
+import { ERoutesName } from '@/router';
+
+import { useProduct } from '@/composables/useProduct';
+
+import AddToCart from '@/modules/cart/components/AddToCart.vue';
+import StarIcon from '@/components/ui/icons/StarIcon.vue';
+import IconButton from '@/components/ui/IconButton.vue';
+import ToggleFavouritesButton from '@/modules/shared/ToggleFavouriteButton/ToggleFavouritesButton.vue';
 import ProductPrice from '@/components/products/ProductPrice.vue';
 
 const props = defineProps<{
@@ -49,9 +52,10 @@ const productData = useProduct(product);
 
     <div class="flex justify-between mt-4">
       <div class="flex flex-col">
-        <span class="text-slate-400">Price:</span>
+        <span class="text-slate-400">{{ $t('price') }}:</span>
         <ProductPrice :product="product" />
       </div>
+
       <AddToCart
         v-slot="{ clickHandler, isLoading }"
         :product-id="product.id"
