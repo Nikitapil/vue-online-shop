@@ -118,5 +118,6 @@
   "this_field": "This field",
   "is_required": "is required",
   "invalid_email_value": "Invalid email value",
-  "min_length_is": "min length is"
+  "min_length_is": "min length is",
+  "no_products": "There are no products"
 }

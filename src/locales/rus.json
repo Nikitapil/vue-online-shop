@@ -118,5 +118,6 @@
   "this_field": "Данное поле",
   "is_required": "обязательно",
   "invalid_email_value": "Не валидный email",
-  "min_length_is": "минимальная длина"
+  "min_length_is": "минимальная длина",
+  "no_products": "Товаров нет"
 }

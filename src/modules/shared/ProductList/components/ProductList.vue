@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import type { ProductReturnDto } from '@/api/swagger/data-contracts';
+
 import RoundedLoader from '../../../../components/ui/loaders/RoundedLoader.vue';
 import EmptyStateCentered from '@/components/ui/EmptyStateCentered.vue';
 import ProductListItem from './ProductListItem.vue';
-import type { ProductReturnDto } from '@/api/swagger/data-contracts';
 
 defineProps<{
   products: ProductReturnDto[];
@@ -16,12 +17,11 @@ defineProps<{
   </EmptyStateCentered>
 
   <EmptyStateCentered v-else-if="!products.length">
-    <p class="text-2xl">There are no products</p>
+    <p class="text-2xl">{{ $t('no_products') }}</p>
   </EmptyStateCentered>
 
   <div
     v-else
-    v-auto-animate
     class="grid gap-3 sm:grid-cols-[repeat(auto-fill,270px)] justify-between"
   >
     <ProductListItem
