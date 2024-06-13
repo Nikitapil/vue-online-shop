@@ -1,12 +1,14 @@
+import { ref } from 'vue';
+import { toast } from 'vue3-toastify';
+
 import { api } from '@/api/apiInstance';
+
 import type {
   GetFavoriteProductsParams,
   GetProductsParams,
   GetProductsReturnDto,
   ProductReturnDto
 } from '@/api/swagger/data-contracts';
-import { ref } from 'vue';
-import { toast } from 'vue3-toastify';
 
 export const useProductList = () => {
   const products = ref<ProductReturnDto[]>([]);
