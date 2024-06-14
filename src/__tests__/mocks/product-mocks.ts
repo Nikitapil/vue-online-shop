@@ -23,3 +23,8 @@ export const product = {
   canEditProductDiscount: true,
   discount: null
 };
+
+export const productsResponseMock = {
+  products: [product],
+  totalCount: 1
+};
