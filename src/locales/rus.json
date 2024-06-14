@@ -119,5 +119,7 @@
   "is_required": "обязательно",
   "invalid_email_value": "Не валидный email",
   "min_length_is": "минимальная длина",
-  "no_products": "Товаров нет"
+  "no_products": "Товаров нет",
+  "add_to_favorites": "Добавить в избранное",
+  "remove_from_favorites": "Удалить из избранного"
 }

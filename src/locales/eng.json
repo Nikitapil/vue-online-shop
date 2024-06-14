@@ -119,5 +119,7 @@
   "is_required": "is required",
   "invalid_email_value": "Invalid email value",
   "min_length_is": "min length is",
-  "no_products": "There are no products"
+  "no_products": "There are no products",
+  "add_to_favorites": "Add to favorites",
+  "remove_from_favorites": "Remove from favorites"
 }

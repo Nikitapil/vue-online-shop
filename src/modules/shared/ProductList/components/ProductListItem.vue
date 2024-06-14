@@ -27,12 +27,16 @@ const productData = useProduct(product);
     :to="{ name: ERoutesName.PRODUCT, params: { id: product.id } }"
     class="relative flex flex-col bg-white border border-slate-100 rounded-3xl p-8 pt-10 cursor-pointer hover:-translate-y-2 hover:shadow-xl transition duration-300"
   >
-    <ToggleFavouritesButton
+    <div
       v-if="product.canAddToFavourites"
-      v-model="product"
       class="absolute top-3 left-3"
-      @click.prevent
-    />
+    >
+      <ToggleFavouritesButton
+        v-if="product.canAddToFavourites"
+        v-model="product"
+        @click.prevent
+      />
+    </div>
 
     <div
       v-if="product.rating"
