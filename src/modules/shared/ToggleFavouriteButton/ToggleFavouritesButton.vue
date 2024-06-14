@@ -1,8 +1,11 @@
 <script setup lang="ts">
-import type { ProductReturnDto } from '@/api/swagger/data-contracts';
-import IconButton from '@/components/ui/IconButton.vue';
 import { computed } from 'vue';
+
 import { useToggleFavourite } from './useToggleFavourite';
+
+import type { ProductReturnDto } from '@/api/swagger/data-contracts';
+
+import IconButton from '@/components/ui/IconButton.vue';
 
 const product = defineModel<ProductReturnDto>({ required: true });
 
