@@ -1,20 +1,17 @@
+import { type Ref } from 'vue';
+
 import { api } from '@/api/apiInstance';
+
 import type { ProductReturnDto } from '@/api/swagger/data-contracts';
-import { ref, type Ref } from 'vue';
-import { toast } from 'vue3-toastify';
+import { useApiMethod } from '@/api/useApiMethod';
 
 export const useToggleFavourite = (product: Ref<ProductReturnDto>) => {
-  const isLoading = ref(false);
+  const { isLoading, call: toggleFavorites } = useApiMethod(api.toggleFavorites);
 
   const toggleFavourite = async () => {
-    isLoading.value = true;
-    try {
-      const { isInFavorites } = await api.toggleFavorites({ productId: product.value.id });
-      product.value.isInFavorites = isInFavorites;
-    } catch (e: any) {
-      toast.error(e?.response?.data?.message || 'Error');
-    } finally {
-      isLoading.value = false;
+    const response = await toggleFavorites({ productId: product.value.id });
+    if (response) {
+      product.value.isInFavorites = response.isInFavorites;
     }
   };
 
