@@ -23,7 +23,7 @@ export default defineConfig({
     environment: 'happy-dom',
     coverage: {
       include: ['src/**/*'],
-      exclude: ['src/api']
+      exclude: ['src/api', 'src/main.ts']
     },
     setupFiles: ['vitest.setup.ts'],
     css: true
